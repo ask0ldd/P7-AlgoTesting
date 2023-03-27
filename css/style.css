@@ -1,0 +1,57 @@
+*, /*init added*/
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 160px;
+  width: 100%;
+  padding-top: 2.625rem;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  color: #d04f4f;
+}
+
+.section-searchOptions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+}
+
+.section-searchOptions .mainSearchBar {
+  width: 100%;
+  background: #e7e7e7;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 70px;
+  font-size: 18px;
+  padding: 0 1.5rem;
+}
+
+.section-searchOptions .filtersContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.25rem;
+}
+
+.section-searchOptions .filterSelect {
+  width: 200px;
+}
