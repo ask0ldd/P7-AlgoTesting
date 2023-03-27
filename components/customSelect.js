@@ -1,81 +1,78 @@
 class CustomSelect extends HTMLElement{
     #shadowDOM
+    #selectedOption = 0
+    #selectReference = document.querySelector("#select-ingredients")
 
     constructor(){
         super()
-        // create a shadowDOM
-        this.#shadowDOM = this.attachShadow({ mode: "open" })
-        const view = this.#getView()
-        // duplicate the inner content of the view : inside <template></template>
-        // and append it to the shadowDOM
-        this.#shadowDOM.append(view)
-        console.log(this.#shadowDOM)
 
-        this.#shadowDOM.querySelector(".customSelectContainer").addEventListener('click', () => {
-            const optionsContainer = this.#shadowDOM.querySelector(".customSelectOptionsContainer")
-            const selectLabel = this.#shadowDOM.querySelector(".customSelectLabel")
-            const arrow = this.#shadowDOM.querySelector(".customSelectArrow")
-            if(optionsContainer.style.display === "none" || optionsContainer.style.display === "") { 
-                optionsContainer.style.display='flex'
-                arrow.style.transform="rotate(0deg)"
+        // create a shadowDOM and append the view node to it
+        this.#shadowDOM = this.attachShadow({ mode: "open" })
+        const options = this.#getMasterSelectOptions()
+        const view = this.#getView(options)
+        this.#shadowDOM.append(view)
+
+        const customSelectLabel = this.#shadowDOM.querySelector(".customSelectLabel")
+        customSelectLabel.addEventListener('click', () => this.#optionsListOpenClose())
+
+        window.addEventListener('keydown', e => this.#keyboardListener(e))
+    }
+
+    #getMasterSelectOptions(){
+        const options = this.#selectReference.querySelectorAll("option")
+        const formattedOptions = [...options].map(option => {
+            return {
+                value : option.value,
+                label : option.label,
+                selected : option.selected,
+                originalElement : option
             }
-            else{ 
-                optionsContainer.style.display='none'
-                arrow.style.transform="rotate(180deg)"
-            }            
         })
+
+        console.log(formattedOptions)
+        return formattedOptions
     }
 
     setView(){
 
     }
 
-    #getView(){
+    #getView(masterSelectOptions){
         const viewContainer = document.createElement("template")
-        viewContainer.innerHTML=`
-        <link rel="stylesheet" href="../css/customSelect.css">
+        viewContainer.innerHTML = `
+        <link rel="stylesheet" href="../css/customSelect.css"/>
         <div class="customSelectContainer">
-            <span class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"></span>
-            <ul class="customSelectOptionsContainer">
-                <li class="customSelectOption">Option 1</li>
-                <li class="customSelectOption">Option 2</li>
-                <li class="customSelectOption">Option 3</li>
-            </ul>
+            <span class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
+            <ul class="customSelectOptionsContainer">`+
+            masterSelectOptions.reduce((accu, option) => accu+`<li class="customSelectOption">${option.label}</li>`, '')
+            +`</ul>
         </div>
         `
+
+        // return the content of the view container (template)
         return viewContainer.content.cloneNode(true)
     }
+
+    #keyboardListener(e) // ACCESSIBILITY : keyboard navigation
+    {
+        if(e.code == "Escape") return 
+        if(e.code == "ArrowUp") return 
+        if(e.code == "ArrowDown") return 
+    }
+
+    #optionsListOpenClose(){
+        const optionsContainer = this.#shadowDOM.querySelector(".customSelectOptionsContainer")
+        const arrow = this.#shadowDOM.querySelector(".customSelectArrow")
+        if(optionsContainer.style.display === "none" || optionsContainer.style.display === "") { 
+            optionsContainer.style.display = 'flex'
+            arrow.style.transform = "rotate(0deg)"
+        }
+        else{ 
+            optionsContainer.style.display = 'none'
+            arrow.style.transform = "rotate(180deg)"
+        }                  
+    }
+
 }
 
 customElements.define("custom-select", CustomSelect)
-
-/*function getSelectView(options){
-    const view = `
-    <div class="customSelectContainer">
-        <span class="customSelectLabel">Ingrédients</span>
-        <ul class="customSelectOptionsContainer">
-            <li class="customSelectOption">Option 1</li>
-            <li class="customSelectOption">Option 2</li>
-            <li class="customSelectOption">Option 3</li>
-        </ul>
-    </div>
-    `
-    return view
-}*/
-
-
-
-/*document.querySelector(".customSelectContainer").addEventListener('click', () => {
-    const optionsContainer = document.querySelector(".customSelectOptionsContainer")
-    const selectLabel = document.querySelector(".customSelectLabel")
-    const arrow = document.querySelector(".customSelectArrow")
-    if(optionsContainer.style.display === "none" || optionsContainer.style.display === "") { 
-        optionsContainer.style.display='flex'
-        arrow.style.transform="rotate(0deg)"
-    }
-    else{ 
-        optionsContainer.style.display='none'
-        arrow.style.transform="rotate(180deg)"
-    }
-}
-)*/
