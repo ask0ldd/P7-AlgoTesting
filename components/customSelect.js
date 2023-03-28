@@ -3,6 +3,7 @@ class CustomSelect extends HTMLElement{
     #selectValue
     #selectReference = document.querySelector("#select-ingredients")
     #selectReferenceSelector = "#select-ingredients"
+    #customOptions
 
     constructor(){
         super()
@@ -18,6 +19,9 @@ class CustomSelect extends HTMLElement{
         customSelectLabel.addEventListener('click', () => this.#optionsListOpenClose())
 
         window.addEventListener('keydown', e => this.#keyboardListener(e))
+
+        this.#customOptions = [...this.#shadowDOM.querySelectorAll('.customSelectOption')]
+        this.#customOptions.forEach(option => option.addEventListener('click', () => this.#setAsSelected(this.#selectReferenceSelector, option, this.#customOptions)))
     }
 
     #getMasterSelectOptions(){
@@ -31,12 +35,12 @@ class CustomSelect extends HTMLElement{
             }
         })
 
-        console.log(formattedOptions)
+        // console.log(formattedOptions)
         return formattedOptions
     }
 
-    setView(){
-
+    get ShadowDOMNode(){
+        return this.#shadowDOM
     }
 
     #getView(masterSelectOptions){
@@ -48,8 +52,8 @@ class CustomSelect extends HTMLElement{
             <ul class="customSelectOptionsContainer">`+
             masterSelectOptions.reduce((accu, option) => 
             accu + `<li 
-            class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }" 
-            onclick="CustomSelect.setAsSelected('${this.#selectReferenceSelector}', '${option.value}'), this">
+            data-value="${option.value}"
+            class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }">
             ${option.label}</li>`, '')
             +`</ul>
         </div>
@@ -79,10 +83,12 @@ class CustomSelect extends HTMLElement{
         }                  
     }
 
-    static setAsSelected(selectSelector, optionValue, selectedOption){
+    #setAsSelected(selectSelector, customOption, customOptions){
+        customOptions.forEach(option => option.style.background="none")
         const select = document.querySelector(selectSelector)
-        select.value = optionValue
-        selectedOption.style.border="1px solid red"
+        console.log(customOption)
+        select.value = customOption.getAttribute("data-value")
+        customOption.style.background="black"
     }
 }
 
