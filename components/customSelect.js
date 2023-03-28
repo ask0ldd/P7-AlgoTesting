@@ -24,7 +24,11 @@ class CustomSelect extends HTMLElement{
 
         // click : select custom option / mouse over : highlight custom option
         this.#customSelectOptions.forEach(option => {
-            option.addEventListener('click', () => this.#setAsSelected(option))
+            option.addEventListener('click', () => {
+                this.#setAsSelected(option)
+                this.#setAsHighlighted(option)
+                this.#optionsListOpenClose()
+            })
             option.addEventListener('mouseover', () => this.#setAsHighlighted(option))
         })
     }
@@ -52,12 +56,12 @@ class CustomSelect extends HTMLElement{
         viewContainer.innerHTML = `
         <link rel="stylesheet" href="../css/customSelect.css"/>
         <div class="customSelectContainer">
-            <span aria-controls="customListbox" id="customLabel" role="combobox" aria-haspopup="listbox" aria-expanded="false" class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
-            <ul tabindex="-1" id="customListbox" aria-labelledby="customLabel" class="customSelectOptionsContainer" role="listbox" aria-activedescendant>`+
+            <span tabindex="0" aria-controls="customListbox" id="customSelectLabel" role="combobox" aria-haspopup="listbox" aria-activedescendant aria-expanded="false" class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
+            <ul tabindex="-1" id="customListbox" aria-labelledby="customSelectLabel" class="customSelectOptionsContainer" role="listbox">`+
             masterSelectOptions.reduce((accu, option) => 
             accu + `<li id="${option.value}"
             role="option" data-value="${option.value}"
-            class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }">
+            class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }" aria-selected="${option.selected === true ? true : false}">
             ${option.label}</li>`, '')
             +`</ul>
         </div>
@@ -70,21 +74,17 @@ class CustomSelect extends HTMLElement{
     #keyboardListener(e) // ACCESSIBILITY : keyboard navigation
     {
         if(e.code == "Escape") return
-        if(e.code == "Enter") return
+        if(e.code == "Enter") this.#optionsListOpenClose()
         if(e.code == "ArrowUp") this.#previousOption()
         if(e.code == "ArrowDown") this.#nextOption()
     }
 
     #previousOption(){
-        //console.log(this.#shadowDOM.querySelector(".customSelectLabel").getAttribute("role"))
         const currentHighlightedOption = this.#getHighlightedCustomOption() || this.#getSelectedCustomOption()
         const currentHighlightedOptionIndex = this.#customSelectOptions.indexOf(currentHighlightedOption)
         const previousOption = this.#customSelectOptions[currentHighlightedOptionIndex].previousSibling
         if(previousOption) {
-            const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
-            customOptionsContainer.setAttribute('aria-activedescendant', previousOption.id)
-            currentHighlightedOption.classList.remove('focus')
-            previousOption.focus()
+            //this.#customSelectLabel.setAttribute('aria-activedescendant', previousOption.id)
             this.#setAsSelected(previousOption)
             this.#setAsHighlighted(previousOption)
         }
@@ -95,10 +95,7 @@ class CustomSelect extends HTMLElement{
         const currentHighlightedOptionIndex = this.#customSelectOptions.indexOf(currentHighlightedOption)
         const nextOption = this.#customSelectOptions[currentHighlightedOptionIndex].nextSibling
         if(nextOption) {
-            const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
-            customOptionsContainer.setAttribute('aria-activedescendant', nextOption.id)
-            currentHighlightedOption.classList.remove('focus')
-            nextOption.focus()
+            //this.#customSelectLabel.setAttribute('aria-activedescendant', nextOption.id)
             this.#setAsSelected(nextOption)
             this.#setAsHighlighted(nextOption)
         }
@@ -116,6 +113,7 @@ class CustomSelect extends HTMLElement{
             optionsContainer.style.display = 'none'
             arrow.style.transform = "rotate(180deg)"
             this.#customSelectLabel.setAttribute("aria-expanded", false)
+            this.#customSelectLabel.focus()
         }                  
     }
 
@@ -136,6 +134,7 @@ class CustomSelect extends HTMLElement{
             option.classList.remove("highlightedOption")
         })
         customOption.classList.add("highlightedOption")
+        this.#customSelectLabel.setAttribute('aria-activedescendant', customOption.id)
     }
 
     #getSelectedCustomOption(){
