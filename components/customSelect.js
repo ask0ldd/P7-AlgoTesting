@@ -20,7 +20,7 @@ class CustomSelect extends HTMLElement{
 
         window.addEventListener('keydown', e => this.#keyboardListener(e))
 
-        this.#customSelectOptions = [...this.#shadowDOM.querySelectorAll('.customSelectOption')]
+        this.#customSelectOptions = Array.from(this.#shadowDOM.querySelectorAll('.customSelectOption'))
 
         // click : select custom option / mouse over : highlight custom option
         this.#customSelectOptions.forEach(option => {
@@ -56,7 +56,7 @@ class CustomSelect extends HTMLElement{
             <ul class="customSelectOptionsContainer" role=”listbox” aria-activedescendant>`+
             masterSelectOptions.reduce((accu, option) => 
             accu + `<li 
-            data-value="${option.value}"
+            aria-owns="${option.value}" data-value="${option.value}"
             class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }">
             ${option.label}</li>`, '')
             +`</ul>
@@ -69,14 +69,36 @@ class CustomSelect extends HTMLElement{
 
     #keyboardListener(e) // ACCESSIBILITY : keyboard navigation
     {
-        if(e.code == "Escape") return 
-        if(e.code == "ArrowUp") return 
-        if(e.code == "ArrowDown") return 
+        if(e.code == "Escape") return
+        if(e.code == "Enter") return
+        if(e.code == "ArrowUp") this.#previousOption()
+        if(e.code == "ArrowDown") this.#nextOption()
     }
 
-    #previousOption(){}
+    #previousOption(){
+        //console.log(this.#shadowDOM.querySelector(".customSelectLabel").getAttribute("role"))
+        const currentHighlightedOption = this.#getHighlightedCustomOption() || this.#getSelectedCustomOption()
+        const currentHighlightedOptionIndex = this.#customSelectOptions.indexOf(currentHighlightedOption)
+        const previousOption = this.#customSelectOptions[currentHighlightedOptionIndex].previousSibling
+        if(previousOption) {
+            /*const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
+            customOptionsContainer.setAttribute('aria-activedescendant', previousOption.getAttribute('aria-owns'))*/
+            this.#setAsSelected(previousOption)
+            this.#setAsHighlighted(previousOption)
+        }
+    }
 
-    #nextOption(){}
+    #nextOption(){
+        const currentHighlightedOption = this.#getHighlightedCustomOption() || this.#getSelectedCustomOption()
+        const currentHighlightedOptionIndex = this.#customSelectOptions.indexOf(currentHighlightedOption)
+        const nextOption = this.#customSelectOptions[currentHighlightedOptionIndex].nextSibling
+        if(nextOption) {
+            /*const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
+            customOptionsContainer.setAttribute('aria-activedescendant', nextOption.getAttribute('aria-owns'))*/
+            this.#setAsSelected(nextOption)
+            this.#setAsHighlighted(nextOption)
+        }
+    }
 
     #optionsListOpenClose(){
         const optionsContainer = this.#shadowDOM.querySelector(".customSelectOptionsContainer")
@@ -113,11 +135,11 @@ class CustomSelect extends HTMLElement{
     }
 
     #getSelectedCustomOption(){
-        return document.querySelector('.selectedOption')
+        return this.#shadowDOM.querySelector('.selectedOption')
     }
 
     #getHighlightedCustomOption(){
-        return document.querySelector('.highlightedOption')
+        return this.#shadowDOM.querySelector('.highlightedOption')
     }
 }
 
