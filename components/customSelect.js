@@ -4,6 +4,7 @@ class CustomSelect extends HTMLElement{
     #selectReference = document.querySelector("#select-ingredients")
     #selectReferenceSelector = "#select-ingredients"
     #customOptions
+    #customSelectLabel
 
     constructor(){
         super()
@@ -15,12 +16,13 @@ class CustomSelect extends HTMLElement{
         const view = this.#getView(options)
         this.#shadowDOM.append(view)
 
-        const customSelectLabel = this.#shadowDOM.querySelector(".customSelectLabel")
-        customSelectLabel.addEventListener('click', () => this.#optionsListOpenClose())
+        this.#customSelectLabel = this.#shadowDOM.querySelector(".customSelectLabel")
+        this.#customSelectLabel.addEventListener('click', () => this.#optionsListOpenClose())
 
         window.addEventListener('keydown', e => this.#keyboardListener(e))
 
         this.#customOptions = [...this.#shadowDOM.querySelectorAll('.customSelectOption')]
+        console.log(this.#customOptions)
         this.#customOptions.forEach(option => option.addEventListener('click', () => this.#setAsSelected(this.#selectReferenceSelector, option, this.#customOptions)))
     }
 
@@ -48,8 +50,8 @@ class CustomSelect extends HTMLElement{
         viewContainer.innerHTML = `
         <link rel="stylesheet" href="../css/customSelect.css"/>
         <div class="customSelectContainer">
-            <span class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
-            <ul class="customSelectOptionsContainer">`+
+            <span role="button" aria-haspopup=”listbox” aria-expanded="false" class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
+            <ul class="customSelectOptionsContainer" role=”listbox” aria-activedescendant>`+
             masterSelectOptions.reduce((accu, option) => 
             accu + `<li 
             data-value="${option.value}"
@@ -76,19 +78,26 @@ class CustomSelect extends HTMLElement{
         if(optionsContainer.style.display === "none" || optionsContainer.style.display === "") { 
             optionsContainer.style.display = 'flex'
             arrow.style.transform = "rotate(0deg)"
+            this.#customSelectLabel.setAttribute("aria-expanded", true)
         }
         else{ 
             optionsContainer.style.display = 'none'
             arrow.style.transform = "rotate(180deg)"
+            this.#customSelectLabel.setAttribute("aria-expanded", false)
         }                  
     }
 
     #setAsSelected(selectSelector, customOption, customOptions){
-        customOptions.forEach(option => option.style.background="none")
+        customOptions.forEach(option => {
+            option.classList.remove("selectedOption")
+            option.setAttribute("aria-selected", false)
+        })
         const select = document.querySelector(selectSelector)
-        console.log(customOption)
+        //console.log(customOption)
         select.value = customOption.getAttribute("data-value")
-        customOption.style.background="black"
+        customOption.classList.add("selectedOption")
+        customOption.setAttribute("aria-selected", true)
+        console.log(this.#customOptions)
     }
 }
 
