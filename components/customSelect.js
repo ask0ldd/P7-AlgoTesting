@@ -52,11 +52,11 @@ class CustomSelect extends HTMLElement{
         viewContainer.innerHTML = `
         <link rel="stylesheet" href="../css/customSelect.css"/>
         <div class="customSelectContainer">
-            <span role="button" aria-haspopup=”listbox” aria-expanded="false" class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
-            <ul class="customSelectOptionsContainer" role=”listbox” aria-activedescendant>`+
+            <span id="customLabel" role="button" aria-haspopup="listbox" aria-expanded="false" class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
+            <ul id="customListbox" aria-labelledby="customLabel" class="customSelectOptionsContainer" role="listbox" aria-activedescendant>`+
             masterSelectOptions.reduce((accu, option) => 
-            accu + `<li 
-            aria-owns="${option.value}" data-value="${option.value}"
+            accu + `<li id="${option.value}"
+            role="option" data-value="${option.value}"
             class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }">
             ${option.label}</li>`, '')
             +`</ul>
@@ -71,8 +71,8 @@ class CustomSelect extends HTMLElement{
     {
         if(e.code == "Escape") return
         if(e.code == "Enter") return
-        if(e.code == "ArrowUp") this.#previousOption()
-        if(e.code == "ArrowDown") this.#nextOption()
+        //if(e.code == "ArrowUp") this.#previousOption()
+        //if(e.code == "ArrowDown") this.#nextOption()
     }
 
     #previousOption(){
@@ -83,6 +83,7 @@ class CustomSelect extends HTMLElement{
         if(previousOption) {
             /*const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
             customOptionsContainer.setAttribute('aria-activedescendant', previousOption.getAttribute('aria-owns'))*/
+            previousOption.focus()
             this.#setAsSelected(previousOption)
             this.#setAsHighlighted(previousOption)
         }
@@ -95,6 +96,7 @@ class CustomSelect extends HTMLElement{
         if(nextOption) {
             /*const customOptionsContainer = this.#shadowDOM.querySelector('.customSelectOptionsContainer')
             customOptionsContainer.setAttribute('aria-activedescendant', nextOption.getAttribute('aria-owns'))*/
+            nextOption.focus()
             this.#setAsSelected(nextOption)
             this.#setAsHighlighted(nextOption)
         }
