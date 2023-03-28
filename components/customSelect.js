@@ -1,9 +1,11 @@
 class CustomSelect extends HTMLElement{
     #shadowDOM
     #selectValue
-    #selectReference = document.querySelector("#select-ingredients")
-    #selectReferenceSelector = "#select-ingredients"
-    #customOptions
+    #masterSelectNode = document.querySelector("#select-ingredients")
+    #masterSelectSelector = "#select-ingredients"
+    #customSelectOptions
+    #highlightedOption
+    #selectedOption
     #customSelectLabel
 
     constructor(){
@@ -12,8 +14,9 @@ class CustomSelect extends HTMLElement{
         this.#selectValue = document.querySelector("#select-ingredients").value
         // create a shadowDOM and append the view node to it
         this.#shadowDOM = this.attachShadow({ mode: "open" })
+        // building the custom select view passing the master selection options
         const options = this.#getMasterSelectOptions()
-        const view = this.#getView(options)
+        const view = this.#buildView(options)
         this.#shadowDOM.append(view)
 
         this.#customSelectLabel = this.#shadowDOM.querySelector(".customSelectLabel")
@@ -21,13 +24,15 @@ class CustomSelect extends HTMLElement{
 
         window.addEventListener('keydown', e => this.#keyboardListener(e))
 
-        this.#customOptions = [...this.#shadowDOM.querySelectorAll('.customSelectOption')]
-        console.log(this.#customOptions)
-        this.#customOptions.forEach(option => option.addEventListener('click', () => this.#setAsSelected(this.#selectReferenceSelector, option, this.#customOptions)))
+        this.#customSelectOptions = [...this.#shadowDOM.querySelectorAll('.customSelectOption')]
+        this.#customSelectOptions.forEach(option => {
+            option.addEventListener('click', () => this.#setAsSelected(option))
+            option.addEventListener('mouseover', () => this.#setAsHighlighted(option))
+        })
     }
 
     #getMasterSelectOptions(){
-        const options = this.#selectReference.querySelectorAll("option")
+        const options = this.#masterSelectNode.querySelectorAll("option")
         const formattedOptions = [...options].map(option => {
             return {
                 value : option.value,
@@ -45,7 +50,7 @@ class CustomSelect extends HTMLElement{
         return this.#shadowDOM
     }
 
-    #getView(masterSelectOptions){
+    #buildView(masterSelectOptions){
         const viewContainer = document.createElement("template")
         viewContainer.innerHTML = `
         <link rel="stylesheet" href="../css/customSelect.css"/>
@@ -72,6 +77,10 @@ class CustomSelect extends HTMLElement{
         if(e.code == "ArrowDown") return 
     }
 
+    #previousOption(){}
+
+    #nextOption(){}
+
     #optionsListOpenClose(){
         const optionsContainer = this.#shadowDOM.querySelector(".customSelectOptionsContainer")
         const arrow = this.#shadowDOM.querySelector(".customSelectArrow")
@@ -87,17 +96,27 @@ class CustomSelect extends HTMLElement{
         }                  
     }
 
-    #setAsSelected(selectSelector, customOption, customOptions){
-        customOptions.forEach(option => {
+    #setAsSelected(customOption){
+        this.#customSelectOptions.forEach(option => {
             option.classList.remove("selectedOption")
             option.setAttribute("aria-selected", false)
         })
-        const select = document.querySelector(selectSelector)
+        const select = document.querySelector(this.#masterSelectSelector)
         //console.log(customOption)
         select.value = customOption.getAttribute("data-value")
         customOption.classList.add("selectedOption")
         customOption.setAttribute("aria-selected", true)
-        console.log(this.#customOptions)
+    }
+
+    #setAsHighlighted(customOption){
+        this.#customSelectOptions.forEach(option => {
+            option.classList.remove("highlightedOption")
+        })
+        customOption.classList.add("highlightedOption")
+    }
+
+    #getSelectedCustomOption(){
+        return document.querySelector('.selectedOption')
     }
 }
 

@@ -61,6 +61,6 @@
     #3282f7;
 }
 
-.customSelectContainer .customSelectOptionsContainer .customSelectOption:hover {
+.highlightedOption {
   background: #3570c7;
 }
