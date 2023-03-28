@@ -1,11 +1,13 @@
 class CustomSelect extends HTMLElement{
     #shadowDOM
-    #selectedOption = 0
+    #selectValue
     #selectReference = document.querySelector("#select-ingredients")
+    #selectReferenceSelector = "#select-ingredients"
 
     constructor(){
         super()
 
+        this.#selectValue = document.querySelector("#select-ingredients").value
         // create a shadowDOM and append the view node to it
         this.#shadowDOM = this.attachShadow({ mode: "open" })
         const options = this.#getMasterSelectOptions()
@@ -44,7 +46,11 @@ class CustomSelect extends HTMLElement{
         <div class="customSelectContainer">
             <span class="customSelectLabel">Ingrédients<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/></span>
             <ul class="customSelectOptionsContainer">`+
-            masterSelectOptions.reduce((accu, option) => accu+`<li class="customSelectOption">${option.label}</li>`, '')
+            masterSelectOptions.reduce((accu, option) => 
+            accu + `<li 
+            class="customSelectOption ${ option.selected === true ? 'selectedOption' : ''  }" 
+            onclick="CustomSelect.setAsSelected('${this.#selectReferenceSelector}', '${option.value}'), this">
+            ${option.label}</li>`, '')
             +`</ul>
         </div>
         `
@@ -73,6 +79,11 @@ class CustomSelect extends HTMLElement{
         }                  
     }
 
+    static setAsSelected(selectSelector, optionValue, selectedOption){
+        const select = document.querySelector(selectSelector)
+        select.value = optionValue
+        selectedOption.style.border="1px solid red"
+    }
 }
 
 customElements.define("custom-select", CustomSelect)
