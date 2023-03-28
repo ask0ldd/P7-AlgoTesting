@@ -71,6 +71,10 @@ class CustomSelect extends HTMLElement{
         return viewContainer.content.cloneNode(true)
     }
 
+    #updateLabel(text){
+        this.#customSelectLabel.innerHTML = text + `<img class="customSelectArrow" src="./assets/icons/select-arrow.svg"/>`
+    }
+
     #keyboardListener(e) // ACCESSIBILITY : keyboard navigation
     {
         if(e.code == "Escape") this.#optionsListOpenClose()
@@ -127,6 +131,7 @@ class CustomSelect extends HTMLElement{
         this.#masterSelectNode.value = customOption.getAttribute("data-value")
         customOption.classList.add("selectedOption")
         customOption.setAttribute("aria-selected", true)
+        this.#updateLabel(customOption.innerText)
     }
 
     // hightlighting a custom option
