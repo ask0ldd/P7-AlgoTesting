@@ -73,7 +73,8 @@ class CustomSelect extends HTMLElement{
 
     #keyboardListener(e) // ACCESSIBILITY : keyboard navigation
     {
-        if(e.code == "Escape") return
+        if(e.code == "Escape") this.#optionsListOpenClose()
+        if(e.code == "Tab") this.#optionsListOpenClose()
         if(e.code == "Enter") this.#optionsListOpenClose()
         if(e.code == "ArrowUp") this.#previousOption()
         if(e.code == "ArrowDown") this.#nextOption()
