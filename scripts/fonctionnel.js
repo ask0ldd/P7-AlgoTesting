@@ -45,3 +45,8 @@ console.log( "map : ", recipes.reduce((accu, recipe) => {
 ['Lait de coco', 'Jus de citron', 'Crème de coco', ...]
 */
 
+
+// indexof gives the first index of a value, so we only needs to get rides of values with an index !== indexof
+const ingredientsWithoutDuplicates = ingredientsWithDuplicates.filter((ingredient, index) => ingredientsWithDuplicates.indexOf(ingredient) === index)
+
+console.log( "no duplicates : ", ingredientsWithoutDuplicates)
