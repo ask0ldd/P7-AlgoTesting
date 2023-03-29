@@ -1,3 +1,4 @@
+// titre ingredients description
 console.log(recipes)
 
 const ingredientsWithDuplicates = recipes.reduce((accu, recipe) => {
@@ -50,3 +51,19 @@ console.log( "map : ", recipes.reduce((accu, recipe) => {
 const ingredientsWithoutDuplicates = ingredientsWithDuplicates.filter((ingredient, index) => ingredientsWithDuplicates.indexOf(ingredient) === index)
 
 console.log( "no duplicates : ", ingredientsWithoutDuplicates)
+
+
+
+
+const searchBar = document.querySelector('.mainSearchBar')
+searchBar.addEventListener('input', (e) => {
+    if(searchBar.value.length>2) console.log('RESULTS : ', getResults(searchBar.value))
+})
+
+function getResults(text){
+    return recipes.filter(recipe => {
+        return recipe.name.toLowerCase().includes(text) || recipe.description.toLowerCase().includes(text) // || recipe.ingredients.map(ingredient => )
+    })
+}
+
+//console.log(recipes[0].name.toLowerCase().includes("coca"))
