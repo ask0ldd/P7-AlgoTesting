@@ -109,7 +109,8 @@ class CustomSelect extends HTMLElement{
     #optionsListOpenClose(){
         const optionsContainer = this.#shadowDOM.querySelector(".customSelectOptionsContainer")
         const arrow = this.#shadowDOM.querySelector(".customSelectArrow")
-        if(optionsContainer.style.display === "none" || optionsContainer.style.display === "") { 
+        const isListClosed = optionsContainer.style.display === "none" || optionsContainer.style.display === ""
+        if(isListClosed) { 
             optionsContainer.style.display = 'flex'
             arrow.style.transform = "rotate(0deg)"
             this.#customSelectLabel.setAttribute("aria-expanded", true)
