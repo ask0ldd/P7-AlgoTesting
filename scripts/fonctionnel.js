@@ -62,8 +62,24 @@ searchBar.addEventListener('input', (e) => {
 
 function getResults(text){
     return recipes.filter(recipe => {
-        return recipe.name.toLowerCase().includes(text) || recipe.description.toLowerCase().includes(text) // || recipe.ingredients.map(ingredient => )
+        // recipe.name includes text
+        // or recipe.description includes text
+        // or at least 1 ingredient has not been filtered out
+        return isRecipeNameIncluding(recipe, text) || isRecipeDescriptionIncluding(recipe, text) || isAtLeastOneIngredientIncluding(recipe, text)
     })
 }
+
+function isRecipeNameIncluding(recipe, text){
+    return recipe.name.toLowerCase().includes(text)
+}
+
+function isRecipeDescriptionIncluding(recipe, text){
+    return recipe.description.toLowerCase().includes(text)
+}
+
+function isAtLeastOneRecipeIngredientIncluding(recipe, text){
+    return recipe.ingredients.filter(ingredient => ingredient.ingredient.toLowerCase().includes(text)).length > 0
+}
+
 
 //console.log(recipes[0].name.toLowerCase().includes("coca"))
