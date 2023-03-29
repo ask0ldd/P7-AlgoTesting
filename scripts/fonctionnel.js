@@ -57,15 +57,16 @@ console.log( "no duplicates : ", ingredientsWithoutDuplicates)
 
 const searchBar = document.querySelector('.mainSearchBar')
 searchBar.addEventListener('input', (e) => {
-    if(searchBar.value.length>2) console.log('RESULTS : ', getResults(searchBar.value))
+    if(searchBar.value.length>2) console.log('RESULTS : ', getRecipesContaining(searchBar.value))
 })
 
-function getResults(text){
+function getRecipesContaining(text){
     return recipes.filter(recipe => {
+        // keep recipe if :
         // recipe.name includes text
         // or recipe.description includes text
         // or at least 1 ingredient has not been filtered out
-        return isRecipeNameIncluding(recipe, text) || isRecipeDescriptionIncluding(recipe, text) || isAtLeastOneIngredientIncluding(recipe, text)
+        return isRecipeNameIncluding(recipe, text) || isRecipeDescriptionIncluding(recipe, text) || isAtLeastOneRecipeIngredientIncluding(recipe, text)
     })
 }
 
