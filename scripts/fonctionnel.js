@@ -66,7 +66,7 @@ function getRecipesContaining(text){
         // recipe.name includes text
         // or recipe.description includes text
         // or at least 1 ingredient has not been filtered out
-        return isRecipeNameIncluding(recipe, text) || isRecipeDescriptionIncluding(recipe, text) || isAtLeastOneRecipeIngredientIncluding(recipe, text)
+        return isRecipeNameIncluding(recipe, text) || isRecipeDescriptionIncluding(recipe, text) || areRecipeIngredientsIncluding(recipe, text)
     })
 }
 
@@ -78,9 +78,57 @@ function isRecipeDescriptionIncluding(recipe, text){
     return recipe.description.toLowerCase().includes(text)
 }
 
-function isAtLeastOneRecipeIngredientIncluding(recipe, text){
+function areRecipeIngredientsIncluding(recipe, text){
     return recipe.ingredients.filter(ingredient => ingredient.ingredient.toLowerCase().includes(text)).length > 0
 }
 
+function getFullIngredientsArrays (recipes) { // ingredient + quantity + unit for each entry
+    return recipes.reduce((accu, recipe) => {
+        accu.push(recipe.ingredients)
+        return accu
+    }, [])
+}
 
-//console.log(recipes[0].name.toLowerCase().includes("coca"))
+const getIngredientsOnly = (onerecipe) => { // return an array of ingredients extracted out of a recipe
+    return onerecipe.ingredients.map(array => array.ingredient)
+}
+
+function getAllIngredientsWDuplicates(recipes){
+    return recipes.reduce((accu, recipe) => {
+        accu.push(...getIngredientsOnly(recipe))
+        return accu
+    }, [])
+}
+
+// get ingredients arrays only : reduce
+/* AFTER REDUCE
+[1:[1:{ingredient: 'Lait de coco', quantity: 400, unit: 'ml'},
+2:{ingredient: 'Jus de citron', quantity: 2},
+3:{ingredient: 'Crème de coco', quantity: 2, unit: 'cuillères à soupe'},
+4:{ingredient: 'Sucre', quantity: 30, unit: 'grammes'},
+5:{ingredient: 'Glaçons'}], 2:[...] ...]
+*/
+// extract ingredients (duplicates included) of ingredients arrays : getIngredientsOnly()
+/* AFTER MAP
+[1:'Lait de coco', 2:'Jus de citron', 3:'Crème de coco', ...]
+*/
+// remove duplicates from ingredients array : removeDuplicates()
+function getAllIngredientsNoDuplicates(recipes){
+    return removeDuplicates(recipes.reduce((accu, recipe) => {
+        accu.push(...getIngredientsOnly(recipe))
+        return accu
+    }, []))
+}
+
+function getIngredientsArray(recipes, ){
+    return recipes.reduce((accu, recipe) => {
+        accu.push(recipe)
+        return accu
+    }, [])
+}
+
+function removeDuplicates(array){
+    return array.filter((element, index, array) => array.indexOf(element) === index)
+}
+
+console.log(getArrayWithIngredientsNoDuplicates(recipes))
