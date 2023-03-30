@@ -59,8 +59,8 @@ header {
 .searchResults {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 300px;
-  gap: 0.5rem;
+  grid-auto-rows: 250px;
+  gap: 1.5rem;
   margin-top: 4rem;
 }
 
