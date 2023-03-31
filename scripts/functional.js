@@ -1,4 +1,11 @@
+let allRecipes = recipes
+/*let afterSearchRecipes
+let afterFilterIngredientsRecipes
+let afterFilterAppliancesRecipes
+let afterFilteUstencilsRecipes*/
 let activeRecipes = recipes
+
+let recipesArray = [{"active" : recipes}, {"postSearchFilter": []}, {"postIngredientsFilter": []}, {"postAppliancesFilter": []}, {"postUstencilsFilter": []}]
 
 function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
@@ -37,13 +44,16 @@ extract ingredients from activerecipes to populate the ingredients select
 extract ingredients from activerecipes to populate the appliance select 
 */
 function updateAppliancesSelect(activeRecipes){
-    appliancesSelect.innerHTML = activeRecipes.reduce((accu, recipe) => accu+`<option value="${recipe.id}">${FirstLetterMaj(recipe.appliance)}</option>`, '')
+    appliancesSelect.innerHTML = activeRecipes.reduce((accu, recipe, index, array) => {
+        /*if (array.indexOf({"appliance" : recipe.appliance}) === index)*/ return accu+`<option value="${recipe.id}">${FirstLetterMaj(recipe.appliance)}</option>`
+        /*return accu*/
+    }, '')
 }
 
 /* 
 extract ingredients from activerecipes to populate the ustensils select 
 */
-function updateUstencilsSelect(activeRecipes){
+function updateUstensilsSelect(activeRecipes){
     // get all ustensils from activeRecipes
     const ustensils = removeDuplicates(activeRecipes.reduce((accu, recipe) => {
         accu.push(...recipe.ustensils)
@@ -72,7 +82,7 @@ searchBar.addEventListener('input', (e) => {
     }
     resultsContainer.innerHTML = activeRecipes.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
     updateAppliancesSelect(activeRecipes)
-    updateUstencilsSelect(activeRecipes)
+    updateUstensilsSelect(activeRecipes)
 })
 
 console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
