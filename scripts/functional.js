@@ -39,15 +39,22 @@ function searchbarFiltering(recipes, filter){
 /* 
 extract ingredients from activerecipes to populate the ingredients select 
 */
+function updateAppliancesSelect(activeRecipes){
+    const ingredients = '';
+}
 
 /* 
 extract ingredients from activerecipes to populate the appliance select 
 */
 function updateAppliancesSelect(activeRecipes){
-    appliancesSelect.innerHTML = activeRecipes.reduce((accu, recipe, index, array) => {
-        /*if (array.indexOf({"appliance" : recipe.appliance}) === index)*/ return accu+`<option value="${recipe.id}">${FirstLetterMaj(recipe.appliance)}</option>`
-        /*return accu*/
-    }, '')
+    const appliances = removeDuplicates(activeRecipes.reduce((accu, recipe, index, array) => {
+        //if (array.indexOf({"appliance" : recipe.appliance}) === index)
+        //return accu+`<option value="${recipe.id}">${FirstLetterMaj(recipe.appliance)}</option>`
+        //return accu
+        accu.push(recipe.appliance)
+        return accu
+    }, []))
+    appliancesSelect.innerHTML = appliances.reduce((accu, appliance) => accu+`<option value="${appliance.toLowerCase()}">${FirstLetterMaj(appliance)}</option>`, '')
 }
 
 /* 
@@ -60,7 +67,8 @@ function updateUstensilsSelect(activeRecipes){
         return accu
     }, []))
     // ustensilsSelect.innerHTML = activeRecipes.reduce((accu, recipe) => accu+`<option value="${recipe.id}">${recipe.ustensils}</option>`, '')
-    ustensilsSelect.innerHTML = ustensils.reduce((accu, ustensil) => accu+`<option value="${ustensil}">${FirstLetterMaj(ustensil)}</option>`, '')
+    // format retrieved ustensils as <options>
+    ustensilsSelect.innerHTML = ustensils.reduce((accu, ustensil) => accu+`<option value="${ustensil.toLowerCase()}">${FirstLetterMaj(ustensil)}</option>`, '')
 }
 
 
@@ -86,3 +94,9 @@ searchBar.addEventListener('input', (e) => {
 })
 
 console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
+
+
+// recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
+// then display recipes > update ingredients / ustencils > appliances
+
+// il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
