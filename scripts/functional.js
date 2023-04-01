@@ -50,25 +50,28 @@ function updateAppliancesSelect(activeRecipes){
     const appliances = activeRecipes.reduce((accu, recipe, index, array) => 
     {
         // condition : if not already in accu, then push it
-        /*if(accu.indexOf(recipe.appliance.toLowerCase()) === -1) { accu.push(recipe.appliance.toLowerCase()) } */
         accu.add(recipe.appliance.toLowerCase())
         return accu 
-    }, new Set())
+    }, new Set()) // using a set so no duplicates
+
+    // format the retrieved appliances as a group of <options> and push it to the select
     appliancesSelect.innerHTML = Array.from(appliances).reduce((accu, appliance) => accu+`<option value="${appliance.toLowerCase()}">${FirstLetterMaj(appliance)}</option>`, '')
 }
 
 /* 
 extract ingredients from activerecipes to populate the ustensils select 
 */
+
 function updateUstensilsSelect(activeRecipes){
     // get all ustensils from activeRecipes
-    const ustensils = removeDuplicates(activeRecipes.reduce((accu, recipe) => {
-        accu.push(...recipe.ustensils)
+    const ustensils = activeRecipes.reduce((accu, recipe) => {
+        // try adding to the set every ustensil in the ustensils array
+        recipe.ustensils.forEach(ustensil => accu.add(ustensil)) 
         return accu
-    }, []))
-    // ustensilsSelect.innerHTML = activeRecipes.reduce((accu, recipe) => accu+`<option value="${recipe.id}">${recipe.ustensils}</option>`, '')
-    // format retrieved ustensils as <options>
-    ustensilsSelect.innerHTML = ustensils.reduce((accu, ustensil) => accu+`<option value="${ustensil.toLowerCase()}">${FirstLetterMaj(ustensil)}</option>`, '')
+    }, new Set())
+    
+    // format the retrieved ustensils as a group of <options> and push it to the select
+    ustensilsSelect.innerHTML = Array.from(ustensils).reduce((accu, ustensil) => accu+`<option value="${ustensil.toLowerCase()}">${FirstLetterMaj(ustensil)}</option>`, '')
 }
 
 
