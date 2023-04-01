@@ -1,7 +1,13 @@
 import { normalize, FirstLetterMaj } from "../utils/stringUtils.js" 
 
 const SearchBar = function (selector){
-    this.node = document.querySelector(selector)
+    this.nodeElt = document.querySelector(selector)
+}
+
+SearchBar.prototype = {
+    get node() {
+        return this.nodeElt
+    }
 }
 
 SearchBar.prototype.filtering = function(recipes, filteringArgument){
