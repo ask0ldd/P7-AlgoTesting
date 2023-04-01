@@ -40,7 +40,12 @@ function searchbarFiltering(recipes, filter){
 extract ingredients from activerecipes to populate the ingredients select 
 */
 function updateIngredientsSelect(activeRecipes){
-    const ingredients = '';
+    const ingredients = activeRecipes.reduce((accu, recipe) => {
+        // spread the ingredients array of a recipe and extract only the ingredient value
+        [...recipe.ingredients].forEach( element => accu.add(element?.ingredient)) 
+        return accu
+    }, new Set())
+    ingredientsSelect.innerHTML = Array.from(ingredients).reduce((accu, ingredient) => accu+`<option value="${ingredient.toLowerCase()}">${FirstLetterMaj(ingredient)}</option>`, '')
 }
 
 /* 
@@ -59,9 +64,8 @@ function updateAppliancesSelect(activeRecipes){
 }
 
 /* 
-extract ingredients from activerecipes to populate the ustensils select 
+extract ustencils from activerecipes to populate the ustensils select 
 */
-
 function updateUstensilsSelect(activeRecipes){
     // get all ustensils from activeRecipes
     const ustensils = activeRecipes.reduce((accu, recipe) => {
@@ -84,10 +88,12 @@ const searchBar = document.querySelector('.mainSearchBar')
 const resultsContainer = document.querySelector('.searchResults')
 const appliancesSelect = document.querySelector('#select-appareils')
 const ustensilsSelect = document.querySelector('#select-ustensiles')
+const ingredientsSelect = document.querySelector('#select-ingredients')
 
 searchBar.addEventListener('input', (e) => {
     if(searchBar.value.length>2) {
         activeRecipes = searchbarFiltering(recipes, searchBar.value)
+        updateIngredientsSelect(activeRecipes)
         updateAppliancesSelect(activeRecipes)
         updateUstensilsSelect(activeRecipes)
     }else{
