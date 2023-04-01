@@ -1,6 +1,8 @@
-import searchBar from "./components/searchBar.js"
+import SearchBar from "./components/searchBar.js"
 import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
+import RecipesModel from "./blueprints/recipesModel.js"
+import appliancesSelect from "./components/appliancesSelect.js"
 
 let allRecipes = recipes
 /*let afterSearchRecipes
@@ -65,16 +67,19 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     return recipesArray1.length < recipesArray2.length ? recipesArray1.filter(recipe => recipesArray2.includes(recipe)) : recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }
 
-const searchBarNode = document.querySelector('.mainSearchBar')
+//const searchBarNode = document.querySelector('.mainSearchBar')
 const resultsContainer = document.querySelector('.searchResults')
-const appliancesSelect = document.querySelector('#select-appareils')
+// const appliancesSelect = document.querySelector('#select-appareils')
 const ustensilsSelect = document.querySelector('#select-ustensiles')
 const ingredientsSelect = document.querySelector('#select-ingredients')
-const searchbar = new(searchBar)
+const searchBar = new SearchBar('.mainSearchBar')
+const recipesInstance = new RecipesModel(recipes)
+appliancesSelect.optionsUpdate(recipesInstance.appliances)
 
-searchBarNode.addEventListener('input', (e) => {
-    if(searchBarNode.value.length>2) {
-        activeRecipes = searchbar.filtering(recipes, searchBarNode.value)
+
+/*searchBar.node.addEventListener('input', (e) => {
+    if(searchBar.node.value.length>2) {
+        activeRecipes = searchBar.filtering(recipes, searchBar.node.value)
         updateIngredientsSelect(activeRecipes)
         updateAppliancesSelect(activeRecipes)
         updateUstensilsSelect(activeRecipes)
@@ -82,7 +87,7 @@ searchBarNode.addEventListener('input', (e) => {
         activeRecipes = recipes
     }
     resultsContainer.innerHTML = activeRecipes.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
-})
+})*/
 
 console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
 

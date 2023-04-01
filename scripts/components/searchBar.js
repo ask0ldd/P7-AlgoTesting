@@ -1,25 +1,29 @@
 import { normalize, FirstLetterMaj } from "../utils/stringUtils.js" 
 
-const searchBar = function (node){
-    this.node = node
+const SearchBar = function (selector){
+    this.node = document.querySelector(selector)
 }
 
-searchBar.prototype.filtering = function(recipes, filteringArgument){
+SearchBar.prototype.filtering = function(recipes, filteringArgument){
     return recipes.filter(recipe => {
         return doesRecipeNameContains(recipe, filteringArgument) || doesRecipeDescriptionContains(recipe, filteringArgument) || doesRecipeIngredientsContain(recipe, filteringArgument)
     })
 }
 
-function doesRecipeNameContains(recipe, text){
-    return normalize(recipe.name).includes(normalize(text))
+SearchBar.prototype.listenForInput = function(){
+
 }
 
-function doesRecipeDescriptionContains(recipe, text){
-    return normalize(recipe.description).includes(normalize(text))
+function doesRecipeNameContains(recipe, lookedForText){
+    return normalize(recipe.name).includes(normalize(lookedForText))
 }
 
-function doesRecipeIngredientsContain(recipe, text){
-    return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(text))).length > 0
+function doesRecipeDescriptionContains(recipe, lookedForText){
+    return normalize(recipe.description).includes(normalize(lookedForText))
 }
 
-export default searchBar
+function doesRecipeIngredientsContain(recipe, lookedForText){
+    return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
+}
+
+export default SearchBar
