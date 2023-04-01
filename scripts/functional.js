@@ -39,7 +39,7 @@ function searchbarFiltering(recipes, filter){
 /* 
 extract ingredients from activerecipes to populate the ingredients select 
 */
-function updateAppliancesSelect(activeRecipes){
+function updateIngredientsSelect(activeRecipes){
     const ingredients = '';
 }
 
@@ -47,14 +47,14 @@ function updateAppliancesSelect(activeRecipes){
 extract ingredients from activerecipes to populate the appliance select 
 */
 function updateAppliancesSelect(activeRecipes){
-    const appliances = removeDuplicates(activeRecipes.reduce((accu, recipe, index, array) => {
-        //if (array.indexOf({"appliance" : recipe.appliance}) === index)
-        //return accu+`<option value="${recipe.id}">${FirstLetterMaj(recipe.appliance)}</option>`
-        //return accu
-        accu.push(recipe.appliance)
-        return accu
-    }, []))
-    appliancesSelect.innerHTML = appliances.reduce((accu, appliance) => accu+`<option value="${appliance.toLowerCase()}">${FirstLetterMaj(appliance)}</option>`, '')
+    const appliances = activeRecipes.reduce((accu, recipe, index, array) => 
+    {
+        // condition : if not already in accu, then push it
+        /*if(accu.indexOf(recipe.appliance.toLowerCase()) === -1) { accu.push(recipe.appliance.toLowerCase()) } */
+        accu.add(recipe.appliance.toLowerCase())
+        return accu 
+    }, new Set())
+    appliancesSelect.innerHTML = Array.from(appliances).reduce((accu, appliance) => accu+`<option value="${appliance.toLowerCase()}">${FirstLetterMaj(appliance)}</option>`, '')
 }
 
 /* 
@@ -85,12 +85,12 @@ const ustensilsSelect = document.querySelector('#select-ustensiles')
 searchBar.addEventListener('input', (e) => {
     if(searchBar.value.length>2) {
         activeRecipes = searchbarFiltering(recipes, searchBar.value)
+        updateAppliancesSelect(activeRecipes)
+        updateUstensilsSelect(activeRecipes)
     }else{
         activeRecipes = recipes
     }
     resultsContainer.innerHTML = activeRecipes.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
-    updateAppliancesSelect(activeRecipes)
-    updateUstensilsSelect(activeRecipes)
 })
 
 console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
