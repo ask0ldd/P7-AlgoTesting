@@ -1,3 +1,7 @@
+import searchBar from "./components/searchBar.js"
+import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
+import recipes from "../datas/recipes.js"
+
 let allRecipes = recipes
 /*let afterSearchRecipes
 let afterFilterIngredientsRecipes
@@ -11,40 +15,17 @@ function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
 }
 
-function FirstLetterMaj(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-/* 
-searchbar algo 
-*/
-function doesRecipeNameContains(recipe, text){
-    return recipe.name.toLowerCase().trim().includes(text)
-}
-
-function doesRecipeDescriptionContains(recipe, text){
-    return recipe.description.toLowerCase().trim().includes(text)
-}
-
-function doesRecipeIngredientsContain(recipe, text){
-    return recipe.ingredients.filter(ingredient => ingredient.ingredient.toLowerCase().trim().includes(text)).length > 0
-}
-
-function searchbarFiltering(recipes, filter){
-    return recipes.filter(recipe => {
-        return doesRecipeNameContains(recipe, filter) || doesRecipeDescriptionContains(recipe, filter) || doesRecipeIngredientsContain(recipe, filter)
-    })
-}
-
 /* 
 extract ingredients from activerecipes to populate the ingredients select 
 */
 function updateIngredientsSelect(activeRecipes){
     const ingredients = activeRecipes.reduce((accu, recipe) => {
-        // spread the ingredients array of a recipe and extract only the ingredient value
-        [...recipe.ingredients].forEach( element => accu.add(element?.ingredient)) 
+        // spreading an ingredients array of a recipe & extracting only the ingredient values out of the subelements (= ignore quantity & unit)
+        (recipe.ingredients).flatMap( element => accu.add(element?.ingredient))
+        // equivalent : [...recipe.ingredients].forEach( element => accu.add(element?.ingredient)) 
         return accu
     }, new Set())
+
     ingredientsSelect.innerHTML = Array.from(ingredients).reduce((accu, ingredient) => accu+`<option value="${ingredient.toLowerCase()}">${FirstLetterMaj(ingredient)}</option>`, '')
 }
 
@@ -84,15 +65,16 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     return recipesArray1.length < recipesArray2.length ? recipesArray1.filter(recipe => recipesArray2.includes(recipe)) : recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }
 
-const searchBar = document.querySelector('.mainSearchBar')
+const searchBarNode = document.querySelector('.mainSearchBar')
 const resultsContainer = document.querySelector('.searchResults')
 const appliancesSelect = document.querySelector('#select-appareils')
 const ustensilsSelect = document.querySelector('#select-ustensiles')
 const ingredientsSelect = document.querySelector('#select-ingredients')
+const searchbar = new(searchBar)
 
-searchBar.addEventListener('input', (e) => {
-    if(searchBar.value.length>2) {
-        activeRecipes = searchbarFiltering(recipes, searchBar.value)
+searchBarNode.addEventListener('input', (e) => {
+    if(searchBarNode.value.length>2) {
+        activeRecipes = searchbar.filtering(recipes, searchBarNode.value)
         updateIngredientsSelect(activeRecipes)
         updateAppliancesSelect(activeRecipes)
         updateUstensilsSelect(activeRecipes)
@@ -109,3 +91,6 @@ console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
 // then display recipes > update ingredients / ustencils > appliances
 
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
+
+
+// user flat or flat map with ?.name, ?.ingredients, etc...
