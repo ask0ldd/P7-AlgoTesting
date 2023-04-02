@@ -1,4 +1,4 @@
-import { FirstLetterMaj } from "../utils/stringUtils"
+import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
 
 const Tag = function (tagName, tagType) {
 

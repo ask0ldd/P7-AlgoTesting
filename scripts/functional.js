@@ -9,14 +9,16 @@ import tagsFactory from "./factory/tagsFactory.js"
 
 let allRecipes = recipes
 
-function removeDuplicates(array){
+/*function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
 }
 
 function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     // iterate on the smaller array for optimisation purposes
-    return recipesArray1.length < recipesArray2.length ? recipesArray1.filter(recipe => recipesArray2.includes(recipe)) : recipesArray2.filter(recipe => recipesArray1.includes(recipe))
-}
+    return recipesArray1.length < recipesArray2.length ? 
+    recipesArray1.filter(recipe => recipesArray2.includes(recipe)) : 
+    recipesArray2.filter(recipe => recipesArray1.includes(recipe))
+}*/
 
 const resultsContainer = document.querySelector('.searchResults')
 const recipesInstance = new RecipesList(recipes)
@@ -29,15 +31,15 @@ ustensilsSelect.optionsUpdate(recipesInstance.ustensils)
 ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
 
 ingredientsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : ingredientsSelect.node.value, tagType : 'ingredients'})).renderShelf()
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf()
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : appliancesSelect.node.value, tagType : 'appliances'})).renderShelf()
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : ustensilsSelect.node.value, tagType : 'ustensils'})).renderShelf()
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
 })
 
 
@@ -57,8 +59,6 @@ searchBar.node.addEventListener('input', (e) => {
     
     resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.generateCard(recipe), '')
 })
-
-//tagsShelf.add(tagsFactory(tagName, tagType))
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances

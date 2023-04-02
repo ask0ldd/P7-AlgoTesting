@@ -14,7 +14,7 @@ RecipesList.prototype = {
 
     get ingredients () {
         return this.recipes.reduce((accu, recipe) => {
-            // spreading an ingredients array of a recipe & extracting only the ingredient values out of the subelements (= ignore quantity & unit)
+            // spreading out an ingredients array from a recipe & extracting only the ingredient values out of the subelements (= ignore quantity & unit)
             (recipe.ingredients).flatMap( element => accu.add(element?.ingredient.toLowerCase())) // toLowerCase = get rids of duplicates with different case
             // equivalent : [...recipe.ingredients].forEach( element => accu.add(element?.ingredient)) 
             return accu

@@ -1,11 +1,14 @@
 const tagsShelf = {
 
     tagsContainerNode : document.querySelector(".tagsContainer"),
+    tags : new Set(), // switch to an array before release
 
-    tags : new Set(), // no duplicates
+    alreadyExists : function(tag){
+        return JSON.stringify(Array.from(this.tags)).indexOf(JSON.stringify(tag)) === -1 ? false : true
+    },
 
     add : function(tag) {
-        this.tags.add(tag)
+        if(!this.alreadyExists(tag)) this.tags.add(tag)
         return this
     },
 
