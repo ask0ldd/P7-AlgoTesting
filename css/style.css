@@ -112,3 +112,27 @@ custom-select {
   font-size: 18px;
   color: black;
 }
+
+.tagsContainer {
+  display: flex;
+  column-gap: 8px;
+}
+
+.tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6px;
+}
+
+.ustensils-tag {
+  background: #ed6454;
+}
+
+.ingredients-tag {
+  background: #3282f7;
+}
+
+.appliances-tag {
+  background: #68d9a4;
+}
