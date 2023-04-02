@@ -1,4 +1,4 @@
-const tagsShelf = {
+const tagsShelf = { // set tags limit?
 
     tagsContainerNode : document.querySelector(".tagsContainer"),
     tags : new Set(), // switch to an array before release
@@ -13,7 +13,6 @@ const tagsShelf = {
     },
 
     remove : function(tagName){
-        console.log("remove")
         this.tags.forEach(tag => {
             if(tag.name === tagName) this.tags.delete(tag)
         })
@@ -22,7 +21,7 @@ const tagsShelf = {
 
     renderShelf : function(){
         this.tagsContainerNode.innerHTML = ""
-        Array.from(this.tags).map(tag => this.tagsContainerNode.appendChild(tag.generateTagView()))
+        Array.from(this.tags).map(tag => this.tagsContainerNode.appendChild(tag.buildTagView()))
     }
 }
 

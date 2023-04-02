@@ -57,7 +57,7 @@ searchBar.node.addEventListener('input', (e) => {
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     }
     
-    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.generateCard(recipe), '')
+    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 })
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances

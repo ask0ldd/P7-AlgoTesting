@@ -1,6 +1,6 @@
 const recipeFactory = 
 {
-    generateCard(recipe) {
+    buildCardView(recipe) {
         const cardTemplate = `
         <article class="recipeCardContainer">
             <div class="recipeImg"></div>
