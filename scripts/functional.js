@@ -23,9 +23,22 @@ const recipesInstance = new RecipesList(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
+
 appliancesSelect.optionsUpdate(recipesInstance.appliances)
 ustensilsSelect.optionsUpdate(recipesInstance.ustensils)
 ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
+
+ingredientsSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : ingredientsSelect.node.value, tagType : 'ingredients'})).renderShelf()
+})
+
+appliancesSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : appliancesSelect.node.value, tagType : 'appliances'})).renderShelf()
+})
+
+ustensilsSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : ustensilsSelect.node.value, tagType : 'ustensils'})).renderShelf()
+})
 
 
 searchBar.node.addEventListener('input', (e) => {
@@ -41,20 +54,8 @@ searchBar.node.addEventListener('input', (e) => {
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     }
-    //resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
+    
     resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.generateCard(recipe), '')
-})
-
-ingredientsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : ingredientsSelect.node.value, tagType : 'ingredients'})).renderShelf()
-})
-
-appliancesSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : appliancesSelect.node.value, tagType : 'appliances'})).renderShelf()
-})
-
-ustensilsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : ustensilsSelect.node.value, tagType : 'ustensils'})).renderShelf()
 })
 
 //tagsShelf.add(tagsFactory(tagName, tagType))

@@ -1,3 +1,5 @@
+import { FirstLetterMaj } from "../utils/stringUtils"
+
 const Tag = function (tagName, tagType) {
 
     this.name = tagName
@@ -6,7 +8,7 @@ const Tag = function (tagName, tagType) {
 
 Tag.prototype.generateTagView = function (){
 
-    const tagTemplate = `<div class="tag ${this.type}-tag" data-filter-parent="${this.type}">${this.name}</div>`
+    const tagTemplate = `<div class="tag ${this.type}-tag" data-filter-parent="${this.type}">${FirstLetterMaj(this.name)}</div>`
     return tagTemplate
 }
 
