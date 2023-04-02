@@ -1,4 +1,4 @@
-import Tag from "../blueprints/tag"
+import Tag from "../blueprints/tag.js"
 
 const tagsFactory = function ({tagName, tagType}) 
 {

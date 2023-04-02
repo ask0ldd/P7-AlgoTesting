@@ -4,6 +4,8 @@ import recipes from "../datas/recipes.js"
 import RecipesList from "./blueprints/recipesList.js"
 import Select from "./blueprints/select.js"
 import recipeFactory from "./factory/recipesFactory.js"
+import tagsShelf from "./components/tagsShelf.js"
+import tagsFactory from "./factory/tagsFactory.js"
 
 let allRecipes = recipes
 
@@ -43,13 +45,21 @@ searchBar.node.addEventListener('input', (e) => {
     resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.generateCard(recipe), '')
 })
 
-//console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
+ingredientsSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : ingredientsSelect.node.value, tagType : 'ingredients'})).renderShelf()
+})
 
+appliancesSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : appliancesSelect.node.value, tagType : 'appliances'})).renderShelf()
+})
+
+ustensilsSelect.node.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : ustensilsSelect.node.value, tagType : 'ustensils'})).renderShelf()
+})
+
+//tagsShelf.add(tagsFactory(tagName, tagType))
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
-
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
-
-
 // user flat or flat map with ?.name, ?.ingredients, etc...
