@@ -59,12 +59,56 @@ header {
 .searchResults {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 250px;
+  grid-auto-rows: auto;
   gap: 1.5rem;
-  margin-top: 4rem;
+  margin: 3rem 0;
 }
 
 custom-select {
   width: fit-content;
   height: fit-content;
+}
+
+.recipeCardContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  height: 360px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #e7e7e7;
+}
+
+.recipeImg {
+  width: 100%;
+  height: 180px;
+  background: #c7bebe;
+}
+
+.recipeDatasContainer {
+  width: 100%;
+  height: 180px;
+  padding: 1.25rem;
+}
+
+.recipeHeadingDurationContainer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipeHeading {
+  font-family: "Lato";
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+}
+
+.recipeDuration {
+  font-family: "Lato";
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
 }

@@ -32,4 +32,6 @@ function doesRecipeIngredientsContain(recipe, lookedForText){
     return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
 }
 
-export default SearchBar
+const searchBar = new SearchBar('.mainSearchBar')
+
+export default searchBar

@@ -1,8 +1,9 @@
-import SearchBar from "./components/searchBar.js"
+import searchBar from "./components/searchBar.js"
 import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
 import RecipesList from "./blueprints/recipesList.js"
 import Select from "./blueprints/select.js"
+import recipeFactory from "./factory/recipesFactory.js"
 
 let allRecipes = recipes
 
@@ -16,7 +17,6 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
 }
 
 const resultsContainer = document.querySelector('.searchResults')
-const searchBar = new SearchBar('.mainSearchBar')
 const recipesInstance = new RecipesList(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
@@ -39,7 +39,8 @@ searchBar.node.addEventListener('input', (e) => {
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     }
-    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
+    //resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + `<article>${recipe?.id}<br>${recipe?.name}<br>${recipe?.description}</article>`, '')
+    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.generateCard(recipe), '')
 })
 
 //console.log(intersectTwoRecipesArrays(recipes, activeRecipes))
