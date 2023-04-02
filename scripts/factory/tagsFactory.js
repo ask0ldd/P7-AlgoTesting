@@ -1,12 +1,9 @@
-const tagsFactory = {
+import Tag from "../blueprints/tag"
 
-    generateTag({tagName, tagType}) {
-
-        const tagTemplate = `<div class="tag ${tagType}-tag" data-filter-parent="${tagType}">${tagName}</div>`
-
-        return tagTemplate
-    }
-
+const tagsFactory = function ({tagName, tagType}) 
+{
+    const tag = new Tag(tagName, tagType)
+    return tag
 }
 
 export default tagsFactory
