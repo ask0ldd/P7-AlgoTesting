@@ -22,7 +22,12 @@ const tagsShelf = { // set tags limit?
     renderShelf : function(){
         this.tagsContainerNode.innerHTML = ""
         Array.from(this.tags).map(tag => this.tagsContainerNode.appendChild(tag.buildTagView()))
-    }
+    },
+
+    getTagsFromType : function(type){
+        return Array.from(this.tags).filter(array => array.type === type)
+    },
+
 }
 
 export default tagsShelf

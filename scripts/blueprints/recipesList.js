@@ -7,7 +7,7 @@ RecipesList.prototype = {
         return this.recipes.reduce((accu, recipe, index, array) => 
         {
             // condition : if not already in accu, then push it
-            accu.add(recipe.appliance.toLowerCase())
+            accu.add(recipe.appliance.toLowerCase()) // !!! use normalize instead of lowercase
             return accu 
         }, new Set()) // using a set so no duplicates
     },
@@ -15,7 +15,7 @@ RecipesList.prototype = {
     get ingredients () {
         return this.recipes.reduce((accu, recipe) => {
             // spreading out an ingredients array from a recipe & extracting only the ingredient values out of the subelements (= ignore quantity & unit)
-            (recipe.ingredients).flatMap( element => accu.add(element?.ingredient.toLowerCase())) // toLowerCase = get rids of duplicates with different case
+            (recipe.ingredients).flatMap( element => accu.add(element?.ingredient.toLowerCase())) // toLowerCase = get rids of duplicates with different case // !!! use normalize instead of lowercase
             // equivalent : [...recipe.ingredients].forEach( element => accu.add(element?.ingredient)) 
             return accu
         }, new Set())
@@ -24,7 +24,7 @@ RecipesList.prototype = {
     get ustensils () {
         return this.recipes.reduce((accu, recipe) => {
             // try adding to the set every ustensil in the ustensils array
-            recipe.ustensils.forEach(ustensil => accu.add(ustensil.toLowerCase())) // toLowerCase = get rids of duplicates with different case
+            recipe.ustensils.forEach(ustensil => accu.add(ustensil.toLowerCase())) // toLowerCase = get rids of duplicates with different case // !!! use normalize instead of lowercase
             return accu
         }, new Set())
     },

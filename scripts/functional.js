@@ -6,6 +6,7 @@ import Select from "./blueprints/select.js"
 import recipeFactory from "./factory/recipesFactory.js"
 import tagsShelf from "./components/tagsShelf.js"
 import tagsFactory from "./factory/tagsFactory.js"
+import filteringChain from "./utils/filteringChain.js"
 
 let allRecipes = recipes
 
@@ -59,6 +60,10 @@ searchBar.node.addEventListener('input', (e) => {
     
     resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 })
+
+console.log(filteringChain.searchFiltering())
+
+resultsContainer.innerHTML = recipes.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
