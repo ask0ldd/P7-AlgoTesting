@@ -57,11 +57,9 @@ searchBar.node.addEventListener('input', (e) => {
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     }
-    
+    console.log('searchfiltering : ', filteringChain.postIngredientsFilteringRecipes())
     resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 })
-
-console.log(filteringChain.searchFiltering())
 
 resultsContainer.innerHTML = recipes.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 
