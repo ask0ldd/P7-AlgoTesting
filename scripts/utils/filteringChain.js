@@ -8,9 +8,8 @@ const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
 
     postSearchFilteringRecipes : function(){
-        let currentRecipes = [...this.allRecipes]
-        if (searchBar.isEmpty === true) return currentRecipes
-        const filteredRecipes = currentRecipes.filter(recipe => {
+        if (searchBar.isEmpty === true) return [...this.allRecipes]
+        const filteredRecipes = this.allRecipes.filter(recipe => {
             return doesRecipeNameContains(recipe, searchBar.node.value) || doesRecipeDescriptionContains(recipe, searchBar.node.value) || doesRecipeIngredientsContain(recipe, searchBar.node.value) // passer en arg?
         })
         return filteredRecipes
@@ -19,45 +18,44 @@ const filteringChain = {
     recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
         let filteredRecipes = [...currentRecipes]
         if(index<tagsArray.length){
-            console.log('tag : ', tagsArray[index].name)
             filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
             this.recursiveFiltering(tagsArray, index+1, filteredRecipes, callbackFilterFn)
         }
         return filteredRecipes
     },
 
-    /*recursiveFiltering : function (tagsArray, index, recipes, callbackFilterFn){ // multiple tags = successive filterings
-        // let filteredRecipes = [...recipes]
-        console.log('recipes evol : ', [...recipes])
-        console.log('index : ', index)
-        console.log('length : ', tagsArray.length)
-        if(index===tagsArray.length) return [...recipes]
-
-        // console.log('recipes evol : ', filteredRecipes)
-        // console.log('tag : ', tagsArray[index].name)
-        let filteredRecipes = recipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
-        this.recursiveFiltering(tagsArray, index+1, filteredRecipes, callbackFilterFn)
+    /*recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
+        if(index>=tagsArray.length) return [...currentRecipes]
+        let filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
+        this.recursiveFiltering(tagsArray, index+1, [...filteredRecipes], callbackFilterFn)
     },*/
 
     postIngredientsFilteringRecipes : function(){
         // get datas filtered through searchbar
         let currentRecipes = this.postSearchFilteringRecipes()
-        const tagsArray = tagsShelf.getTagsFromType('ingredients')
-        if(tagsArray.length===0) return currentRecipes
+        const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
+        if(activeIngredientsTags.length===0) return currentRecipes
         let index = 0
-        const filteredRecipes = this.recursiveFiltering(tagsArray, index, currentRecipes, doesRecipeIngredientsContain)
+        const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, index, currentRecipes, doesRecipeIngredientsContain)
         return filteredRecipes
     },
 
     postAppliancesFilteringRecipes : function(){
-        const tagsArray = tagsShelf.getTagsFromType('appliances')
-        if(!tagsArray.length || tagsArray.length<1) return this.postIngredientsFilteringRecipes()
+        let currentRecipes = this.postIngredientsFilteringRecipes()
+        const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
+        if(activeAppliancesTags.length===0) return currentRecipes
 
     },
 
     postUstensilsFilteringRecipes : function(){
-        const tagsArray = tagsShelf.getTagsFromType('ustensils')
-        if(!tagsArray.length || tagsArray.length<1) return this.postAppliancesFilteringRecipes()
+        let currentRecipes = this.postAppliancesFilteringRecipes()
+        const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
+        if(activeUstensilsTags.length===0) return currentRecipes
+    },
+
+    fullResolution : function(){
+        console.log(this.postUstensilsFilteringRecipes())
+        return this.postUstensilsFilteringRecipes()
     },
 
     //move filter index with next()
