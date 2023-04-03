@@ -47,7 +47,7 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     if(searchBar.node.value.length>2) {
-        filteredRecipes = new RecipesList(searchBar.filtering(recipes, searchBar.node.value))
+        filteredRecipes = new RecipesList(searchBar.filtering(recipes, searchBar.node.value)) // get rid of searchbar filtering
         appliancesSelect.optionsUpdate(filteredRecipes.appliances)
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
@@ -57,8 +57,10 @@ searchBar.node.addEventListener('input', (e) => {
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     }
-    console.log('searchfiltering : ', filteringChain.postIngredientsFilteringRecipes())
-    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
+    const postIngredients = filteringChain.postIngredientsFilteringRecipes()
+    console.log('searchfiltering : ', postIngredients)
+    resultsContainer.innerHTML = postIngredients.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
+    //resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 })
 
 resultsContainer.innerHTML = recipes.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')

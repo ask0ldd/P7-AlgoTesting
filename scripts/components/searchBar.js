@@ -16,6 +16,10 @@ SearchBar.prototype.filtering = function(recipes, filteringArgument){
     })
 }
 
+SearchBar.prototype.isEmpty = function(){
+    return (normalize(this.nodeElt.value) === "")
+}
+
 SearchBar.prototype.listenForInput = function(){
 
 }
