@@ -115,13 +115,17 @@ custom-select {
 
 .recipeIngredientsDesc {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 }
 
 .recipeIngredientsDesc ul {
   height: 100%;
   width: 50%;
   overflow: hidden;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
 }
 
 .recipeDesc {

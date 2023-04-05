@@ -1,6 +1,10 @@
 const recipeFactory = 
 {
     buildCardView(recipe) {
+        const ingredientsList = (recipe.ingredients).reduce((accu, ingredient) => {
+            return (accu + `<li>${ingredient.ingredient}</li>`)
+        }, '');
+
         const cardTemplate = `
         <article class="recipeCardContainer">
             <div class="recipeImg"></div>
@@ -10,6 +14,7 @@ const recipeFactory =
                 </div>
                 <div class="recipeIngredientsDesc">
                     <ul>
+                        ${ingredientsList}
                     </ul>
                     <div class="recipeDesc">${recipe.description}</div>
                 </div>
