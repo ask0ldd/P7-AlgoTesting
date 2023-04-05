@@ -8,6 +8,11 @@ const recipeFactory =
                 <div class="recipeHeadingDurationContainer">
                     <h2 class="recipeHeading">${recipe.name}</h2><span class="recipeDuration">${recipe.time}</span>
                 </div>
+                <div class="recipeIngredientsDesc">
+                    <ul>
+                    </ul>
+                    <div class="recipeDesc">${recipe.description}</div>
+                </div>
             </div>
         </article>
         `

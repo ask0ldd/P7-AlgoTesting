@@ -8,6 +8,10 @@ SearchBar.prototype = {
     get node() {
         return this.nodeElt
     },
+
+    get value(){
+        return normalize(this.nodeElt.value)
+    },
 }
 
 SearchBar.prototype.filtering = function(recipes, filteringArgument){

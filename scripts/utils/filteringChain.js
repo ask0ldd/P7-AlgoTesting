@@ -10,7 +10,7 @@ const filteringChain = {
     postSearchFilteringRecipes : function(){
         if (searchBar.isEmpty === true) return [...this.allRecipes]
         const filteredRecipes = this.allRecipes.filter(recipe => {
-            return doesRecipeNameContains(recipe, searchBar.node.value) || doesRecipeDescriptionContains(recipe, searchBar.node.value) || doesRecipeIngredientsContain(recipe, searchBar.node.value) // passer en arg?
+            return doesRecipeNameContains(recipe, searchBar.value) || doesRecipeDescriptionContains(recipe, searchBar.value) || doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
         })
         return filteredRecipes
     },

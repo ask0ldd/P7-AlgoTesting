@@ -113,6 +113,28 @@ custom-select {
   color: black;
 }
 
+.recipeIngredientsDesc {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.recipeIngredientsDesc ul {
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+}
+
+.recipeDesc {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  overflow: hidden;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .tagsContainer {
   display: flex;
   column-gap: 8px;
