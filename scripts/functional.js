@@ -3,10 +3,11 @@ import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
 import RecipesList from "./blueprints/recipesList.js"
 import Select from "./blueprints/select.js"
-import recipeFactory from "./factory/recipesFactory.js"
+import recipesFactory from "./factory/recipesFactory.js"
 import tagsShelf from "./components/tagsShelf.js"
 import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
+import recipesGallery from "./components/recipesGallery.js"
 
 let allRecipes = recipes
 
@@ -27,23 +28,31 @@ const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
 
+/* populating the three selects */
 appliancesSelect.optionsUpdate(recipesInstance.appliances)
 ustensilsSelect.optionsUpdate(recipesInstance.ustensils)
 ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
 
+/* events triggered when an option is selected */
 ingredientsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf()
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
+    const filteredRecipes = new RecipesList(filteringChain.fullResolution())
+    recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
+    const filteredRecipes = new RecipesList(filteringChain.fullResolution())
+    recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
+    const filteredRecipes = new RecipesList(filteringChain.fullResolution())
+    recipesGallery.refresh(filteredRecipes)
 })
 
-
+/* events triggered when typing into the searchbar */
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     if(searchBar.node.value.length>2) {
@@ -61,10 +70,13 @@ searchBar.node.addEventListener('input', (e) => {
     //const postIngredients = filteringChain.postIngredientsFilteringRecipes()
     //console.log('searchfiltering : ', postIngredients)
     //resultsContainer.innerHTML = postIngredients.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
-    resultsContainer.innerHTML = filteredRecipes.list.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
+    recipesGallery.refresh(filteredRecipes)
 })
 
-resultsContainer.innerHTML = recipes.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
+/* initla recipes gallery render */
+recipesGallery.refresh(new RecipesList(recipes))
+
+// resultsContainer.innerHTML = recipes.reduce((accu, recipe) => accu + recipeFactory.buildCardView(recipe), '')
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
