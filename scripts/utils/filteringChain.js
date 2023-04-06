@@ -15,12 +15,15 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
+    recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
         let filteredRecipes = [...currentRecipes]
-        if(index<tagsArray.length){
-            filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
-            this.recursiveFiltering(tagsArray, index+1, filteredRecipes, callbackFilterFn)
+        let tagsArrayCopy = [...tagsArray]
+        if(tagsArray.length>0){
+            filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[0].name))
+            tagsArrayCopy.shift() // get rid of the first tag cause treated
+            this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn)
         }
+        console.log('return : ', filteredRecipes)
         return filteredRecipes
     },
 
@@ -35,8 +38,8 @@ const filteringChain = {
         let currentRecipes = this.postSearchFilteringRecipes()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
-        let index = 0
-        const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, index, currentRecipes, doesRecipeIngredientsContain)
+        //let index = 0
+        const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, currentRecipes, doesRecipeIngredientsContain)
         return filteredRecipes
     },
 
@@ -54,7 +57,7 @@ const filteringChain = {
     },
 
     fullResolution : function(){
-        console.log(this.postUstensilsFilteringRecipes())
+        // console.log(this.postUstensilsFilteringRecipes())
         return this.postUstensilsFilteringRecipes()
     },
 
