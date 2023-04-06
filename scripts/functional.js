@@ -34,19 +34,19 @@ ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
 /* events triggered when an option is selected */
 ingredientsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
-    const filteredRecipes = new RecipesList(filteringChain.fullResolution()) // !! should i pass the recipes as parameters ? yes
+    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
-    const filteredRecipes = new RecipesList(filteringChain.fullResolution())
+    const filteredRecipes = filteringChain.fullResolution()
     recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
-    const filteredRecipes = new RecipesList(filteringChain.fullResolution()) // !! should i return a recipelist with fullresolution()?
+    const filteredRecipes = filteringChain.fullResolution()
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -54,7 +54,7 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     if(searchBar.node.value.length>2) {
-        filteredRecipes = new RecipesList(filteringChain.fullResolution())
+        filteredRecipes = filteringChain.fullResolution()
         appliancesSelect.optionsUpdate(filteredRecipes.appliances)
         ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
         ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)

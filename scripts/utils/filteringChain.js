@@ -21,9 +21,8 @@ const filteringChain = {
         if(tagsArray.length>0){
             filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[0].name))
             tagsArrayCopy.shift() // get rid of the first tag cause treated
-            this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn)
+            return this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn) // return to not let the funcion execute itself any longer
         }
-        console.log('return : ', filteredRecipes)
         return filteredRecipes
     },
 
@@ -57,8 +56,7 @@ const filteringChain = {
     },
 
     fullResolution : function(){
-        // console.log(this.postUstensilsFilteringRecipes())
-        return this.postUstensilsFilteringRecipes()
+        return new RecipesList(this.postUstensilsFilteringRecipes())
     },
 
     //move filter index with next()
