@@ -4,10 +4,6 @@ const Select = function (selector){
     this.nodeElt = document.querySelector(selector)
 }
 
-/*Select.prototype.optionsUpdate = function(setOfOptions){
-    this.node.innerHTML = Array.from(setOfOptions).reduce((accu, option) => accu+`<option value="${option.toLowerCase()}">${FirstLetterMaj(option)}</option>`, '')
-}*/
-
 Select.prototype = {
     get node() {
         return this.nodeElt

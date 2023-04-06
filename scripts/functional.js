@@ -1,7 +1,7 @@
 import searchBar from "./components/searchBar.js"
 import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
-import RecipesAdapter from "./blueprints/RecipesAdapter.js"
+import RecipesAdapter from "./adapters/recipesAdapter.js"
 import Select from "./blueprints/select.js"
 import tagsShelf from "./components/tagsShelf.js"
 import tagsFactory from "./factory/tagsFactory.js"
@@ -21,41 +21,41 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }*/
 
-const recipesInstance = new RecipesAdapter(recipes)
+const adaptedRecipes = new RecipesAdapter(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
 
 /* populating the three selects */
-appliancesSelect.optionsUpdate(recipesInstance.appliances) // !!! group those selects into an object to update the three at a time by calling selectsupdate()?
-ustensilsSelect.optionsUpdate(recipesInstance.ustensils)
-ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
+appliancesSelect.optionsUpdate(adaptedRecipes.allAppliances) // !!! group those selects into an object to update the three at a time by calling selectsupdate()?
+ustensilsSelect.optionsUpdate(adaptedRecipes.allUstensils)
+ingredientsSelect.optionsUpdate(adaptedRecipes.allIngredients)
 
 /* events triggered when an option is selected */
 ingredientsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
     const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
-    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
+    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
+    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
+    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -63,14 +63,14 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
+    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
 /* recipes gallery first render */
-recipesGallery.refresh(recipesInstance)
+recipesGallery.refresh(adaptedRecipes)
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances

@@ -1,5 +1,5 @@
 import recipes from "../../datas/recipes.js";
-import RecipesAdapter from "../blueprints/RecipesAdapter.js";
+import RecipesAdapter from "../adapters/recipesAdapter.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
 import { normalize } from "./stringUtils.js";
