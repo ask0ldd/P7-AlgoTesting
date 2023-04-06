@@ -3,8 +3,8 @@ import recipesFactory from "../factory/recipesFactory.js"
 const recipesGallery = {
     node : document.querySelector('.searchResults'),
 
-    refresh : function(recipesList) {
-        this.node.innerHTML = `<div style="position : absolute; top:2rem; left:2rem; width:100%; height:3rem;">${recipesList.list.length} results</div>` + recipesList.list.reduce((accu, recipe) => accu + recipesFactory.buildCardView(recipe), '')
+    refresh : function(RecipesAdapter) {
+        this.node.innerHTML = `<div style="position : absolute; top:2rem; left:2rem; width:100%; height:3rem;">${RecipesAdapter.list.length} results</div>` + RecipesAdapter.list.reduce((accu, recipe) => accu + recipesFactory.buildCardView(recipe), '')
     }
 }
 

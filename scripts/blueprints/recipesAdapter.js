@@ -1,8 +1,10 @@
-const RecipesList = function (recipesArray){
+// adapter pattern
+
+const RecipesAdapter = function (recipesArray){
     this.recipes = recipesArray
 }
 
-RecipesList.prototype = {
+RecipesAdapter.prototype = {
     get appliances () {
         return this.recipes.reduce((accu, recipe, index, array) => 
         {
@@ -38,4 +40,4 @@ RecipesList.prototype = {
     }*/
 }
 
-export default RecipesList
+export default RecipesAdapter

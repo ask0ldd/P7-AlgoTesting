@@ -1,11 +1,13 @@
 import recipes from "../../datas/recipes.js";
-import RecipesList from "../blueprints/recipesList.js";
+import RecipesAdapter from "../blueprints/RecipesAdapter.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
 import { normalize } from "./stringUtils.js";
 
 const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
+
+    // !!! inputs  + selects should be part of the filteringchain?
 
     next: function(recipe){
         return recipe
@@ -17,6 +19,7 @@ const filteringChain = {
         const filteredRecipes = this.allRecipes.filter(recipe => {
             return doesRecipeNameContains(recipe, searchBar.value) || doesRecipeDescriptionContains(recipe, searchBar.value) || doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
         })
+        // filtered recipes => sent to the following filter / autocompletion input => update the displayed options only
         return filteredRecipes
     },
 
@@ -64,7 +67,7 @@ const filteringChain = {
     },
 
     fullResolution : function(){
-        return new RecipesList(this.postUstensilsFilteringRecipes())
+        return new RecipesAdapter(this.postUstensilsFilteringRecipes())
     },
 
     //move filter index with next()

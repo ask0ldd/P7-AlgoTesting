@@ -2,7 +2,7 @@ import tagsShelf from "../components/tagsShelf.js"
 import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
 import recipesGallery from "../components/recipesGallery.js"
 import filteringChain from "../utils/filteringChain.js"
-import RecipesList from "../blueprints/recipesList.js"
+import RecipesAdapter from "../blueprints/RecipesAdapter.js"
 import { ingredientsSelect, ustensilsSelect, appliancesSelect } from "../functional.js"
 
 const tagsFactory = function ({tagName, tagType}) 

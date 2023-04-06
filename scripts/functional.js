@@ -1,7 +1,7 @@
 import searchBar from "./components/searchBar.js"
 import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
-import RecipesList from "./blueprints/recipesList.js"
+import RecipesAdapter from "./blueprints/RecipesAdapter.js"
 import Select from "./blueprints/select.js"
 import tagsShelf from "./components/tagsShelf.js"
 import tagsFactory from "./factory/tagsFactory.js"
@@ -21,7 +21,7 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }*/
 
-const recipesInstance = new RecipesList(recipes)
+const recipesInstance = new RecipesAdapter(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
