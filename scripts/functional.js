@@ -35,35 +35,37 @@ ingredientsSelect.optionsUpdate(recipesInstance.ingredients)
 ingredientsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
     const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
+    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
+    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
+    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
 /* events triggered when typing into the searchbar */
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
-    if(searchBar.node.value.length>2) {
-        filteredRecipes = filteringChain.fullResolution()
-        appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-        ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-        ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
-    }else{
-        filteredRecipes = new RecipesList(recipes)
-        appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-        ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-        ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
-    }
+    filteredRecipes = filteringChain.fullResolution()
+    appliancesSelect.optionsUpdate(filteredRecipes.appliances)
+    ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
+    ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -74,3 +76,5 @@ recipesGallery.refresh(recipesInstance)
 // then display recipes > update ingredients / ustencils > appliances
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
 // user flat or flat map with ?.name, ?.ingredients, etc...
+
+export {appliancesSelect, ustensilsSelect, ingredientsSelect}

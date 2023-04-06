@@ -7,8 +7,13 @@ import { normalize } from "./stringUtils.js";
 const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
 
+    next: function(recipe){
+        return recipe
+    },
+
     postSearchFilteringRecipes : function(){
-        if (searchBar.isEmpty === true) return [...this.allRecipes]
+        //if (searchBar.isEmpty === true) 
+        if (searchBar.value.length < 3) return [...this.allRecipes] /* 3 characters mins to be taken into account */
         const filteredRecipes = this.allRecipes.filter(recipe => {
             return doesRecipeNameContains(recipe, searchBar.value) || doesRecipeDescriptionContains(recipe, searchBar.value) || doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
         })
@@ -46,13 +51,16 @@ const filteringChain = {
         let currentRecipes = this.postIngredientsFilteringRecipes()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
         if(activeAppliancesTags.length===0) return currentRecipes
-
+        const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, doesRecipeApplianceIs)
+        return filteredRecipes
     },
 
     postUstensilsFilteringRecipes : function(){
         let currentRecipes = this.postAppliancesFilteringRecipes()
         const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
         if(activeUstensilsTags.length===0) return currentRecipes
+        const filteredRecipes = this.recursiveFiltering(activeUstensilsTags, currentRecipes, doesRecipeUstensilsContain)
+        return filteredRecipes
     },
 
     fullResolution : function(){
@@ -74,6 +82,14 @@ function doesRecipeDescriptionContains(recipe, lookedForText){
 
 function doesRecipeIngredientsContain(recipe, lookedForText){
     return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
+}
+
+function doesRecipeApplianceIs(recipe, lookedForAppliance){
+    return (normalize(recipe.appliance)===normalize(lookedForAppliance))
+}
+
+function doesRecipeUstensilsContain(recipe, lookedForUstensil){
+    return recipe.ustensils.filter(ustensil => normalize(ustensil).includes(normalize(lookedForUstensil))).length > 0
 }
 
 export default filteringChain

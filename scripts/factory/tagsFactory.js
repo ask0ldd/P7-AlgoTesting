@@ -3,6 +3,7 @@ import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
 import recipesGallery from "../components/recipesGallery.js"
 import filteringChain from "../utils/filteringChain.js"
 import RecipesList from "../blueprints/recipesList.js"
+import { ingredientsSelect, ustensilsSelect, appliancesSelect } from "../functional.js"
 
 const tagsFactory = function ({tagName, tagType}) 
 {
@@ -16,6 +17,9 @@ const tagsFactory = function ({tagName, tagType})
                 tagsShelf.remove(this.name).renderShelf()
                 const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
                 recipesGallery.refresh(filteredRecipes)
+                appliancesSelect.optionsUpdate(filteredRecipes.appliances)
+                ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
+                ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
             })
             return tagNode
         },
