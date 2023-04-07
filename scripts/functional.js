@@ -8,9 +8,9 @@ import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
 import InputSelect from "./blueprints/inputSelect.js"
-import { doesRecipeUstensilsContain } from "./utils/comparator.js"
+import { doesRecipeUstensilsContain } from "./utils/comparators.js"
 
-let allRecipes = recipes
+//let allRecipes = recipes
 
 /*function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
@@ -30,6 +30,7 @@ function updateAllSelects(selects) {
 }
 
 const adaptedRecipes = new RecipesAdapter(recipes)
+Object.freeze(adaptedRecipes) // implement deepfreeze
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
@@ -39,10 +40,12 @@ const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-in
 
 updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
 
-/* events triggered when an option is selected */
+//----------------------------------------------
+// events triggered when an option is selected
+//----------------------------------------------
 ingredientsSelect.node.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
-    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update the shelf
+    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
     updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
@@ -61,7 +64,9 @@ ustensilsSelect.node.addEventListener('change', (e) => {
     recipesGallery.refresh(filteredRecipes)
 })
 
-/* events triggered when typing into the searchbar */
+//----------------------------------------------
+// events triggered when typing into the searchbar
+//----------------------------------------------
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
@@ -69,12 +74,14 @@ searchBar.node.addEventListener('input', (e) => {
     recipesGallery.refresh(filteredRecipes)
 })
 
-/* events triggered when typing into the select inputs */
+//----------------------------------------------
+// events triggered when typing into the select inputs
+//----------------------------------------------
 appliancesInputSelect.node.addEventListener('input', () => {
 
 })
 
-// shoot not target the recipes but only the ustensiles array
+// !!! should not target the recipes but only the ustensiles array
 ustensilsInputSelect.node.addEventListener('input', () => {
     const postFiltersRecipes = filteringChain.fullResolution()
     const inputValue = ustensilsInputSelect.node.value

@@ -1,5 +1,5 @@
 import filteringChain from "../utils/filteringChain.js"
-import { doesRecipeNameContains, doesRecipeUstensilsContain } from "../utils/comparator.js"
+import { doesRecipeNameContains, doesRecipeUstensilsContain } from "../utils/comparators.js"
 import { normalize } from "../utils/stringUtils.js"
 import RecipesAdapter from "../adapters/recipesAdapter.js"
 import {appliancesSelect, ustensilsSelect, ingredientsSelect} from "../functional.js"

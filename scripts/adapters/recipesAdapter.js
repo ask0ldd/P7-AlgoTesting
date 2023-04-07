@@ -1,7 +1,7 @@
 // adapter pattern
 
 const RecipesAdapter = function (recipesArray){
-    this.recipes = recipesArray
+    this.recipes = [...recipesArray]
 }
 
 RecipesAdapter.prototype = {
@@ -31,9 +31,9 @@ RecipesAdapter.prototype = {
         }, new Set())
     },
 
-    get list (){
+    /*get list (){
         return this.recipes
-    },
+    },*/
 
     get nRecipes (){
         return this.recipes.length
