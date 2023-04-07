@@ -21,41 +21,38 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }*/
 
+function updateAllSelects(selects) {
+    appliancesSelect.optionsUpdate(selects.appliances)
+    ustensilsSelect.optionsUpdate(selects.ustensils)
+    ingredientsSelect.optionsUpdate(selects.ingredients)
+}
+
 const adaptedRecipes = new RecipesAdapter(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
 
-/* populating the three selects */
-appliancesSelect.optionsUpdate(adaptedRecipes.allAppliances) // !!! group those selects into an object to update the three at a time by calling selectsupdate()?
-ustensilsSelect.optionsUpdate(adaptedRecipes.allUstensils)
-ingredientsSelect.optionsUpdate(adaptedRecipes.allIngredients)
+updateAllSelects({appliances : adaptedRecipes.allAppliances, ustensils : adaptedRecipes.allUstensils, ingredients : adaptedRecipes.allIngredients})
 
 /* events triggered when an option is selected */
 ingredientsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
     const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
-    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
+    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
+    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
     recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
+    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -63,9 +60,7 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
-    appliancesSelect.optionsUpdate(filteredRecipes.allAppliances)
-    ustensilsSelect.optionsUpdate(filteredRecipes.allUstensils)
-    ingredientsSelect.optionsUpdate(filteredRecipes.allIngredients)
+    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
     recipesGallery.refresh(filteredRecipes)
 })
 

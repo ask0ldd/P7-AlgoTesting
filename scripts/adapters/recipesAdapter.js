@@ -35,8 +35,12 @@ RecipesAdapter.prototype = {
         return this.recipes
     },
 
-    get nRecipes(){
+    get nRecipes (){
         return this.recipes.length
+    },
+
+    get allIngredientsDatas(){
+
     },
 
 

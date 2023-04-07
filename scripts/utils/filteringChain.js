@@ -54,7 +54,7 @@ const filteringChain = {
         let currentRecipes = this.postIngredientsFilteringRecipes()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
         if(activeAppliancesTags.length===0) return currentRecipes
-        const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, doesRecipeApplianceIs)
+        const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, isRecipeAppliance)
         return filteredRecipes
     },
 
@@ -87,7 +87,7 @@ function doesRecipeIngredientsContain(recipe, lookedForText){
     return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
 }
 
-function doesRecipeApplianceIs(recipe, lookedForAppliance){
+function isRecipeAppliance(recipe, lookedForAppliance){
     return (normalize(recipe.appliance)===normalize(lookedForAppliance))
 }
 
