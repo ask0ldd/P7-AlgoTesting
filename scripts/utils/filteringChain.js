@@ -2,7 +2,6 @@ import recipes from "../../datas/recipes.js";
 import RecipesAdapter from "../adapters/recipesAdapter.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
-import { normalize } from "./stringUtils.js";
 import { doesRecipeDescriptionContains, doesRecipeIngredientsContain, doesRecipeNameContains, doesRecipeUstensilsContain, isRecipeAppliance } from "./comparators.js";
 
 const filteringChain = {
@@ -46,7 +45,6 @@ const filteringChain = {
         let currentRecipes = this.postSearchFilteringRecipes()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
-        //let index = 0
         const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, currentRecipes, doesRecipeIngredientsContain)
         return filteredRecipes
     },

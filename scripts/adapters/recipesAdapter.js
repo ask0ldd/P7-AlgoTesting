@@ -6,7 +6,7 @@ const RecipesAdapter = function (recipesArray){
 
 RecipesAdapter.prototype = {
     get appliancesList () {
-        return this.recipes.reduce((accu, recipe, index, array) => 
+        return this.recipes.reduce((accu, recipe) => 
         {
             // condition : if not already in accu, then push it
             accu.add(recipe.appliance.toLowerCase()) // !!! use normalize instead of lowercase

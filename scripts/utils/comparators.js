@@ -23,3 +23,5 @@ export function doesRecipeUstensilsContain(recipe, searchedForUstensil){
 export function doesOptionMatchInputValue(option, inputValue){
     return normalize(option).includes(normalize(inputValue))
 }
+
+// associer ces fonctions a un objet comparator pr lisibilité

@@ -10,8 +10,6 @@ import recipesGallery from "./components/recipesGallery.js"
 import InputSelect from "./blueprints/inputSelect.js"
 import { doesRecipeUstensilsContain, doesOptionMatchInputValue, doesRecipeIngredientsContain, isRecipeAppliance } from "./utils/comparators.js"
 
-//let allRecipes = recipes
-
 /*function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
 }
@@ -78,43 +76,8 @@ searchBar.node.addEventListener('input', (e) => {
 // events triggered when typing into the select inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
-function filterTargetSelectOptions(filterWord, targetOptionsType){
-    const postBasicFilteringChainRecipes = filteringChain.fullResolution()
-
-    let comparator
-    switch(targetOptionsType){
-        case 'appliances':
-            comparator = isRecipeAppliance
-            break
-        case 'ingredients':
-            comparator = doesRecipeIngredientsContain
-            break
-        case  'ustensils':
-            comparator = doesRecipeUstensilsContain
-    }
-    const selectInputFilteredRecipes = new RecipesAdapter(postBasicFilteringChainRecipes.recipes.filter(recipe => comparator (recipe, filterWord)))
-
-    let filteredOptions
-    switch(targetOptionsType){
-        case 'appliances':
-            filteredOptions = [...selectInputFilteredRecipes.appliancesList].filter(appliance => doesOptionMatchInputValue (appliance, filterWord))
-            break
-        case 'ingredients':
-            filteredOptions = [...selectInputFilteredRecipes.ingredientsList].filter(ingredient => doesOptionMatchInputValue (ingredient, filterWord))
-            break
-        case  'ustensils':
-            filteredOptions = [...selectInputFilteredRecipes.ustensilsList].filter(ustensil => doesOptionMatchInputValue (ustensil, filterWord))
-    }
-
-    return filteredOptions
-}
-
-
 appliancesInputSelect.node.addEventListener('input', () => {
-    const postFiltersRecipes = filteringChain.fullResolution()
-    const inputValue = appliancesInputSelect.node.value
-    const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => isRecipeAppliance (recipe, inputValue))) // must retrieve the right recipe, what is done, but only the right ustensils too among those recipes
-    const inputFilteredAppliances = [...inputFilteredRecipes.appliancesList].filter(appliance => doesOptionMatchInputValue (appliance, inputValue))
+    const inputFilteredAppliances = filterTargetSelectOptions(appliancesInputSelect.value, 'appliances')
     appliancesSelect.optionsUpdate(inputFilteredAppliances)
 })
 
@@ -125,21 +88,27 @@ ustensilsInputSelect.node.addEventListener('input', () => {
 
 
 ingredientsInputSelect.node.addEventListener('input', () => {
-    /*const postFiltersRecipes = filteringChain.fullResolution()
-    const inputValue = ingredientsInputSelect.node.value
-    const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => doesRecipeIngredientsContain (recipe, inputValue))) // must retrieve the right recipe, what is done, but only the right ustensils too among those recipes
-    const inputFilteredIngredients = [...inputFilteredRecipes.ingredientsList].filter(ingredient => doesOptionMatchInputValue (ingredient, inputValue))
-    ingredientsSelect.optionsUpdate(inputFilteredIngredients)*/
     const inputFilteredIngredients = filterTargetSelectOptions(ingredientsInputSelect.value, 'ingredients')
     ingredientsSelect.optionsUpdate(inputFilteredIngredients)
 })
 
-/* recipes gallery first render */
+function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
+    const postBasicFilteringChainRecipes = filteringChain.fullResolution()
+
+    let filteredOptions
+    if (targetOptionsType === 'appliances') return filteredOptions = [...postBasicFilteringChainRecipes.appliancesList].filter(appliance => doesOptionMatchInputValue(appliance, filterWord))
+    if (targetOptionsType === 'ingredients') return filteredOptions = [...postBasicFilteringChainRecipes.ingredientsList].filter(ingredient => doesOptionMatchInputValue(ingredient, filterWord))
+    return filteredOptions = [...postBasicFilteringChainRecipes.ustensilsList].filter(ustensil => doesOptionMatchInputValue(ustensil, filterWord))
+}
+
+//----------------------------------------------
+// Recipes gallery initial render
+//----------------------------------------------
 recipesGallery.refresh(adaptedRecipes)
+
+export {appliancesSelect, ustensilsSelect, ingredientsSelect}
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
 // user flat or flat map with ?.name, ?.ingredients, etc...
-
-export {appliancesSelect, ustensilsSelect, ingredientsSelect}
