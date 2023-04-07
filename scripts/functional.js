@@ -27,6 +27,12 @@ function updateAllSelects(selects) {
     ingredientsSelect.optionsUpdate(selects.ingredients)
 }
 
+function emptyInputSelects(){
+    appliancesInputSelect.node.value = ""
+    ustensilsInputSelect.node.value = ""
+    ingredientsInputSelect.node.value = ""
+}
+
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
 const appliancesSelect = new Select('#select-appareils')
@@ -66,6 +72,7 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 // events triggered when typing into the searchbar
 //----------------------------------------------
 searchBar.node.addEventListener('input', (e) => {
+    emptyInputSelects()
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
     updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})

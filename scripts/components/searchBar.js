@@ -1,4 +1,5 @@
-import { normalize, FirstLetterMaj } from "../utils/stringUtils.js" 
+import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
+import { doesRecipeNameContains, doesRecipeDescriptionContains, doesRecipeIngredientsContain } from "../utils/comparators.js"
 
 const SearchBar = function (selector){
     this.nodeElt = document.querySelector(selector)
@@ -26,18 +27,6 @@ SearchBar.prototype.isEmpty = function(){
 
 SearchBar.prototype.listenForInput = function(){
 
-}
-
-function doesRecipeNameContains(recipe, lookedForText){
-    return normalize(recipe.name).includes(normalize(lookedForText))
-}
-
-function doesRecipeDescriptionContains(recipe, lookedForText){
-    return normalize(recipe.description).includes(normalize(lookedForText))
-}
-
-function doesRecipeIngredientsContain(recipe, lookedForText){
-    return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
 }
 
 const searchBar = new SearchBar('.mainSearchBar')
