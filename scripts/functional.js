@@ -7,6 +7,8 @@ import tagsShelf from "./components/tagsShelf.js"
 import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
+import InputSelect from "./blueprints/inputSelect.js"
+import { doesRecipeUstensilsContain } from "./utils/comparator.js"
 
 let allRecipes = recipes
 
@@ -31,6 +33,9 @@ const adaptedRecipes = new RecipesAdapter(recipes)
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
+const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils')
+const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles')
+const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients')
 
 updateAllSelects({appliances : adaptedRecipes.allAppliances, ustensils : adaptedRecipes.allUstensils, ingredients : adaptedRecipes.allIngredients})
 
@@ -62,6 +67,24 @@ searchBar.node.addEventListener('input', (e) => {
     filteredRecipes = filteringChain.fullResolution()
     updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
     recipesGallery.refresh(filteredRecipes)
+})
+
+/* events triggered when typing into the select inputs */
+appliancesInputSelect.node.addEventListener('input', () => {
+
+})
+
+ustensilsInputSelect.node.addEventListener('input', () => {
+    const postFiltersRecipes = filteringChain.fullResolution()
+    const inputValue = ustensilsInputSelect.node.value
+    const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => doesRecipeUstensilsContain (recipe, inputValue)))
+    console.log(inputFilteredRecipes)
+    ustensilsSelect.optionsUpdate(inputFilteredRecipes.allUstensils)
+})
+
+
+ingredientsInputSelect.node.addEventListener('input', () => {
+
 })
 
 /* recipes gallery first render */

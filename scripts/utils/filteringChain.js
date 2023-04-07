@@ -73,26 +73,26 @@ const filteringChain = {
     //move filter index with next()
 }
 
-/* Filtering Tools */
+/* Comparators */
 
-function doesRecipeNameContains(recipe, lookedForText){
-    return normalize(recipe.name).includes(normalize(lookedForText))
+function doesRecipeNameContains(recipe, searchedForText){
+    return normalize(recipe.name).includes(normalize(searchedForText))
 }
 
-function doesRecipeDescriptionContains(recipe, lookedForText){
-    return normalize(recipe.description).includes(normalize(lookedForText))
+function doesRecipeDescriptionContains(recipe, searchedForText){
+    return normalize(recipe.description).includes(normalize(searchedForText))
 }
 
-function doesRecipeIngredientsContain(recipe, lookedForText){
-    return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(lookedForText))).length > 0
+function doesRecipeIngredientsContain(recipe, searchedForText){
+    return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(searchedForText))).length > 0
 }
 
-function isRecipeAppliance(recipe, lookedForAppliance){
-    return (normalize(recipe.appliance)===normalize(lookedForAppliance))
+function isRecipeAppliance(recipe, searchedForAppliance){
+    return (normalize(recipe.appliance)===normalize(searchedForAppliance))
 }
 
-function doesRecipeUstensilsContain(recipe, lookedForUstensil){
-    return recipe.ustensils.filter(ustensil => normalize(ustensil).includes(normalize(lookedForUstensil))).length > 0
+function doesRecipeUstensilsContain(recipe, searchedForUstensil){
+    return recipe.ustensils.filter(ustensil => normalize(ustensil).includes(normalize(searchedForUstensil))).length > 0
 }
 
 export default filteringChain
