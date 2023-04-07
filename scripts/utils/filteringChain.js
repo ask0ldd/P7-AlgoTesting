@@ -3,6 +3,7 @@ import RecipesAdapter from "../adapters/recipesAdapter.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
 import { normalize } from "./stringUtils.js";
+import { doesRecipeDescriptionContains, doesRecipeIngredientsContain, doesRecipeNameContains, doesRecipeUstensilsContain, isRecipeAppliance } from "./comparator.js";
 
 const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
@@ -75,7 +76,7 @@ const filteringChain = {
 
 /* Comparators */
 
-function doesRecipeNameContains(recipe, searchedForText){
+/*function doesRecipeNameContains(recipe, searchedForText){
     return normalize(recipe.name).includes(normalize(searchedForText))
 }
 
@@ -93,6 +94,6 @@ function isRecipeAppliance(recipe, searchedForAppliance){
 
 function doesRecipeUstensilsContain(recipe, searchedForUstensil){
     return recipe.ustensils.filter(ustensil => normalize(ustensil).includes(normalize(searchedForUstensil))).length > 0
-}
+}*/
 
 export default filteringChain

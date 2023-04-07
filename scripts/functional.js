@@ -37,27 +37,27 @@ const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appar
 const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles')
 const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients')
 
-updateAllSelects({appliances : adaptedRecipes.allAppliances, ustensils : adaptedRecipes.allUstensils, ingredients : adaptedRecipes.allIngredients})
+updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
 
 /* events triggered when an option is selected */
 ingredientsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update it
     const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
-    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
 appliancesSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes)
 })
 
 ustensilsSelect.node.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -65,7 +65,7 @@ ustensilsSelect.node.addEventListener('change', (e) => {
 searchBar.node.addEventListener('input', (e) => {
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.allAppliances, ustensils : filteredRecipes.allUstensils, ingredients : filteredRecipes.allIngredients})
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -74,12 +74,13 @@ appliancesInputSelect.node.addEventListener('input', () => {
 
 })
 
+// shoot not target the recipes but only the ustensiles array
 ustensilsInputSelect.node.addEventListener('input', () => {
     const postFiltersRecipes = filteringChain.fullResolution()
     const inputValue = ustensilsInputSelect.node.value
     const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => doesRecipeUstensilsContain (recipe, inputValue)))
     console.log(inputFilteredRecipes)
-    ustensilsSelect.optionsUpdate(inputFilteredRecipes.allUstensils)
+    ustensilsSelect.optionsUpdate(inputFilteredRecipes.ustensilsList)
 })
 
 

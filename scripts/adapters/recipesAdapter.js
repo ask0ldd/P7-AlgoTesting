@@ -5,7 +5,7 @@ const RecipesAdapter = function (recipesArray){
 }
 
 RecipesAdapter.prototype = {
-    get allAppliances () {
+    get appliancesList () {
         return this.recipes.reduce((accu, recipe, index, array) => 
         {
             // condition : if not already in accu, then push it
@@ -14,7 +14,7 @@ RecipesAdapter.prototype = {
         }, new Set()) // using a set so no duplicates
     },
 
-    get allIngredients () {
+    get ingredientsList () {
         return this.recipes.reduce((accu, recipe) => {
             // spreading out an ingredients array from a recipe & extracting only the ingredient values out of the subelements (= ignore quantity & unit)
             (recipe.ingredients).flatMap( element => accu.add(element?.ingredient.toLowerCase())) // toLowerCase = get rids of duplicates with different case // !!! use normalize instead of lowercase
@@ -23,7 +23,7 @@ RecipesAdapter.prototype = {
         }, new Set())
     },
 
-    get allUstensils () {
+    get ustensilsList () {
         return this.recipes.reduce((accu, recipe) => {
             // try adding to the set every ustensil in the ustensils array
             recipe.ustensils.forEach(ustensil => accu.add(ustensil.toLowerCase())) // toLowerCase = get rids of duplicates with different case // !!! use normalize instead of lowercase

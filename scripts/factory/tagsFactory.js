@@ -17,9 +17,9 @@ const tagsFactory = function ({tagName, tagType})
                 tagsShelf.remove(this.name).renderShelf()
                 const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
                 recipesGallery.refresh(filteredRecipes)
-                appliancesSelect.optionsUpdate(filteredRecipes.appliances)
-                ustensilsSelect.optionsUpdate(filteredRecipes.ustensils)
-                ingredientsSelect.optionsUpdate(filteredRecipes.ingredients)
+                appliancesSelect.optionsUpdate(filteredRecipes.appliancesList)
+                ustensilsSelect.optionsUpdate(filteredRecipes.ustensilsList)
+                ingredientsSelect.optionsUpdate(filteredRecipes.ingredientsList)
             })
             return tagNode
         },
