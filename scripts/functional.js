@@ -8,7 +8,7 @@ import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
 import InputSelect from "./blueprints/inputSelect.js"
-import { doesRecipeUstensilsContain } from "./utils/comparators.js"
+import { doesRecipeUstensilsContain, doesUstensilMatchInputValue } from "./utils/comparators.js"
 
 //let allRecipes = recipes
 
@@ -85,9 +85,10 @@ appliancesInputSelect.node.addEventListener('input', () => {
 ustensilsInputSelect.node.addEventListener('input', () => {
     const postFiltersRecipes = filteringChain.fullResolution()
     const inputValue = ustensilsInputSelect.node.value
-    const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => doesRecipeUstensilsContain (recipe, inputValue)))
-    console.log(inputFilteredRecipes)
-    ustensilsSelect.optionsUpdate(inputFilteredRecipes.ustensilsList)
+    const inputFilteredRecipes = new RecipesAdapter(postFiltersRecipes.recipes.filter(recipe => doesRecipeUstensilsContain (recipe, inputValue))) // must retrieve the right recipe, what is done, but only the right ustensils too among those recipes
+    // console.log([...inputFilteredRecipes.ustensilsList])
+    const inputFilteredUstensils = [...inputFilteredRecipes.ustensilsList].filter(ustensil => doesUstensilMatchInputValue (ustensil, inputValue))
+    ustensilsSelect.optionsUpdate(inputFilteredUstensils)
 })
 
 

@@ -19,3 +19,7 @@ export function isRecipeAppliance(recipe, searchedForAppliance){
 export function doesRecipeUstensilsContain(recipe, searchedForUstensil){
     return recipe.ustensils.filter(ustensil => normalize(ustensil).includes(normalize(searchedForUstensil))).length > 0
 }
+
+export function doesUstensilMatchInputValue(ustensil, inputValue){
+    return normalize(ustensil).includes(normalize(inputValue))
+}
