@@ -41,6 +41,7 @@ InputSelect.prototype = {
     reset(){
         this.emptyValue()
         this.setPlaceholder(this.outOfFocusPlaceholder)
+        this.nodeOptionsContainer.innerHTML = ""
         return this.inputNode.placeholder
     },
 
@@ -63,12 +64,10 @@ InputSelect.prototype = {
         this.inputNode.addEventListener(event, fn)
     },
 
-    updateOptions(recipes){
-        console.log("ohoho")
+    updateOptions(options){
         this.nodeOptionsContainer.innerHTML = ""
-        recipes.recipes.forEach(recipe => {
-            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(recipe))
-            console.log(optionsFactory.buildOptionView(recipe))
+        options.forEach(option => {
+            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(option))
         })
         return this
     },

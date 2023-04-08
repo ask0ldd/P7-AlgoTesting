@@ -88,14 +88,15 @@ searchBar.node.addEventListener('input', (e) => {
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
 appliancesInputSelect.addEventListener('input', () => { // get rid of node
-    const inputFilteredAppliances = optionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
-    // appliancesInputSelect.updateOptions(filteredRecipes)
-    appliancesSelect.optionsUpdate(inputFilteredAppliances) // appliancesSelect > appliancesTable
+    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
+    appliancesInputSelect.updateOptions(appliancesOptions)
+    //appliancesSelect.optionsUpdate(appliancesOptions) // appliancesSelect > appliancesTable
 })
 
 appliancesInputSelect.addEventListener('click', () => {
+    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
+    appliancesInputSelect.updateOptions(appliancesOptions)
     appliancesInputSelect.focus()
-
 })
 
 appliancesInputSelect.addEventListener('focusout', () => {
@@ -105,11 +106,13 @@ appliancesInputSelect.addEventListener('focusout', () => {
 //
 
 ustensilsInputSelect.addEventListener('input', () => {
-    const inputFilteredUstensils = optionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
-    ustensilsSelect.optionsUpdate(inputFilteredUstensils)
+    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
+    ustensilsInputSelect.updateOptions(ustensilesOptions)
 })
 
 ustensilsInputSelect.addEventListener('click', () => {
+    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
+    ustensilsInputSelect.updateOptions(ustensilesOptions)
     ustensilsInputSelect.focus()
 })
 
@@ -119,7 +122,7 @@ ustensilsInputSelect.addEventListener('focusout', () => {
 
 
 ingredientsInputSelect.addEventListener('input', () => {
-    const inputFilteredIngredients = optionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
+    const inputFilteredIngredients = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
     ingredientsSelect.optionsUpdate(inputFilteredIngredients)
 })
 
@@ -132,7 +135,7 @@ ingredientsInputSelect.addEventListener('focusout', () => {
 })
 
 
-function optionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
+function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
     const postBasicFilteringChainRecipes = filteringChain.fullResolution()
 
     let filteredOptions
