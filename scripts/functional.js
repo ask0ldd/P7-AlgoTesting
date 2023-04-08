@@ -83,20 +83,49 @@ searchBar.node.addEventListener('input', (e) => {
 // events triggered when typing into the select inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
-appliancesInputSelect.node.addEventListener('input', () => {
+appliancesInputSelect.node.addEventListener('input', () => { // get rid of node
     const inputFilteredAppliances = filterTargetSelectOptions(appliancesInputSelect.value, 'appliances')
-    appliancesSelect.optionsUpdate(inputFilteredAppliances)
+    appliancesSelect.optionsUpdate(inputFilteredAppliances) // appliancesSelect > appliancesTable
 })
+
+appliancesInputSelect.node.addEventListener('click', () => {
+    appliancesInputSelect.placeholder = 'Rechercher un appareil'
+})
+
+appliancesInputSelect.node.addEventListener('focusout', () => {
+    appliancesInputSelect.placeholder = 'Appareils'
+    appliancesInputSelect.emptyPlaceholder()
+})
+
+//
 
 ustensilsInputSelect.node.addEventListener('input', () => {
     const inputFilteredUstensils = filterTargetSelectOptions(ustensilsInputSelect.value, 'ustensils')
     ustensilsSelect.optionsUpdate(inputFilteredUstensils)
 })
 
+ustensilsInputSelect.node.addEventListener('click', () => {
+    ustensilsInputSelect.placeholder = 'Rechercher un ustensile'
+})
+
+ustensilsInputSelect.node.addEventListener('focusout', () => {
+    ustensilsInputSelect.placeholder = 'Ustensiles'
+    ustensilsInputSelect.emptyPlaceholder()
+})
+
 
 ingredientsInputSelect.node.addEventListener('input', () => {
     const inputFilteredIngredients = filterTargetSelectOptions(ingredientsInputSelect.value, 'ingredients')
     ingredientsSelect.optionsUpdate(inputFilteredIngredients)
+})
+
+ingredientsInputSelect.node.addEventListener('click', () => {
+    ingredientsInputSelect.placeholder = 'Rechercher un ingredient'
+})
+
+ingredientsInputSelect.node.addEventListener('focusout', () => {
+    ingredientsInputSelect.placeholder = 'Ingredients'
+    ingredientsInputSelect.emptyPlaceholder()
 })
 
 function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input

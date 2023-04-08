@@ -17,7 +17,23 @@ InputSelect.prototype = {
 
     get value(){
         return this.nodeElt.value
-    }
+    },
+
+    set value(value){
+        return this.nodeElt.value = value
+    },
+
+    set placeholder(placeholder){
+        return this.nodeElt.placeholder = placeholder
+    },
+
+    emptyPlaceholder(){
+        return this.nodeElt.placeholder=""
+    },
+
+    setPlaceholder(text){
+        return this.nodeElt.placeholder = text
+    },
 
 }
 
