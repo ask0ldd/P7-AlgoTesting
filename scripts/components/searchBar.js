@@ -1,5 +1,5 @@
 import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
-import { doesRecipeNameContains, doesRecipeDescriptionContains, doesRecipeIngredientsContain } from "../utils/comparators.js"
+import { Comparators } from "../utils/comparators.js"
 
 const SearchBar = function (selector){
     this.nodeElt = document.querySelector(selector)
@@ -17,7 +17,7 @@ SearchBar.prototype = {
 
 SearchBar.prototype.filtering = function(recipes, filteringArgument){
     return recipes.filter(recipe => {
-        return doesRecipeNameContains(recipe, filteringArgument) || doesRecipeDescriptionContains(recipe, filteringArgument) || doesRecipeIngredientsContain(recipe, filteringArgument)
+        return Comparators.doesRecipeNameContains(recipe, filteringArgument) || Comparators.doesRecipeDescriptionContains(recipe, filteringArgument) || Comparators.doesRecipeIngredientsContain(recipe, filteringArgument)
     })
 }
 

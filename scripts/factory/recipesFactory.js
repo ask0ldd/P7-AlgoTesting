@@ -3,10 +3,11 @@ const recipesFactory =
     buildCardView(recipe) {
         const ingredientsList = (recipe.ingredients).reduce((accu, ingredient) => {
             return (accu + `<li>${ingredient?.ingredient}: ${ingredient?.quantity ? ingredient?.quantity : ''} ${ingredient?.unit ? ingredient?.unit.split(' ')[0] : ''}</li>`)
-        }, '');
+        }, '')
 
         const cardTemplate = `
             <article class="recipeCardContainer">
+                <ul class="recipePop">${ingredientsList}</ul>
                 <div class="recipeImg"></div>
                 <div class="recipeDatasContainer">
                     <div class="recipeHeadingDurationContainer">

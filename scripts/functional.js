@@ -8,7 +8,7 @@ import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
 import InputSelect from "./blueprints/inputSelect.js"
-import { doesRecipeUstensilsContain, doesOptionMatchInputValue, doesRecipeIngredientsContain, isRecipeAppliance } from "./utils/comparators.js"
+import { Comparators } from "./utils/comparators.js"
 
 /*function removeDuplicates(array){
     return array.filter((element, index, array) => array.indexOf(element) === index)
@@ -103,9 +103,9 @@ function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering 
     const postBasicFilteringChainRecipes = filteringChain.fullResolution()
 
     let filteredOptions
-    if (targetOptionsType === 'appliances') return filteredOptions = [...postBasicFilteringChainRecipes.appliancesList].filter(appliance => doesOptionMatchInputValue(appliance, filterWord))
-    if (targetOptionsType === 'ingredients') return filteredOptions = [...postBasicFilteringChainRecipes.ingredientsList].filter(ingredient => doesOptionMatchInputValue(ingredient, filterWord))
-    return filteredOptions = [...postBasicFilteringChainRecipes.ustensilsList].filter(ustensil => doesOptionMatchInputValue(ustensil, filterWord))
+    if (targetOptionsType === 'appliances') return filteredOptions = [...postBasicFilteringChainRecipes.appliancesList].filter(appliance => Comparators.doesOptionMatchInputValue(appliance, filterWord))
+    if (targetOptionsType === 'ingredients') return filteredOptions = [...postBasicFilteringChainRecipes.ingredientsList].filter(ingredient => Comparators.doesOptionMatchInputValue(ingredient, filterWord))
+    return filteredOptions = [...postBasicFilteringChainRecipes.ustensilsList].filter(ustensil => Comparators.doesOptionMatchInputValue(ustensil, filterWord))
 }
 
 //----------------------------------------------

@@ -2,7 +2,7 @@ import recipes from "../../datas/recipes.js";
 import RecipesAdapter from "../adapters/recipesAdapter.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
-import { doesRecipeDescriptionContains, doesRecipeIngredientsContain, doesRecipeNameContains, doesRecipeUstensilsContain, isRecipeAppliance } from "./comparators.js";
+import { Comparators } from "./comparators.js";
 
 const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
@@ -17,7 +17,7 @@ const filteringChain = {
         //if (searchBar.isEmpty === true) 
         if (searchBar.value.length < 3) return [...this.allRecipes] /* 3 characters mins to be taken into account */
         const filteredRecipes = this.allRecipes.filter(recipe => {
-            return doesRecipeNameContains(recipe, searchBar.value) || doesRecipeDescriptionContains(recipe, searchBar.value) || doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
+            return Comparators.doesRecipeNameContains(recipe, searchBar.value) || Comparators.doesRecipeDescriptionContains(recipe, searchBar.value) || Comparators.doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
         })
         // filtered recipes => sent to the following filter / autocompletion input => update the displayed options only
         return filteredRecipes
@@ -45,7 +45,7 @@ const filteringChain = {
         let currentRecipes = this.postSearchFilteringRecipes()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
-        const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, currentRecipes, doesRecipeIngredientsContain)
+        const filteredRecipes = this.recursiveFiltering(activeIngredientsTags, currentRecipes, Comparators.doesRecipeIngredientsContain)
         return filteredRecipes
     },
 
@@ -53,7 +53,7 @@ const filteringChain = {
         let currentRecipes = this.postIngredientsFilteringRecipes()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
         if(activeAppliancesTags.length===0) return currentRecipes
-        const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, isRecipeAppliance)
+        const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, Comparators.isRecipeAppliance)
         return filteredRecipes
     },
 
@@ -61,7 +61,7 @@ const filteringChain = {
         let currentRecipes = this.postAppliancesFilteringRecipes()
         const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
         if(activeUstensilsTags.length===0) return currentRecipes
-        const filteredRecipes = this.recursiveFiltering(activeUstensilsTags, currentRecipes, doesRecipeUstensilsContain)
+        const filteredRecipes = this.recursiveFiltering(activeUstensilsTags, currentRecipes, Comparators.doesRecipeUstensilsContain)
         return filteredRecipes
     },
 
