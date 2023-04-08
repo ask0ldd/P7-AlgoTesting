@@ -64,6 +64,14 @@ header {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.inputFiltersContainer .optionsContainer .options {
+  height: 3rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
 .blueContainer {
   background-color: #3282f7;
 }
@@ -227,6 +235,7 @@ custom-select {
   font-weight: 700;
   font-size: 14px;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .ustensils-tag {

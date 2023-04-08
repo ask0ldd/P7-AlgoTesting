@@ -1,8 +1,4 @@
-/*import filteringChain from "../utils/filteringChain.js"
-import { doesRecipeNameContains, doesRecipeUstensilsContain } from "../utils/comparators.js"
-import { normalize } from "../utils/stringUtils.js"
-import RecipesAdapter from "../adapters/recipesAdapter.js"
-import {appliancesSelect, ustensilsSelect, ingredientsSelect} from "../functional.js"*/
+import optionsFactory from "../factory/optionsFactory.js"
 
 const InputSelect = function (inputSelector, selectSelector, optionsContainerSelector, onFocusPlaceholder, outOfFocusPlaceholder){ // selectSelector > tableSelector
     this.inputNode = document.querySelector(inputSelector)
@@ -52,19 +48,23 @@ InputSelect.prototype = {
         this.setPlaceholder(this.onFocusPlaceholder)
     },
 
-    setDefaultPlaceholder(placeholder){
+    defineDefaultPlaceholder(placeholder){
         this.outOfFocusPlaceholder = placeholder
         this.setPlaceholder(this.outOfFocusPlaceholder)
         return this.outOfFocusPlaceholder
     },
 
-    setOnFocusPlaceholder(placeholder){
+    defineOnFocusPlaceholder(placeholder){
         this.onFocusPlaceholder = placeholder
         return this.onFocusPlaceholder
     },
 
     addEventListener(event, fn){
         this.inputNode.addEventListener(event, fn)
+    },
+
+    updateOptions(recipes){
+        this.nodeOptionsContainer.innerHTML = ""
     }
 }
 

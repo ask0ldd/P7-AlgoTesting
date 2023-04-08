@@ -11,7 +11,11 @@ Select.prototype = {
 
     optionsUpdate: function(setOfOptions){
         this.node.innerHTML = Array.from(setOfOptions).reduce((accu, option) => accu+`<option value="${option.toLowerCase()}">${FirstLetterMaj(option)}</option>`, '')
-    }
+    },
+
+    addEventListener(event, fn){
+        this.nodeElt.addEventListener(event, fn)
+    },
 
 }
 

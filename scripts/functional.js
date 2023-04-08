@@ -27,10 +27,14 @@ function updateAllSelects(selects) {
     ingredientsSelect.optionsUpdate(selects.ingredients)
 }
 
+function updateAllOptions(recipes){
+
+}
+
 function emptyInputSelects(){
-    appliancesInputSelect.node.value = ""
-    ustensilsInputSelect.node.value = ""
-    ingredientsInputSelect.node.value = ""
+    appliancesInputSelect.value = ""
+    ustensilsInputSelect.value = ""
+    ingredientsInputSelect.value = ""
 }
 
 const adaptedRecipes = new RecipesAdapter(recipes)
@@ -47,21 +51,21 @@ updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adapte
 //----------------------------------------------
 // events triggered when an option is selected
 //----------------------------------------------
-ingredientsSelect.node.addEventListener('change', (e) => {
+ingredientsSelect.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update the shelf
     const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
     updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
 })
 
-appliancesSelect.node.addEventListener('change', (e) => {
+appliancesSelect.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
     updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
     recipesGallery.refresh(filteredRecipes)
 })
 
-ustensilsSelect.node.addEventListener('change', (e) => {
+ustensilsSelect.addEventListener('change', (e) => {
     tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
     const filteredRecipes = filteringChain.fullResolution()
     updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
