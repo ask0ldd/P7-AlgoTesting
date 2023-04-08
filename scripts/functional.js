@@ -88,7 +88,7 @@ searchBar.node.addEventListener('input', (e) => {
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
 appliancesInputSelect.addEventListener('input', () => { // get rid of node
-    const inputFilteredAppliances = filterTargetSelectOptions(appliancesInputSelect.value, 'appliances')
+    const inputFilteredAppliances = optionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
     // appliancesInputSelect.updateOptions(filteredRecipes)
     appliancesSelect.optionsUpdate(inputFilteredAppliances) // appliancesSelect > appliancesTable
 })
@@ -105,7 +105,7 @@ appliancesInputSelect.addEventListener('focusout', () => {
 //
 
 ustensilsInputSelect.addEventListener('input', () => {
-    const inputFilteredUstensils = filterTargetSelectOptions(ustensilsInputSelect.value, 'ustensils')
+    const inputFilteredUstensils = optionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
     ustensilsSelect.optionsUpdate(inputFilteredUstensils)
 })
 
@@ -119,7 +119,7 @@ ustensilsInputSelect.addEventListener('focusout', () => {
 
 
 ingredientsInputSelect.addEventListener('input', () => {
-    const inputFilteredIngredients = filterTargetSelectOptions(ingredientsInputSelect.value, 'ingredients')
+    const inputFilteredIngredients = optionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
     ingredientsSelect.optionsUpdate(inputFilteredIngredients)
 })
 
@@ -131,7 +131,8 @@ ingredientsInputSelect.addEventListener('focusout', () => {
     ingredientsInputSelect.reset()
 })
 
-function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
+
+function optionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
     const postBasicFilteringChainRecipes = filteringChain.fullResolution()
 
     let filteredOptions
