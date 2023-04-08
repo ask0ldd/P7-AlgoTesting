@@ -38,7 +38,7 @@ Object.freeze(adaptedRecipes) // implement deepfreeze
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
-const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils')
+const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils') // should passe array to be more explicit
 const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles', '#options-ustensiles', 'Rechercher un ustensile', 'Ustensiles')
 const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients', '#options-ingredients', 'Rechercher un ingredient', 'Ingredients')
 
@@ -83,50 +83,47 @@ searchBar.node.addEventListener('input', (e) => {
 // events triggered when typing into the select inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
-appliancesInputSelect.node.addEventListener('input', () => { // get rid of node
+appliancesInputSelect.addEventListener('input', () => { // get rid of node
     const inputFilteredAppliances = filterTargetSelectOptions(appliancesInputSelect.value, 'appliances')
     appliancesSelect.optionsUpdate(inputFilteredAppliances) // appliancesSelect > appliancesTable
 })
 
-appliancesInputSelect.node.addEventListener('click', () => {
-    /*appliancesInputSelect.placeholder = 'Rechercher un appareil'*/
-    
+appliancesInputSelect.addEventListener('click', () => {
+    appliancesInputSelect.focus()
+
 })
 
-appliancesInputSelect.node.addEventListener('focusout', () => {
-    /*appliancesInputSelect.placeholder = 'Appareils'
-    appliancesInputSelect.emptyValue()*/
+appliancesInputSelect.addEventListener('focusout', () => {
+    appliancesInputSelect.reset()
 })
 
 //
 
-ustensilsInputSelect.node.addEventListener('input', () => {
+ustensilsInputSelect.addEventListener('input', () => {
     const inputFilteredUstensils = filterTargetSelectOptions(ustensilsInputSelect.value, 'ustensils')
     ustensilsSelect.optionsUpdate(inputFilteredUstensils)
 })
 
-ustensilsInputSelect.node.addEventListener('click', () => {
-    /*ustensilsInputSelect.placeholder = 'Rechercher un ustensile'*/
+ustensilsInputSelect.addEventListener('click', () => {
+    ustensilsInputSelect.focus()
 })
 
-ustensilsInputSelect.node.addEventListener('focusout', () => {
-    /*ustensilsInputSelect.placeholder = 'Ustensiles'
-    ustensilsInputSelect.emptyValue()*/
+ustensilsInputSelect.addEventListener('focusout', () => {
+    ustensilsInputSelect.reset()
 })
 
 
-ingredientsInputSelect.node.addEventListener('input', () => {
+ingredientsInputSelect.addEventListener('input', () => {
     const inputFilteredIngredients = filterTargetSelectOptions(ingredientsInputSelect.value, 'ingredients')
     ingredientsSelect.optionsUpdate(inputFilteredIngredients)
 })
 
-ingredientsInputSelect.node.addEventListener('click', () => {
-    /*ingredientsInputSelect.placeholder = 'Rechercher un ingredient'*/
+ingredientsInputSelect.addEventListener('click', () => {
+    ingredientsInputSelect.focus()
 })
 
-ingredientsInputSelect.node.addEventListener('focusout', () => {
-    /*ingredientsInputSelect.placeholder = 'Ingredients'
-    ingredientsInputSelect.emptyValue()*/
+ingredientsInputSelect.addEventListener('focusout', () => {
+    ingredientsInputSelect.reset()
 })
 
 function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
