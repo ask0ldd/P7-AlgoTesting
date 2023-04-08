@@ -89,6 +89,7 @@ searchBar.node.addEventListener('input', (e) => {
 //----------------------------------------------
 appliancesInputSelect.addEventListener('input', () => { // get rid of node
     const inputFilteredAppliances = filterTargetSelectOptions(appliancesInputSelect.value, 'appliances')
+    // appliancesInputSelect.updateOptions(filteredRecipes)
     appliancesSelect.optionsUpdate(inputFilteredAppliances) // appliancesSelect > appliancesTable
 })
 

@@ -1,6 +1,6 @@
 import optionsFactory from "../factory/optionsFactory.js"
 
-const InputSelect = function (inputSelector, selectSelector, optionsContainerSelector, onFocusPlaceholder, outOfFocusPlaceholder){ // selectSelector > tableSelector
+const InputSelect = function (inputSelector, selectSelector, optionsContainerSelector, onFocusPlaceholder, outOfFocusPlaceholder){ // optionsContainerSelector > tableSelector
     this.inputNode = document.querySelector(inputSelector)
     this.nodeRelatedSelect = document.querySelector(selectSelector)
     this.nodeOptionsContainer = document.querySelector(optionsContainerSelector)
@@ -64,8 +64,18 @@ InputSelect.prototype = {
     },
 
     updateOptions(recipes){
+        console.log("ohoho")
         this.nodeOptionsContainer.innerHTML = ""
-    }
+        recipes.recipes.forEach(recipe => {
+            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(recipe))
+            console.log(optionsFactory.buildOptionView(recipe))
+        })
+        return this
+    },
+
+    showOptions(){
+        
+    },
 }
 
 export default InputSelect
