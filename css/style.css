@@ -55,6 +55,13 @@ header {
 .inputFiltersContainer .inputnOptionsContainer {
   padding: 1.7rem 1.2rem;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputFiltersContainer .optionsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .blueContainer {
@@ -67,6 +74,10 @@ header {
 
 .greenContainer {
   background-color: #68d9a4;
+}
+
+.expandedContainer {
+  width: 50%;
 }
 
 .inputFiltersContainer input,

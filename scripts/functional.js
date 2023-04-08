@@ -38,9 +38,9 @@ Object.freeze(adaptedRecipes) // implement deepfreeze
 const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
 const ingredientsSelect = new Select('#select-ingredients')
-const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils')
-const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles')
-const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients')
+const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils')
+const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles', '#options-ustensiles', 'Rechercher un ustensile', 'Ustensiles')
+const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients', '#options-ingredients', 'Rechercher un ingredient', 'Ingredients')
 
 updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
 
@@ -89,12 +89,13 @@ appliancesInputSelect.node.addEventListener('input', () => { // get rid of node
 })
 
 appliancesInputSelect.node.addEventListener('click', () => {
-    appliancesInputSelect.placeholder = 'Rechercher un appareil'
+    /*appliancesInputSelect.placeholder = 'Rechercher un appareil'*/
+    
 })
 
 appliancesInputSelect.node.addEventListener('focusout', () => {
-    appliancesInputSelect.placeholder = 'Appareils'
-    appliancesInputSelect.emptyPlaceholder()
+    /*appliancesInputSelect.placeholder = 'Appareils'
+    appliancesInputSelect.emptyValue()*/
 })
 
 //
@@ -105,12 +106,12 @@ ustensilsInputSelect.node.addEventListener('input', () => {
 })
 
 ustensilsInputSelect.node.addEventListener('click', () => {
-    ustensilsInputSelect.placeholder = 'Rechercher un ustensile'
+    /*ustensilsInputSelect.placeholder = 'Rechercher un ustensile'*/
 })
 
 ustensilsInputSelect.node.addEventListener('focusout', () => {
-    ustensilsInputSelect.placeholder = 'Ustensiles'
-    ustensilsInputSelect.emptyPlaceholder()
+    /*ustensilsInputSelect.placeholder = 'Ustensiles'
+    ustensilsInputSelect.emptyValue()*/
 })
 
 
@@ -120,12 +121,12 @@ ingredientsInputSelect.node.addEventListener('input', () => {
 })
 
 ingredientsInputSelect.node.addEventListener('click', () => {
-    ingredientsInputSelect.placeholder = 'Rechercher un ingredient'
+    /*ingredientsInputSelect.placeholder = 'Rechercher un ingredient'*/
 })
 
 ingredientsInputSelect.node.addEventListener('focusout', () => {
-    ingredientsInputSelect.placeholder = 'Ingredients'
-    ingredientsInputSelect.emptyPlaceholder()
+    /*ingredientsInputSelect.placeholder = 'Ingredients'
+    ingredientsInputSelect.emptyValue()*/
 })
 
 function filterTargetSelectOptions(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
