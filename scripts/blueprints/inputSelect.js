@@ -1,6 +1,4 @@
-import optionsFactory from "../factory/optionsFactory.js"
-
-const InputSelect = function (inputNode){ // optionsContainerSelector > tableSelector
+const InputSelect = function (inputNode){
     this.inputNode = inputNode
     this.onFocusPlaceholder = ""
     this.outOfFocusPlaceholder = ""
@@ -40,7 +38,7 @@ InputSelect.prototype = {
         this.setPlaceholder(this.onFocusPlaceholder)
     },
 
-    defineDefaultPlaceholder(placeholder){
+    /*defineDefaultPlaceholder(placeholder){
         this.outOfFocusPlaceholder = placeholder
         this.setPlaceholder(this.outOfFocusPlaceholder)
         return this.outOfFocusPlaceholder
@@ -49,23 +47,17 @@ InputSelect.prototype = {
     defineOnFocusPlaceholder(placeholder){
         this.onFocusPlaceholder = placeholder
         return this.onFocusPlaceholder
+    },*/
+
+    definePlaceholder({byDefault, onFocus}){
+        this.onFocusPlaceholder = onFocus
+        this.outOfFocusPlaceholder = byDefault
     },
 
     addEventListener(event, fn){
-        this.inputNode.addEventListener(event, fn)
+        this.inputNode.addEventListener(event, fn) 
     },
 
-    /*updateOptions(options, optionsType){
-        this.nodeOptionsContainer.innerHTML = ""
-        options.forEach(option => {
-            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(option, optionsType))
-        })
-        return this
-    },
-
-    showOptions(){
-        
-    },*/
 }
 
 export default InputSelect

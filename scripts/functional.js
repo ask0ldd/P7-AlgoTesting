@@ -1,5 +1,4 @@
 import searchBar from "./components/searchBar.js"
-import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
 import RecipesAdapter from "./adapters/recipesAdapter.js"
 import filteringChain from "./utils/filteringChain.js"
@@ -20,27 +19,27 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
 
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
-/*const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils') // should passe array to be more explicit
-const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles', '#options-ustensiles', 'Rechercher un ustensile', 'Ustensiles')
-const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients', '#options-ingredients', 'Rechercher un ingredient', 'Ingredients')*/
-const selectContainerNodeA = document.querySelector("#appareils-container")
-const selectInputNodeA = document.querySelector('#input-appareils')
-const optionsContainerNodeA = document.querySelector('#options-appareils')
-const appliancesSelect = new CustomSelect(selectContainerNodeA, selectInputNodeA, optionsContainerNodeA)
-appliancesSelect.input.defineDefaultPlaceholder('Appareils')
-appliancesSelect.input.defineOnFocusPlaceholder('Rechercher un appareil')
-const selectContainerNodeB = document.querySelector("#ustensiles-container")
-const selectInputNodeB = document.querySelector('#input-ustensiles')
-const optionsContainerNodeB = document.querySelector('#options-ustensiles')
-const ustensilsSelect = new CustomSelect(selectContainerNodeB, selectInputNodeB, optionsContainerNodeB)
-ustensilsSelect.input.defineDefaultPlaceholder('Ustensiles')
-ustensilsSelect.input.defineOnFocusPlaceholder('Rechercher un ustensile')
-const selectContainerNodeC = document.querySelector("#ingredients-container")
-const selectInputNodeC = document.querySelector('#input-ingredients')
-const optionsContainerNodeC = document.querySelector('#options-ingredients')
-const ingredientsSelect = new CustomSelect(selectContainerNodeC, selectInputNodeC, optionsContainerNodeC)
-ingredientsSelect.input.defineDefaultPlaceholder('Ingredients')
-ingredientsSelect.input.defineOnFocusPlaceholder('Rechercher un ingredient')
+
+const appliancesSelect = new CustomSelect({
+    selectContainerNode : document.querySelector("#appareils-container"), 
+    selectInputNode : document.querySelector('#input-appareils'), 
+    optionsContainerNode : document.querySelector('#options-appareils')
+})
+appliancesSelect.input.definePlaceholder({byDefault : 'Appareils', onFocus : 'Rechercher un appareil'})
+
+const ustensilsSelect = new CustomSelect({
+    selectContainerNode : document.querySelector("#ustensiles-container"), 
+    selectInputNode : document.querySelector('#input-ustensiles'), 
+    optionsContainerNode : document.querySelector('#options-ustensiles')
+})
+ustensilsSelect.input.definePlaceholder({byDefault : 'Ustensiles', onFocus : 'Rechercher un ustensile'})
+
+const ingredientsSelect = new CustomSelect({
+    selectContainerNode : document.querySelector("#ingredients-container"), 
+    selectInputNode : document.querySelector('#input-ingredients'), 
+    optionsContainerNode : document.querySelector('#options-ingredients')
+})
+ingredientsSelect.input.definePlaceholder({byDefault : 'Ingredients', onFocus : 'Rechercher un ingredient'})
 
 //----------------------------------------------
 // events triggered when typing into the searchbar

@@ -1,7 +1,7 @@
 import optionsFactory from "../factory/optionsFactory.js"
 import InputSelect from "./inputSelect.js"
 
-const CustomSelect = function (selectContainerNode, selectInputNode, optionsContainerNode){
+const CustomSelect = function ({selectContainerNode, selectInputNode, optionsContainerNode}){
     this._containerNode = selectContainerNode
     this._inputNode = selectInputNode
     this._optionsContainerNode = optionsContainerNode
@@ -10,7 +10,7 @@ const CustomSelect = function (selectContainerNode, selectInputNode, optionsCont
 
 
 CustomSelect.prototype = {
-    get container_Node(){
+    get containerNode(){
         return this._containerNode
     },
 
