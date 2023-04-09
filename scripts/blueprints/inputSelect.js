@@ -1,11 +1,9 @@
 import optionsFactory from "../factory/optionsFactory.js"
 
-const InputSelect = function (inputSelector, selectSelector, optionsContainerSelector, onFocusPlaceholder, outOfFocusPlaceholder){ // optionsContainerSelector > tableSelector
-    this.inputNode = document.querySelector(inputSelector)
-    this.nodeRelatedSelect = document.querySelector(selectSelector)
-    this.nodeOptionsContainer = document.querySelector(optionsContainerSelector)
-    this.onFocusPlaceholder = onFocusPlaceholder || ""
-    this.outOfFocusPlaceholder = outOfFocusPlaceholder || ""
+const InputSelect = function (inputNode){ // optionsContainerSelector > tableSelector
+    this.inputNode = inputNode
+    this.onFocusPlaceholder = ""
+    this.outOfFocusPlaceholder = ""
 }
 
 InputSelect.prototype = {
@@ -38,13 +36,6 @@ InputSelect.prototype = {
         return this.inputNode.value=""
     },
 
-    reset(){
-        this.emptyValue()
-        this.setPlaceholder(this.outOfFocusPlaceholder)
-        this.nodeOptionsContainer.innerHTML = ""
-        return this.inputNode.placeholder
-    },
-
     focus(){
         this.setPlaceholder(this.onFocusPlaceholder)
     },
@@ -64,7 +55,7 @@ InputSelect.prototype = {
         this.inputNode.addEventListener(event, fn)
     },
 
-    updateOptions(options, optionsType){
+    /*updateOptions(options, optionsType){
         this.nodeOptionsContainer.innerHTML = ""
         options.forEach(option => {
             this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(option, optionsType))
@@ -74,7 +65,7 @@ InputSelect.prototype = {
 
     showOptions(){
         
-    },
+    },*/
 }
 
 export default InputSelect

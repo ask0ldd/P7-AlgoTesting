@@ -1,6 +1,8 @@
 scripts/functional-old.js
 scripts/functional-old2.js
+scripts/functional-old3.js
 components/customSelect.js
 select.html
 css/customSelect.css
 scripts/blueprints/select-old.js
+scripts/blueprints/inputSelect-old.js
