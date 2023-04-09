@@ -2,7 +2,6 @@ import { FirstLetterMaj } from "../utils/stringUtils.js"
 import tagsShelf from "../components/tagsShelf.js"
 import filteringChain from "../utils/filteringChain.js"
 import recipesGallery from "../components/recipesGallery.js"
-import { updateAllOptions } from "../functional.js"
 import tagsFactory from "./tagsFactory.js"
 
 const optionsFactory = {
@@ -13,9 +12,6 @@ const optionsFactory = {
                 // recuperer tagtype en analysant le data type du parent ???
                 tagsShelf.add(tagsFactory({tagName : option, tagType : optionType})).renderShelf() // add a tag to the shelf and update the shelf
                 const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
-                // updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList}) // useless (selects)
-                // ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
-                updateAllOptions(filteredRecipes)
                 recipesGallery.refresh(filteredRecipes)
             })
             return optionNode

@@ -2,9 +2,7 @@ import tagsShelf from "../components/tagsShelf.js"
 import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
 import recipesGallery from "../components/recipesGallery.js"
 import filteringChain from "../utils/filteringChain.js"
-import RecipesAdapter from "../adapters/recipesAdapter.js"
-import { updateAllOptions } from "../functional.js"
-// import { ingredientsSelect, ustensilsSelect, appliancesSelect } from "../functional.js"
+import { closeAllOptionsContainers } from "../functional.js"
 
 const tagsFactory = function ({tagName, tagType}) 
 {
@@ -18,10 +16,7 @@ const tagsFactory = function ({tagName, tagType})
                 tagsShelf.remove(this.name).renderShelf()
                 const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ? yes
                 recipesGallery.refresh(filteredRecipes)
-                /*appliancesSelect.optionsUpdate(filteredRecipes.appliancesList)
-                ustensilsSelect.optionsUpdate(filteredRecipes.ustensilsList)
-                ingredientsSelect.optionsUpdate(filteredRecipes.ingredientsList)*/
-                updateAllOptions(filteredRecipes)
+                closeAllOptionsContainers()
             })
             return tagNode
         },

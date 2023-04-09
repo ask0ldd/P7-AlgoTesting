@@ -65,7 +65,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    fullResolution : function(){
+    fullResolution : function(){ // should take recipes as parameters ?!!!
         return new RecipesAdapter(this.postUstensilsFilteringRecipes())
     },
 

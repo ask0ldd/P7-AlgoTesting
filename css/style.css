@@ -57,6 +57,7 @@ header {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .inputFiltersContainer .optionsContainer {
@@ -64,6 +65,7 @@ header {
   /*row-gap: 1rem;*/
   margin-top: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
 }
 
 .inputFiltersContainer .optionsContainer .options {

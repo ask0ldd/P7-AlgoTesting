@@ -2,9 +2,6 @@ import searchBar from "./components/searchBar.js"
 import { normalize, FirstLetterMaj } from "./utils/stringUtils.js"
 import recipes from "../datas/recipes.js"
 import RecipesAdapter from "./adapters/recipesAdapter.js"
-import Select from "./blueprints/select.js"
-import tagsShelf from "./components/tagsShelf.js"
-import tagsFactory from "./factory/tagsFactory.js"
 import filteringChain from "./utils/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
 import InputSelect from "./blueprints/inputSelect.js"
@@ -21,37 +18,11 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }*/
 
-/*function updateAllSelects(selects) {
-    appliancesSelect.optionsUpdate(selects.appliances)
-    ustensilsSelect.optionsUpdate(selects.ustensils)
-    ingredientsSelect.optionsUpdate(selects.ingredients)
-}*/
-
-function updateAllOptions(recipes){ // throw error si recipes missing
-    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils') // !!! should pass recipes as a parameter
-    ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
-    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
-    appliancesInputSelect.updateOptions(appliancesOptions, 'appliances')
-    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
-    ingredientsInputSelect.updateOptions(ingredientsOptions, 'ingredients')
-}
-
-function emptyInputSelects(){
-    appliancesInputSelect.value = ""
-    ustensilsInputSelect.value = ""
-    ingredientsInputSelect.value = ""
-}
-
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
-/*const appliancesSelect = new Select('#select-appareils')
-const ustensilsSelect = new Select('#select-ustensiles')
-const ingredientsSelect = new Select('#select-ingredients')*/
 const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils') // should passe array to be more explicit
 const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles', '#options-ustensiles', 'Rechercher un ustensile', 'Ustensiles')
 const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients', '#options-ingredients', 'Rechercher un ingredient', 'Ingredients')
-
-// updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
 
 //----------------------------------------------
 // events triggered when typing into the searchbar
@@ -60,8 +31,6 @@ searchBar.addEventListener('input', (e) => {
     emptyInputSelects()
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
-    // updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    updateAllOptions(filteredRecipes)
     recipesGallery.refresh(filteredRecipes)
 })
 
@@ -81,10 +50,8 @@ appliancesInputSelect.addEventListener('focus', () => {
 })
 
 appliancesInputSelect.addEventListener('focusout', () => {
-    appliancesInputSelect.reset()
+    closeAllOptionsContainers()
 })
-
-//
 
 ustensilsInputSelect.addEventListener('input', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
@@ -98,19 +65,8 @@ ustensilsInputSelect.addEventListener('focus', () => {
 })
 
 ustensilsInputSelect.addEventListener('focusout', () => {
-    //ustensilsInputSelect.reset()
+    closeAllOptionsContainers()
 })
-
-/*document.querySelector('#ustensiles-container').addEventListener('click', (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    ustensilsInputSelect.reset()
-})*/
-
-document.querySelector('#ustensiles-container').addEventListener('focusout', (e) => {
-    ustensilsInputSelect.reset()
-})
-
 
 ingredientsInputSelect.addEventListener('input', () => {
     const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
@@ -124,9 +80,32 @@ ingredientsInputSelect.addEventListener('focus', () => {
 })
 
 ingredientsInputSelect.addEventListener('focusout', () => {
-    ingredientsInputSelect.reset()
+    closeAllOptionsContainers()
 })
 
+//----------------------------------------------
+// Fn
+//----------------------------------------------
+function updateAllOptions(recipes){ // throw error si recipes missing
+    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils') // !!! should pass recipes as a parameter
+    ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
+    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
+    appliancesInputSelect.updateOptions(appliancesOptions, 'appliances')
+    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
+    ingredientsInputSelect.updateOptions(ingredientsOptions, 'ingredients')
+}
+
+function closeAllOptionsContainers(){
+    ingredientsInputSelect.reset()
+    ustensilsInputSelect.reset()
+    appliancesInputSelect.reset()
+}
+
+function emptyInputSelects(){
+    appliancesInputSelect.value = ""
+    ustensilsInputSelect.value = ""
+    ingredientsInputSelect.value = ""
+}
 
 function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
     const postBasicFilteringChainRecipes = filteringChain.fullResolution()
@@ -142,7 +121,7 @@ function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering
 //----------------------------------------------
 recipesGallery.refresh(adaptedRecipes)
 
-export {/*appliancesSelect, ustensilsSelect, ingredientsSelect, updateAllSelects, */ updateAllOptions}
+export {updateAllOptions, closeAllOptionsContainers}
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
