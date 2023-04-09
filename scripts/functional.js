@@ -45,7 +45,7 @@ ingredientsSelect.input.definePlaceholder({byDefault : 'Ingredients', onFocus : 
 // events triggered when typing into the searchbar
 //----------------------------------------------
 searchBar.addEventListener('input', (e) => {
-    emptyInputSelects()
+    emptySelectsInput()
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
     recipesGallery.refresh(filteredRecipes)
@@ -103,14 +103,6 @@ ingredientsSelect.input.addEventListener('focusout', () => {
 //----------------------------------------------
 // Fn
 //----------------------------------------------
-function updateAllOptions(recipes){ // throw error si recipes missing
-    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils') // !!! should pass recipes as a parameter
-    ustensilsSelect.updateOptions(ustensilesOptions, 'ustensils')
-    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
-    appliancesSelect.updateOptions(appliancesOptions, 'appliances')
-    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
-    ingredientsSelect.updateOptions(ingredientsOptions, 'ingredients')
-}
 
 function closeAllOptionsContainers(){
     ingredientsSelect.reset()
@@ -118,7 +110,7 @@ function closeAllOptionsContainers(){
     appliancesSelect.reset()
 }
 
-function emptyInputSelects(){
+function emptySelectsInput(){
     appliancesSelect.input.value = ""
     ustensilsSelect.input.value = ""
     ingredientsSelect.input.value = ""
@@ -138,34 +130,9 @@ function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering
 //----------------------------------------------
 recipesGallery.refresh(adaptedRecipes)
 
-export {updateAllOptions, closeAllOptionsContainers}
+export { closeAllOptionsContainers }
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
 // user flat or flat map with ?.name, ?.ingredients, etc...
-
-
-//----------------------------------------------
-// events triggered when an option is selected
-//----------------------------------------------
-/*ingredientsSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update the shelf
-    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
-})
-
-appliancesSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
-    const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes)
-})
-
-ustensilsSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
-    const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes)
-})*/
