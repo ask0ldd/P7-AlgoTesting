@@ -3,4 +3,4 @@ scripts/functional-old2.js
 components/customSelect.js
 select.html
 css/customSelect.css
-blueprints/select.js
+scripts/blueprints/select.js
