@@ -61,20 +61,27 @@ header {
 
 .inputFiltersContainer .optionsContainer {
   display: grid;
+  /*row-gap: 1rem;*/
   margin-top: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
 .inputFiltersContainer .optionsContainer .options {
-  height: 2rem;
   font-family: "Lato";
   font-weight: 400;
-  font-size: 17px;
+  font-size: 16px;
   color: #fff;
   display: flex;
   align-items: center;
   /*border: 1px solid red;*/
   padding-right: 4rem;
+  cursor: pointer;
+  background: none;
+  height: 3rem;
+}
+
+.inputFiltersContainer .optionsContainer .options:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .blueContainer {

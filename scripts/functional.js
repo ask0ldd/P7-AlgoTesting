@@ -21,14 +21,19 @@ function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
     recipesArray2.filter(recipe => recipesArray1.includes(recipe))
 }*/
 
-function updateAllSelects(selects) {
+/*function updateAllSelects(selects) {
     appliancesSelect.optionsUpdate(selects.appliances)
     ustensilsSelect.optionsUpdate(selects.ustensils)
     ingredientsSelect.optionsUpdate(selects.ingredients)
-}
+}*/
 
-function updateAllOptions(recipes){
-
+function updateAllOptions(recipes){ // throw error si recipes missing
+    const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils') // !!! should pass recipes as a parameter
+    ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
+    const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
+    appliancesInputSelect.updateOptions(appliancesOptions, 'appliances')
+    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
+    ingredientsInputSelect.updateOptions(ingredientsOptions, 'ingredients')
 }
 
 function emptyInputSelects(){
@@ -39,63 +44,39 @@ function emptyInputSelects(){
 
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
-const appliancesSelect = new Select('#select-appareils')
+/*const appliancesSelect = new Select('#select-appareils')
 const ustensilsSelect = new Select('#select-ustensiles')
-const ingredientsSelect = new Select('#select-ingredients')
+const ingredientsSelect = new Select('#select-ingredients')*/
 const appliancesInputSelect = new InputSelect('#input-appareils', '#select-appareils', '#options-appareils', 'Rechercher un appareil', 'Appareils') // should passe array to be more explicit
 const ustensilsInputSelect = new InputSelect('#input-ustensiles', '#select-ustensiles', '#options-ustensiles', 'Rechercher un ustensile', 'Ustensiles')
 const ingredientsInputSelect = new InputSelect('#input-ingredients', '#select-ingredients', '#options-ingredients', 'Rechercher un ingredient', 'Ingredients')
 
-updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
-
-//----------------------------------------------
-// events triggered when an option is selected
-//----------------------------------------------
-ingredientsSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update the shelf
-    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
-})
-
-appliancesSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
-    const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes)
-})
-
-ustensilsSelect.addEventListener('change', (e) => {
-    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
-    const filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
-    recipesGallery.refresh(filteredRecipes)
-})
+// updateAllSelects({appliances : adaptedRecipes.appliancesList, ustensils : adaptedRecipes.ustensilsList, ingredients : adaptedRecipes.ingredientsList})
 
 //----------------------------------------------
 // events triggered when typing into the searchbar
 //----------------------------------------------
-searchBar.node.addEventListener('input', (e) => {
+searchBar.addEventListener('input', (e) => {
     emptyInputSelects()
     let filteredRecipes
     filteredRecipes = filteringChain.fullResolution()
-    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
+    // updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
+    updateAllOptions(filteredRecipes)
     recipesGallery.refresh(filteredRecipes)
 })
 
 //----------------------------------------------
-// events triggered when typing into the select inputs
+// events triggered when typing into the inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
 appliancesInputSelect.addEventListener('input', () => { // get rid of node
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
-    appliancesInputSelect.updateOptions(appliancesOptions)
-    //appliancesSelect.optionsUpdate(appliancesOptions) // appliancesSelect > appliancesTable
+    appliancesInputSelect.updateOptions(appliancesOptions, 'appliances')
 })
 
-appliancesInputSelect.addEventListener('click', () => {
+appliancesInputSelect.addEventListener('focus', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesInputSelect.value, 'appliances')
-    appliancesInputSelect.updateOptions(appliancesOptions)
+    appliancesInputSelect.updateOptions(appliancesOptions, 'appliances')
     appliancesInputSelect.focus()
 })
 
@@ -107,26 +88,38 @@ appliancesInputSelect.addEventListener('focusout', () => {
 
 ustensilsInputSelect.addEventListener('input', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
-    ustensilsInputSelect.updateOptions(ustensilesOptions)
+    ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
 })
 
-ustensilsInputSelect.addEventListener('click', () => {
+ustensilsInputSelect.addEventListener('focus', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsInputSelect.value, 'ustensils')
-    ustensilsInputSelect.updateOptions(ustensilesOptions)
+    ustensilsInputSelect.updateOptions(ustensilesOptions, 'ustensils')
     ustensilsInputSelect.focus()
 })
 
 ustensilsInputSelect.addEventListener('focusout', () => {
+    //ustensilsInputSelect.reset()
+})
+
+/*document.querySelector('#ustensiles-container').addEventListener('click', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    ustensilsInputSelect.reset()
+})*/
+
+document.querySelector('#ustensiles-container').addEventListener('focusout', (e) => {
     ustensilsInputSelect.reset()
 })
 
 
 ingredientsInputSelect.addEventListener('input', () => {
-    const inputFilteredIngredients = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
-    ingredientsSelect.optionsUpdate(inputFilteredIngredients)
+    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
+    ingredientsInputSelect.updateOptions(ingredientsOptions, 'ingredients')
 })
 
-ingredientsInputSelect.addEventListener('click', () => {
+ingredientsInputSelect.addEventListener('focus', () => {
+    const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsInputSelect.value, 'ingredients')
+    ingredientsInputSelect.updateOptions(ingredientsOptions, 'ingredients')
     ingredientsInputSelect.focus()
 })
 
@@ -149,9 +142,34 @@ function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering
 //----------------------------------------------
 recipesGallery.refresh(adaptedRecipes)
 
-export {appliancesSelect, ustensilsSelect, ingredientsSelect}
+export {/*appliancesSelect, ustensilsSelect, ingredientsSelect, updateAllSelects, */ updateAllOptions}
 
 // recipes > filter searchbar > filter ingredients > filter ustencils > filter appliances
 // then display recipes > update ingredients / ustencils > appliances
 // il ne peut y avoir qu'un appliance / ingredients multiples et dans un array / ustensils dans un array
 // user flat or flat map with ?.name, ?.ingredients, etc...
+
+
+//----------------------------------------------
+// events triggered when an option is selected
+//----------------------------------------------
+/*ingredientsSelect.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ingredients'})).renderShelf() // add a tag to the shelf and update the shelf
+    const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
+    recipesGallery.refresh(filteredRecipes) // refresh the recipes gallery
+})
+
+appliancesSelect.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'appliances'})).renderShelf()
+    const filteredRecipes = filteringChain.fullResolution()
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
+    recipesGallery.refresh(filteredRecipes)
+})
+
+ustensilsSelect.addEventListener('change', (e) => {
+    tagsShelf.add(tagsFactory({tagName : e.target.value, tagType : 'ustensils'})).renderShelf()
+    const filteredRecipes = filteringChain.fullResolution()
+    updateAllSelects({appliances : filteredRecipes.appliancesList, ustensils : filteredRecipes.ustensilsList, ingredients : filteredRecipes.ingredientsList})
+    recipesGallery.refresh(filteredRecipes)
+})*/

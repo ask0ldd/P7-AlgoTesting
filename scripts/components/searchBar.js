@@ -13,6 +13,10 @@ SearchBar.prototype = {
     get value(){
         return normalize(this.nodeElt.value)
     },
+    
+    addEventListener(event, fn){
+        this.nodeElt.addEventListener(event, fn)
+    },
 }
 
 SearchBar.prototype.filtering = function(recipes, filteringArgument){

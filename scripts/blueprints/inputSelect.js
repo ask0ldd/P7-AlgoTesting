@@ -64,10 +64,10 @@ InputSelect.prototype = {
         this.inputNode.addEventListener(event, fn)
     },
 
-    updateOptions(options){
+    updateOptions(options, optionsType){
         this.nodeOptionsContainer.innerHTML = ""
         options.forEach(option => {
-            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(option))
+            this.nodeOptionsContainer.appendChild(optionsFactory.buildOptionView(option, optionsType))
         })
         return this
     },
