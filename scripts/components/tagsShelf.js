@@ -1,7 +1,7 @@
 const tagsShelf = { // set tags limit?
 
     tagsContainerNode : document.querySelector(".tagsContainer"),
-    tags : new Set(), // switch to an array before release
+    tags : new Set(), // switch to an array before release ?
 
     isAlreadyOnShelf : function(tag){
         return JSON.stringify(Array.from(this.tags)).indexOf(JSON.stringify(tag)) === -1 ? false : true
