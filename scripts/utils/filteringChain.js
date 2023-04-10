@@ -7,8 +7,6 @@ import { Comparators } from "./comparators.js";
 const filteringChain = {
     allRecipes : [...recipes], // no ref, ie duplicate
 
-    // !!! inputs  + selects should be part of the filteringchain?
-
     next: function(recipe){
         return recipe
     },

@@ -55,7 +55,7 @@ searchBar.addEventListener('input', (e) => {
 // events triggered when typing into the inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
-appliancesSelect.input.addEventListener('input', () => { // get rid of node
+appliancesSelect.input.addEventListener('input', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
 })
@@ -64,6 +64,7 @@ appliancesSelect.input.addEventListener('focus', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
     appliancesSelect.input.focus()
+    appliancesSelect.displayOptionsContainer()
 })
 
 appliancesSelect.input.addEventListener('focusout', () => {
@@ -79,6 +80,7 @@ ustensilsSelect.input.addEventListener('focus', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsSelect.input.value, 'ustensils')
     ustensilsSelect.updateOptions(ustensilesOptions, 'ustensils')
     ustensilsSelect.input.focus()
+    ustensilsSelect.displayOptionsContainer()
 })
 
 ustensilsSelect.input.addEventListener('focusout', () => {
@@ -94,6 +96,7 @@ ingredientsSelect.input.addEventListener('focus', () => {
     const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsSelect.input.value, 'ingredients')
     ingredientsSelect.updateOptions(ingredientsOptions, 'ingredients')
     ingredientsSelect.input.focus()
+    ingredientsSelect.displayOptionsContainer()
 })
 
 ingredientsSelect.input.addEventListener('focusout', () => {
@@ -108,6 +111,9 @@ function closeAllOptionsContainers(){
     ingredientsSelect.reset()
     ustensilsSelect.reset()
     appliancesSelect.reset()
+    ingredientsSelect.hideOptionsContainer()
+    ustensilsSelect.hideOptionsContainer()
+    appliancesSelect.hideOptionsContainer()
 }
 
 function emptySelectsInput(){

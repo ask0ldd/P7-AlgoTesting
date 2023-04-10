@@ -1,5 +1,7 @@
+import tagsShelf from "../components/tagsShelf.js"
 import optionsFactory from "../factory/optionsFactory.js"
 import InputSelect from "./inputSelect.js"
+import { normalize } from "../utils/stringUtils.js"
 
 const CustomSelect = function ({selectContainerNode, selectInputNode, optionsContainerNode}){
     this._containerNode = selectContainerNode
@@ -29,7 +31,8 @@ CustomSelect.prototype = {
     updateOptions(options, optionsType){
         this.optionsContainerNode.innerHTML = ""
         options.forEach(option => {
-            this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
+            // add to options only if corresponding tag not already on shelf
+            if(tagsShelf.isAlreadyOnShelf(normalize(option))===false) this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
         })
         return this
     },
@@ -39,6 +42,14 @@ CustomSelect.prototype = {
         this.input.setPlaceholder(this.input.outOfFocusPlaceholder)
         this.optionsContainerNode.innerHTML = ""
         return this.input.placeholder
+    },
+
+    hideOptionsContainer(){
+        this.optionsContainerNode.style.display = "none"
+    },
+
+    displayOptionsContainer(){
+        this.optionsContainerNode.style.display = "grid"
     },
 
 }
