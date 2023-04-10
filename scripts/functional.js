@@ -104,6 +104,21 @@ ingredientsSelect.input.addEventListener('focusout', () => {
 })
 
 //----------------------------------------------
+// clicking on a select container switch the focus to the related input
+//----------------------------------------------
+appliancesSelect.containerNode.addEventListener('click', ()=>{
+    appliancesSelect.inputNode.focus()
+})
+
+ustensilsSelect.containerNode.addEventListener('click', ()=>{
+    ustensilsSelect.inputNode.focus()
+})
+
+ingredientsSelect.containerNode.addEventListener('click', ()=>{
+    ingredientsSelect.inputNode.focus()
+})
+
+//----------------------------------------------
 // Fn
 //----------------------------------------------
 
