@@ -32,7 +32,7 @@ CustomSelect.prototype = {
         this.optionsContainerNode.innerHTML = ""
         options.forEach(option => {
             // add to options only if corresponding tag not already on shelf
-            if(tagsShelf.isAlreadyOnShelf(normalize(option))===false) this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
+            if(tagsShelf.isAlreadyOnShelf(option)===false) this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
         })
         return this
     },
