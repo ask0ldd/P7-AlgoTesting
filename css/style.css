@@ -144,6 +144,25 @@ header {
   opacity: 0.65;
 }
 
+.inputFiltersContainer input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.inputFiltersContainer input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.inputFiltersContainer input::-webkit-search-decoration,
+.inputFiltersContainer input::-webkit-search-cancel-button,
+.inputFiltersContainer input::-webkit-search-results-button,
+.inputFiltersContainer input::-webkit-search-results-decoration {
+  display: none;
+}
+
 .section-searchOptions .filtersContainer {
   width: 100%;
   display: flex;

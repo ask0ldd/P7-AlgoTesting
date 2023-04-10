@@ -12,7 +12,6 @@ const filteringChain = {
     },
 
     postSearchFilteringRecipes : function(){
-        //if (searchBar.isEmpty === true) 
         if (searchBar.value.length < 3) return [...this.allRecipes] /* 3 characters mins to be taken into account */
         const filteredRecipes = this.allRecipes.filter(recipe => {
             return Comparators.doesRecipeNameContains(recipe, searchBar.value) || Comparators.doesRecipeDescriptionContains(recipe, searchBar.value) || Comparators.doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
