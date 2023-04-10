@@ -3,6 +3,7 @@ scripts/functional-old2.js
 scripts/functional-old3.js
 components/customSelect.js
 select.html
+select copy.html
 css/customSelect.css
 scripts/blueprints/select-old.js
 scripts/blueprints/inputSelect-old.js
