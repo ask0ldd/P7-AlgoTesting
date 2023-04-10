@@ -45,6 +45,10 @@ header {
   padding: 0 1.5rem;
 }
 
+.section-searchOptions .mainSearchBar:focus {
+  border: 1px solid rgb(96, 98, 102);
+}
+
 .section-searchOptions .mainSearchBar::-ms-clear {
   display: none;
   width: 0;
@@ -97,7 +101,7 @@ header {
   padding-right: 1rem;
   cursor: pointer;
   background: none;
-  height: 3rem;
+  height: 2.2rem;
   padding-left: 1rem;
   min-width: 150px;
 }
@@ -296,12 +300,27 @@ custom-select {
 
 .ustensils-tag {
   background: #ed6454;
+  border: 2px solid #ed6454;
 }
 
 .ingredients-tag {
   background: #3282f7;
+  border: 2px solid #3282f7;
 }
 
 .appliances-tag {
   background: #68d9a4;
+  border: 2px solid #68d9a4;
+}
+
+.ustensils-tag:hover {
+  background: #f3958a;
+}
+
+.ingredients-tag:hover {
+  background: #77a8f0;
+}
+
+.appliances-tag:hover {
+  background: #9fe2c3;
 }

@@ -1,10 +1,12 @@
 const recipesFactory = 
 {
     buildCardView(recipe) {
+        // ingredients list which will be injected into the recipe view
         const ingredientsList = (recipe.ingredients).reduce((accu, ingredient) => {
             return (accu + `<li>${ingredient?.ingredient}${ingredient?.quantity || ingredient?.unit ? ': ' : ''} ${ingredient?.quantity ? ingredient?.quantity : ''} ${ingredient?.unit ? ingredient?.unit.split(' ')[0].replace('grammes', 'g') : ''}</li>`)
         }, '')
 
+        // recipe view which will be injected into the recipes gallery
         const cardTemplate = `
             <article class="recipeCardContainer">
                 <ul class="recipePop">${ingredientsList}</ul>

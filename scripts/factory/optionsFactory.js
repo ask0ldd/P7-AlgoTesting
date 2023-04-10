@@ -5,6 +5,8 @@ import recipesGallery from "../components/recipesGallery.js"
 import tagsFactory from "./tagsFactory.js"
 
 const optionsFactory = {
+
+        // option button view which will be injected into an options container
         buildOptionView(option, optionType) {
             const optionTemplate = `<div role="button" tabindex="0" class="options" data-option-type="${optionType}">${FirstLetterMaj(option)}</div>`
             const optionNode = new DOMParser().parseFromString(optionTemplate, 'text/html').querySelector('.options')

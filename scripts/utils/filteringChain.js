@@ -20,13 +20,13 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
+    recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ // filtering recursively as long as there are tags in the tagsArray clone
         let filteredRecipes = [...currentRecipes]
         let tagsArrayCopy = [...tagsArray]
         if(tagsArray.length>0){
             filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[0].name))
-            tagsArrayCopy.shift() // get rid of the first tag cause treated
-            return this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn) // return to not let the funcion execute itself any longer
+            tagsArrayCopy.shift() // get rid of the first tag cause now processed
+            return this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn) // using return so the last line of the function is executed only at the end of the last iteration
         }
         return filteredRecipes
     },
