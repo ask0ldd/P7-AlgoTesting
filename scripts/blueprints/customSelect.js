@@ -3,6 +3,7 @@ import optionsFactory from "../factory/optionsFactory.js"
 import InputSelect from "./inputSelect.js"
 import { normalize } from "../utils/stringUtils.js"
 
+// CustomSelect = input + options list
 const CustomSelect = function ({selectContainerNode, selectInputNode, optionsContainerNode}){
     this._containerNode = selectContainerNode
     this._inputNode = selectInputNode
@@ -31,7 +32,7 @@ CustomSelect.prototype = {
     updateOptions(options, optionsType){
         this.optionsContainerNode.innerHTML = ""
         options.forEach(option => {
-            // add to options only if corresponding tag not already on shelf
+            // if an option is on the tags shelf, and can't be on the options list anymore
             if(tagsShelf.isAlreadyOnShelf(option)===false) this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
         })
         return this

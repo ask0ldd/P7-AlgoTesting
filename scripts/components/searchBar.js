@@ -29,10 +29,6 @@ SearchBar.prototype.isEmpty = function(){
     return (normalize(this.nodeElt.value) === "")
 }
 
-SearchBar.prototype.listenForInput = function(){
-
-}
-
 const searchBar = new SearchBar('.mainSearchBar')
 
 export default searchBar

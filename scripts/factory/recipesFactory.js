@@ -6,7 +6,7 @@ const recipesFactory =
             return (accu + `<li>${ingredient?.ingredient}${ingredient?.quantity || ingredient?.unit ? ': ' : ''} ${ingredient?.quantity ? ingredient?.quantity : ''} ${ingredient?.unit ? ingredient?.unit.split(' ')[0].replace('grammes', 'g') : ''}</li>`)
         }, '')
 
-        // recipe view which will be injected into the recipes gallery
+        // recipe view which will be injected into the results gallery
         const cardTemplate = `
             <article class="recipeCardContainer">
                 <ul class="recipePop">${ingredientsList}</ul>

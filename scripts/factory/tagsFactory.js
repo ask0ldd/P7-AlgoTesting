@@ -9,6 +9,8 @@ const tagsFactory = function ({tagName, tagType})
     const tag = {
         name: tagName,
         type: tagType,
+
+        // tag view which will be injected into the tags shelf
         buildTagView : function(){
             const tagTemplate = `<div class="tag ${this.type}-tag" data-filter-parent="${this.type}">${FirstLetterMaj(this.name)}<img src="./assets/icons/tag-close.png"/></div>`
             const tagNode = new DOMParser().parseFromString(tagTemplate, 'text/html').querySelector('.tag')

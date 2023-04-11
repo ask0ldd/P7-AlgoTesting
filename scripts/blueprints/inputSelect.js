@@ -4,6 +4,8 @@ const InputSelect = function (inputNode){
     this.outOfFocusPlaceholder = ""
 }
 
+// input used to filter the options available in a select
+
 InputSelect.prototype = {
 
     get node(){

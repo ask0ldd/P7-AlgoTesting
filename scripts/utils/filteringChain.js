@@ -8,10 +8,11 @@ import { normalize } from "./stringUtils.js";
 const filteringChain = {
     allRecipes : [...recipes],
 
-    next: function(recipe){
+    /*next: function(recipe){
         return recipe
-    },
+    },*/
 
+    // searchbar filter : functional algo
     postSearchFilteringRecipes : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes] // 3 characters mins to trigger the filtering chain
         const filteredRecipes = this.allRecipes.filter(recipe => {
@@ -20,6 +21,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
+    // searchbar filter : for(x=0; x<y ; x++) procedural algo
     postSearchFiltering_Procedural : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes];
         const input = normalize(searchBar.value);
@@ -35,6 +37,7 @@ const filteringChain = {
         return validRecipes;
     },
 
+    // searchbar filter : for ... of procedural algo
     postSearchFiltering_Procedural_2 : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes]
         const input = normalize(searchBar.value)
@@ -53,23 +56,19 @@ const filteringChain = {
         return validRecipes
     },
 
+    // use to filter through multiple tags of the same type
     recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ // filtering as long as all tags in the tagsArray clone are not processed
         let filteredRecipes = [...currentRecipes]
         let tagsArrayCopy = [...tagsArray]
         if(tagsArray.length>0){
             filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[0].name))
-            tagsArrayCopy.shift() // get rid of the first tag since now processed
+            tagsArrayCopy.shift() // get rid of the first tag since it has been processed
             return this.recursiveFiltering(tagsArrayCopy, filteredRecipes, callbackFilterFn) // using return so the last line of the function is executed only at the end of the last iteration
         }
         return filteredRecipes
     },
 
-    /*recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
-        if(index>=tagsArray.length) return [...currentRecipes]
-        let filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
-        this.recursiveFiltering(tagsArray, index+1, [...filteredRecipes], callbackFilterFn)
-    },*/
-
+    // filtering through integredients tags
     postIngredientsFilteringRecipes : function(){
         // use datas filtered through searchbar
         // let currentRecipes = this.postSearchFilteringRecipes()
@@ -81,6 +80,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
+    // filtering through appliances tags
     postAppliancesFilteringRecipes : function(){
         let currentRecipes = this.postIngredientsFilteringRecipes()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
@@ -89,6 +89,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
+    // filtering through ustensils tags
     postUstensilsFilteringRecipes : function(){
         let currentRecipes = this.postAppliancesFilteringRecipes()
         const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
@@ -105,3 +106,10 @@ const filteringChain = {
 }
 
 export default filteringChain
+
+
+/*recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
+    if(index>=tagsArray.length) return [...currentRecipes]
+    let filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
+    this.recursiveFiltering(tagsArray, index+1, [...filteredRecipes], callbackFilterFn)
+},*/
