@@ -20,36 +20,34 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    /*postSearchFiltering_Procedural : function(){
-        if (searchBar.value.length < 3) return [...this.allRecipes]
-        const input = normalize(searchBar.value)
-        const allRecipesClone = [...this.allRecipes]
-        let validRecipes = []
-        for(let index = 0; index < allRecipesClone?.length; index++){
-            // if recipe.name | recipe.description | recipe.ingredients.ingredient includes the keywords, 
-            // the recipe is pushed into a results array & the loop jump to the next iteration
-            if (normalize(allRecipesClone[index]?.name).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
-            if (normalize(allRecipesClone[index]?.description).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
-            for(let index2 = 0; index2 < allRecipesClone[index].ingredients?.length; index2++){
-                if(normalize(allRecipesClone[index]?.ingredients[index2]?.ingredient).includes(input)) {validRecipes.push(allRecipesClone[index]); break;}
+    postSearchFiltering_Procedural : function(){
+        if (searchBar.value.length < 3) return [...this.allRecipes];
+        const input = normalize(searchBar.value);
+        const allRecipesClone = [...this.allRecipes];
+        let validRecipes = [];
+        for(let index = 0; index < allRecipesClone.length; index++){
+            if (normalize(allRecipesClone[index].name).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
+            if (normalize(allRecipesClone[index].description).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
+            for(let index2 = 0; index2 < allRecipesClone[index].ingredients.length; index2++){
+                if(allRecipesClone[index].ingredients[index2].ingredient.includes(input)) {validRecipes.push(allRecipesClone[index]); break;}
             }
         }
-        return validRecipes
-    },*/
+        return validRecipes;
+    },
 
-    postSearchFiltering_Procedural : function(){
+    postSearchFiltering_Procedural_2 : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes]
         const input = normalize(searchBar.value)
         const allRecipesClone = [...this.allRecipes]
         let validRecipes = []
-        for(let index = 0; index < allRecipesClone?.length; index++){
+        for(const recipe of allRecipesClone){
             // if recipe.name | recipe.description | recipe.ingredients.ingredient includes the keywords, 
             // the recipe is pushed into a results array & the loop jump to the next iteration
-            if (normalize(allRecipesClone[index]?.name).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
-            if (normalize(allRecipesClone[index]?.description).includes(input)) {validRecipes.push(allRecipesClone[index]); continue;}
-            for(const ingredientObj of allRecipesClone[index].ingredients){
+            if (normalize(recipe?.name).includes(input)) {validRecipes.push(recipe); continue;}
+            if (normalize(recipe?.description).includes(input)) {validRecipes.push(recipe); continue;}
+            for(const ingredientObj of recipe?.ingredients){
                 console.log(ingredientObj)
-                if(normalize(ingredientObj?.ingredient).includes(input)) {validRecipes.push(allRecipesClone[index]); break;}
+                if(normalize(ingredientObj?.ingredient).includes(input)) {validRecipes.push(recipe); break;}
             }
         }
         return validRecipes
