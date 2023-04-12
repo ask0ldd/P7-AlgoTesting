@@ -1,7 +1,7 @@
-import { normalize, FirstLetterMaj } from "../utils/stringUtils.js"
+import { normalize } from "../utils/stringUtils.js"
 import { Comparators } from "../utils/comparators.js"
 
-const SearchBar = function (selector){
+function SearchBar (selector){
     this.nodeElt = document.querySelector(selector)
 }
 
