@@ -1,4 +1,4 @@
-const InputSelect = function (inputNode){
+function InputSelect(inputNode){
     this.inputNode = inputNode
     this.onFocusPlaceholder = ""
     this.outOfFocusPlaceholder = ""

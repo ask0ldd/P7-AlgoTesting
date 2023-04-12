@@ -1,6 +1,6 @@
 // adapter pattern
 
-const RecipesAdapter = function (recipesArray){
+function RecipesAdapter (recipesArray){
     this.recipes = [...recipesArray]
 }
 

@@ -1,10 +1,10 @@
 import tagsShelf from "../components/tagsShelf.js"
 import optionsFactory from "../factory/optionsFactory.js"
 import InputSelect from "./inputSelect.js"
-import { normalize } from "../utils/stringUtils.js"
+//import { normalize } from "../utils/stringUtils.js"
 
 // CustomSelect = input + options list
-const CustomSelect = function ({selectContainerNode, selectInputNode, optionsContainerNode}){
+function CustomSelect({selectContainerNode, selectInputNode, optionsContainerNode}){
     this._containerNode = selectContainerNode
     this._inputNode = selectInputNode
     this._optionsContainerNode = optionsContainerNode
