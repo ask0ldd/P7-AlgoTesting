@@ -8,14 +8,11 @@ import { normalize } from "./stringUtils.js";
 const filteringChain = {
     allRecipes : [...recipes],
 
-    /*next: function(recipe){
-        return recipe
-    },*/
-
     // searchbar filter : functional algo
     postSearchFilteringRecipes : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes] // 3 characters mins to trigger the filtering chain
         const filteredRecipes = this.allRecipes.filter(recipe => {
+            // should test if test return true; if test return true; if test return true
             return Comparators.doesRecipeNameContains(recipe, searchBar.value) || Comparators.doesRecipeDescriptionContains(recipe, searchBar.value) || Comparators.doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
         })
         return filteredRecipes
@@ -102,7 +99,6 @@ const filteringChain = {
         return new RecipesAdapter(this.postUstensilsFilteringRecipes())
     },
 
-    //move filter index with next()
 }
 
 export default filteringChain
