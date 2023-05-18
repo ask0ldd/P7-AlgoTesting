@@ -2,7 +2,8 @@ const recipesFactory =
 {
     buildCardView(recipe) {
         // ingredients list which will be injected into the recipe view
-        const ingredientsList = (recipe.ingredients).reduce((accu, ingredient) => {
+        const ingredientsList = (recipe.ingredients).reduce((accu, ingredient, currentIndex) => {
+            if(currentIndex > 4 ) return accu // max 6 ingredients displayed on the card
             return (accu + `<li>${ingredient?.ingredient}${ingredient?.quantity || ingredient?.unit ? ': ' : ''} ${ingredient?.quantity ? ingredient?.quantity : ''} ${ingredient?.unit ? ingredient?.unit.split(' ')[0].replace('grammes', 'g') : ''}</li>`)
         }, '')
 

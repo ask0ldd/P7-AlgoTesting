@@ -250,6 +250,7 @@ custom-select {
   font-weight: 400;
   font-size: 18px;
   color: black;
+  max-width: 240px;
 }
 
 .recipeDuration {
