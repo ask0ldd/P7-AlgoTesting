@@ -102,10 +102,3 @@ const filteringChain = {
 }
 
 export default filteringChain
-
-
-/*recursiveFiltering : function (tagsArray, index, currentRecipes, callbackFilterFn){ // multiple tags = successive filterings
-    if(index>=tagsArray.length) return [...currentRecipes]
-    let filteredRecipes = currentRecipes.filter(recipe => callbackFilterFn(recipe, tagsArray[index].name))
-    this.recursiveFiltering(tagsArray, index+1, [...filteredRecipes], callbackFilterFn)
-},*/
