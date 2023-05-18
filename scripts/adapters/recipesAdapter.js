@@ -31,10 +31,6 @@ RecipesAdapter.prototype = {
         }, new Set())
     },
 
-    /*get list (){
-        return this.recipes
-    },*/
-
     get nRecipes (){
         return this.recipes.length
     },
@@ -43,13 +39,6 @@ RecipesAdapter.prototype = {
 
     },
 
-
-
-    /*set recipes (recipesArray){
-        this.recipes = recipesArray
-    }*/
-
-    // get quantity () > quantity + unit
 }
 
 export default RecipesAdapter
