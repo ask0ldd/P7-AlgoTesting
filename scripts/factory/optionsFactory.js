@@ -12,7 +12,7 @@ const optionsFactory = {
             const optionNode = new DOMParser().parseFromString(optionTemplate, 'text/html').querySelector('.options')
             optionNode.addEventListener('mousedown', (e) => { // mousedown instead of click cause click can't register before focusout
                 tagsShelf.add(tagsFactory({tagName : option, tagType : optionType})).renderShelf() // add a tag to the shelf and update the shelf
-                const filteredRecipes = filteringChain.fullResolution() // !! should i pass the recipes as parameters ?
+                const filteredRecipes = filteringChain.fullResolution()
                 recipesGallery.refresh(filteredRecipes)
             })
             return optionNode

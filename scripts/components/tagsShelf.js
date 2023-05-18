@@ -1,13 +1,15 @@
-const tagsShelf = { // set tags limit?
+const tagsShelf = {
 
     tagsContainerNode : document.querySelector(".tagsContainer"),
     tags : new Set(), // switch to an array before release ?
+    maxTags : 6,
 
     isAlreadyOnShelf : function(tag){
         return JSON.stringify(Array.from(this.tags)).indexOf(JSON.stringify(tag)) === -1 ? false : true
     },
 
     add : function(tag) {
+        if(this.tags.size >= this.maxTags) return this
         if(!this.isAlreadyOnShelf(tag)) this.tags.add(tag)
         return this
     },

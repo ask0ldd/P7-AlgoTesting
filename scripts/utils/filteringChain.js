@@ -8,7 +8,7 @@ import { normalize } from "./stringUtils.js";
 const filteringChain = {
     allRecipes : [...recipes],
 
-    // searchbar filter : functional algo
+    // OPTION 2 : functional algo : searchbar filter
     postSearchFilteringRecipes : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes] // 3 characters mins to trigger the filtering chain
         const filteredRecipes = this.allRecipes.filter(recipe => {
@@ -18,7 +18,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    // searchbar filter : for(x=0; x<y ; x++) procedural algo
+    // OPTION 1 : for(x=0; x<y ; x++) procedural algo : searchbar filter
     postSearchFiltering_Procedural : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes];
         const input = normalize(searchBar.value);
@@ -34,7 +34,7 @@ const filteringChain = {
         return validRecipes;
     },
 
-    // searchbar filter : for ... of procedural algo
+    // ALTERNATE 1 : for ... of procedural algo : searchbar filter
     postSearchFiltering_Procedural_2 : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes]
         const input = normalize(searchBar.value)
@@ -53,7 +53,7 @@ const filteringChain = {
         return validRecipes
     },
 
-    // use to filter through multiple tags of the same type
+    // use to filter through multiple tags successively
     recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ // filtering as long as all tags in the tagsArray clone are not processed
         let filteredRecipes = [...currentRecipes]
         let tagsArrayCopy = [...tagsArray]
@@ -65,7 +65,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    // filtering through integredients tags
+    // filtering the recipes using integredients tags
     postIngredientsFilteringRecipes : function(){
         // use datas filtered through searchbar
         // let currentRecipes = this.postSearchFilteringRecipes()
@@ -77,7 +77,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    // filtering through appliances tags
+    // filtering the recipes using appliances tags
     postAppliancesFilteringRecipes : function(){
         let currentRecipes = this.postIngredientsFilteringRecipes()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
@@ -86,7 +86,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    // filtering through ustensils tags
+    // filtering the recipes using ustensils tags
     postUstensilsFilteringRecipes : function(){
         let currentRecipes = this.postAppliancesFilteringRecipes()
         const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
