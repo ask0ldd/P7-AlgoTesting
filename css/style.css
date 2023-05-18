@@ -221,9 +221,9 @@ custom-select {
   font-size: 14px;
 }
 
-.recipeCardContainer:hover .recipePop {
+/*.recipeCardContainer:hover .recipePop {
   display: flex;
-}
+}*/
 
 .recipeImg {
   width: 100%;
@@ -257,6 +257,11 @@ custom-select {
   font-weight: 700;
   font-size: 18px;
   color: black;
+}
+
+.clock {
+  margin-right: 0.5rem;
+  transform: translateY(3px);
 }
 
 .recipeIngredientsDesc {

@@ -13,7 +13,7 @@ const recipesFactory =
                 <div class="recipeImg"></div>
                 <div class="recipeDatasContainer">
                     <div class="recipeHeadingDurationContainer">
-                        <h2 class="recipeHeading">${recipe?.name}</h2><span class="recipeDuration">${recipe?.time}</span>
+                        <h2 class="recipeHeading">${recipe?.name}</h2><span class="recipeDuration"><img class="clock" src="./assets/icons/clock.png"/>${recipe?.time} min</span>
                     </div>
                     <div class="recipeIngredientsDesc">
                         <ul>
