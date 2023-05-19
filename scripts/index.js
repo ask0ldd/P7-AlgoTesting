@@ -6,6 +6,8 @@ import recipesGallery from "./components/recipesGallery.js"
 import { Comparators } from "./services/comparators.js"
 import CustomSelect from "./blueprints/customSelect.js"
 
+if(!recipes || recipes.length<1) {throw new Error('No recipes available.')}
+
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
 

@@ -1,6 +1,5 @@
-const recipesFactory = (recipe) =>
+function recipesFactory(recipe)
 {
-
     const recipeInstance = {
 
         recipeDatas : recipe,

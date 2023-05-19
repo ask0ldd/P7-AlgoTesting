@@ -40,17 +40,6 @@ InputSelect.prototype = {
         this.setPlaceholder(this.onFocusPlaceholder)
     },
 
-    /*defineDefaultPlaceholder(placeholder){
-        this.outOfFocusPlaceholder = placeholder
-        this.setPlaceholder(this.outOfFocusPlaceholder)
-        return this.outOfFocusPlaceholder
-    },
-
-    defineOnFocusPlaceholder(placeholder){
-        this.onFocusPlaceholder = placeholder
-        return this.onFocusPlaceholder
-    },*/
-
     definePlaceholder({byDefault, onFocus}){
         this.onFocusPlaceholder = onFocus
         this.outOfFocusPlaceholder = byDefault

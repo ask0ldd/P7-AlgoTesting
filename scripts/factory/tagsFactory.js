@@ -4,7 +4,7 @@ import recipesGallery from "../components/recipesGallery.js"
 import filteringChain from "../services/filteringChain.js"
 import { closeAllOptionsContainers } from "../index.js"
 
-const tagsFactory = function ({tagName, tagType}) 
+function tagsFactory ({tagName, tagType}) 
 {
     const tag = {
         name: tagName,
