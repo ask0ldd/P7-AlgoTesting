@@ -1,9 +1,9 @@
 import searchBar from "./components/searchBar.js"
 import recipes from "../datas/recipes.js"
 import RecipesAdapter from "./adapters/recipesAdapter.js"
-import filteringChain from "./utils/filteringChain.js"
+import filteringChain from "./services/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
-import { Comparators } from "./utils/comparators.js"
+import { Comparators } from "./services/comparators.js"
 import CustomSelect from "./blueprints/customSelect.js"
 
 /*function removeDuplicates(array){

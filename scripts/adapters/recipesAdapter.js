@@ -1,5 +1,4 @@
 // adapter pattern
-
 function RecipesAdapter (recipesArray){
     this.recipes = [...recipesArray]
 }

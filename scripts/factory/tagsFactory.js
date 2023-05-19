@@ -1,7 +1,7 @@
 import tagsShelf from "../components/tagsShelf.js"
-import { FirstLetterMaj } from "../utils/stringUtils.js"
+import { FirstLetterMaj } from "../services/stringUtils.js"
 import recipesGallery from "../components/recipesGallery.js"
-import filteringChain from "../utils/filteringChain.js"
+import filteringChain from "../services/filteringChain.js"
 import { closeAllOptionsContainers } from "../index.js"
 
 const tagsFactory = function ({tagName, tagType}) 

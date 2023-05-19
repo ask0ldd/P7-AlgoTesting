@@ -1,5 +1,5 @@
-import { normalize } from "../utils/stringUtils.js"
-import { Comparators } from "../utils/comparators.js"
+import { normalize } from "../services/stringUtils.js"
+import { Comparators } from "../services/comparators.js"
 
 function SearchBar (selector){
     this.nodeElt = document.querySelector(selector)
