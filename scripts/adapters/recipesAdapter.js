@@ -4,28 +4,28 @@ function RecipesAdapter (recipesArray){
 
 RecipesAdapter.prototype = {
     get appliancesList () {
-        // for each recipe
+        // return a set with all the appliances and without any duplicate
         return this.recipes.reduce((accu, recipe) => 
         {
+            // for each recipe, the appliance used is added to the set
             accu.add(recipe.appliance.toLowerCase())
             return accu 
         }, new Set()) // using a set so no duplicates
     },
 
     get ingredientsList () {
-        // for each recipe
+        // return a set with all the ingredients and without any duplicate
         return this.recipes.reduce((accu, recipe) => {
-            // extracting only the ingredient out of the ingredient object (=> ignore quantity & unit)
-            // flatmap
-            (recipe.ingredients).map( ingredientArray => accu.add(ingredientArray?.ingredient.toLowerCase()))
+            // for each recipe, the ingredient property of all the ingredients objects are added to the set
+            (recipe.ingredients).map(ingredientObject => accu.add(ingredientObject?.ingredient.toLowerCase()))
             return accu
         }, new Set())
     },
 
     get ustensilsList () {
-        // for each recipe
+        // return a set with all the ustensils and without any duplicate
         return this.recipes.reduce((accu, recipe) => {
-            // adding to the set every ustensil in the ustensils array
+            // for each recipe, the content of the ustensils array is added to the set
             (recipe.ustensils).map(ustensil => accu.add(ustensil.toLowerCase()))
             return accu
         }, new Set())

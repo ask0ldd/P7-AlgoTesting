@@ -6,17 +6,6 @@ import recipesGallery from "./components/recipesGallery.js"
 import { Comparators } from "./services/comparators.js"
 import CustomSelect from "./blueprints/customSelect.js"
 
-/*function removeDuplicates(array){
-    return array.filter((element, index, array) => array.indexOf(element) === index)
-}
-
-function intersectTwoRecipesArrays(recipesArray1, recipesArray2){
-    // iterate on the smaller array for optimisation purposes
-    return recipesArray1.length < recipesArray2.length ? 
-    recipesArray1.filter(recipe => recipesArray2.includes(recipe)) : 
-    recipesArray2.filter(recipe => recipesArray1.includes(recipe))
-}*/
-
 const adaptedRecipes = new RecipesAdapter(recipes)
 Object.freeze(adaptedRecipes) // implement deepfreeze
 
