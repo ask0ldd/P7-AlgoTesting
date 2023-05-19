@@ -32,7 +32,7 @@ CustomSelect.prototype = {
         this.optionsContainerNode.innerHTML = ""
         options.forEach(option => {
             // if an option is on the tags shelf, and can't be on the options list anymore
-            if(tagsShelf.isAlreadyOnShelf(option)===false) this.optionsContainerNode.appendChild(optionsFactory.buildOptionView(option, optionsType))
+            if(tagsShelf.isAlreadyOnShelf(option)===false) this.optionsContainerNode.appendChild(optionsFactory({option, optionsType}).buildOptionView())
         })
         return this
     },
