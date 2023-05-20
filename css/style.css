@@ -28,6 +28,15 @@ header {
   color: #d04f4f;
 }
 
+h1 {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  color: #d04f4f;
+}
+
 .section-searchOptions {
   display: flex;
   flex-direction: column;
@@ -76,11 +85,13 @@ header {
   width: 0;
   height: 0;
 }
+
 .section-searchOptions .mainSearchBar::-ms-reveal {
   display: none;
   width: 0;
   height: 0;
 }
+
 .section-searchOptions .mainSearchBar::-webkit-search-decoration,
 .section-searchOptions .mainSearchBar::-webkit-search-cancel-button,
 .section-searchOptions .mainSearchBar::-webkit-search-results-button,
@@ -159,6 +170,9 @@ header {
   background: none;
   color: #fff;
   outline: none;
+  font-family: "Lato";
+  font-weight: 500;
+  font-size: 17px;
 }
 
 .inputFiltersContainer input::placeholder {
