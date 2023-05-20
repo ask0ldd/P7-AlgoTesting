@@ -9,7 +9,7 @@ const filteringChain = {
     allRecipes : [...recipes],
 
     // OPTION 2 : functional algo : searchbar filter
-    postSearchFilteringRecipes : function(){
+    SearchBarFiltering_ArrayMethods : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes] // 3 characters mins to trigger the filtering chain
         const filteredRecipes = this.allRecipes.filter(recipe => {
             return Comparators.doesRecipeNameContains(recipe, searchBar.value) || Comparators.doesRecipeDescriptionContains(recipe, searchBar.value) || Comparators.doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
@@ -17,8 +17,8 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    // OPTION 1 : for(x=0; x<y ; x++) procedural algo : searchbar filter
-    postSearchFiltering_Procedural : function(){
+    // OPTION 1 : for(x=0; x<y ; x++) imperative algo : searchbar filter
+    SearchBarFiltering_Imperative : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes];
         const input = normalize(searchBar.value);
         const allRecipesClone = [...this.allRecipes];
@@ -33,14 +33,14 @@ const filteringChain = {
         return validRecipes;
     },
 
-    // ALTERNATE 1 : for ... of procedural algo : searchbar filter
-    postSearchFiltering_Procedural_2 : function(){
+    // ALTERNATE OPTION 1 : for ... of imperative algo : searchbar filter
+    SearchBarFiltering_Imperative_2 : function(){
         if (searchBar.value.length < 3) return [...this.allRecipes]
         const input = normalize(searchBar.value)
         const allRecipesClone = [...this.allRecipes]
         let validRecipes = []
         for(const recipe of allRecipesClone){
-            // if recipe.name | recipe.description | recipe.ingredients.ingredient includes the keywords, 
+            // if recipe.name | recipe.description | recipe.ingredients.ingredient includes the keyword, 
             // the recipe is pushed into a results array & the loop jump to the next iteration
             if (normalize(recipe?.name).includes(input)) {validRecipes.push(recipe); continue;}
             if (normalize(recipe?.description).includes(input)) {validRecipes.push(recipe); continue;}
@@ -67,12 +67,12 @@ const filteringChain = {
     },
 
     // filtering the recipes using integredients tags
-    postIngredientsFiltering : function(){
+    ingredientsSelectFiltering : function(){
         // use datas filtered through searchbar
         // OPTION 2 ACTIVE : Array Methods
-        // let currentRecipes = this.postSearchFilteringRecipes()
+        // let currentRecipes = this.SearchBarFilteringRecipes()
         // OPTION 1 ACTIVE : Procedural
-        let currentRecipes = this.postSearchFiltering_Procedural()
+        let currentRecipes = this.SearchBarFiltering_Imperative()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
         // passing to the recursive fn : all ingredients tags on the shelf, all recipes who got through previous filtering steps, a function to use as a filter
@@ -81,8 +81,8 @@ const filteringChain = {
     },
 
     // filtering the recipes using appliances tags
-    postAppliancesFiltering : function(){
-        let currentRecipes = this.postIngredientsFiltering()
+    appliancesSelectFiltering : function(){
+        let currentRecipes = this.ingredientsSelectFiltering()
         const activeAppliancesTags = tagsShelf.getTagsFromType('appliances')
         if(activeAppliancesTags.length===0) return currentRecipes
         const filteredRecipes = this.recursiveFiltering(activeAppliancesTags, currentRecipes, Comparators.isRecipeAppliance)
@@ -90,8 +90,8 @@ const filteringChain = {
     },
 
     // filtering the recipes using ustensils tags
-    postUstensilsFiltering : function(){
-        let currentRecipes = this.postAppliancesFiltering()
+    ustensilsSelectFiltering : function(){
+        let currentRecipes = this.appliancesSelectFiltering()
         const activeUstensilsTags = tagsShelf.getTagsFromType('ustensils')
         if(activeUstensilsTags.length===0) return currentRecipes
         const filteredRecipes = this.recursiveFiltering(activeUstensilsTags, currentRecipes, Comparators.doesRecipeUstensilsContain)
@@ -99,7 +99,7 @@ const filteringChain = {
     },
 
     fullResolution : function(){ // should take recipes as parameters ?!!!
-        return new RecipesAdapter(this.postUstensilsFiltering())
+        return new RecipesAdapter(this.ustensilsSelectFiltering())
     },
 
 }

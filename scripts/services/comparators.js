@@ -15,6 +15,12 @@ export const Comparators = {
         return recipe.ingredients.filter(ingredient => normalize(ingredient.ingredient).includes(normalize(searchedForText))).length > 0
     },
 
+    /*doesRecipeIngredientsContain_ForLoop(recipe, searchedForText){
+        for(let i = 0; i < recipe.ingredients.length; i++){
+            return normalize(ingredient.ingredient[i]).includes(normalize(searchedForText))
+        }
+    },*/
+
     isRecipeAppliance(recipe, searchedForAppliance){
         return (normalize(recipe.appliance)===normalize(searchedForAppliance))
     },
