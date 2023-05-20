@@ -70,9 +70,9 @@ const filteringChain = {
     postIngredientsFiltering : function(){
         // use datas filtered through searchbar
         // OPTION 2 ACTIVE : Array Methods
-        let currentRecipes = this.postSearchFilteringRecipes()
+        // let currentRecipes = this.postSearchFilteringRecipes()
         // OPTION 1 ACTIVE : Procedural
-        // let currentRecipes = this.postSearchFiltering_Procedural()
+        let currentRecipes = this.postSearchFiltering_Procedural()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
         // passing to the recursive fn : all ingredients tags on the shelf, all recipes who got through previous filtering steps, a function to use as a filter
