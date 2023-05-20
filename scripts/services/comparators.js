@@ -1,6 +1,6 @@
 import { normalize } from "./stringUtils.js"
 
-// functions used as comparators by the different filters
+// testing methods used by the different filters
 export const Comparators = {
 
     doesRecipeNameContains(recipe, searchedForText){
