@@ -34,10 +34,15 @@ header {
   row-gap: 1.25rem;
 }
 
+.section-searchOptions .searchBarContainer {
+  width: 100%;
+  display: flex;
+}
+
 .section-searchOptions .mainSearchBar {
   width: 100%;
   background: #e7e7e7;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   border: none;
   outline: none;
   height: 70px;
@@ -45,14 +50,26 @@ header {
   padding: 0 1.5rem;
 }
 
+.section-searchOptions .searchBarIcon {
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 5px 5px 0;
+  background: #e7e7e7;
+  border: none;
+  outline: none;
+}
+
 .section-searchOptions .mainSearchBar::placeholder {
   color: black;
   opacity: 0.25;
 }
 
-.section-searchOptions .mainSearchBar:focus {
+/*.section-searchOptions .mainSearchBar:focus {
   border: 1px solid rgba(0, 0, 0, 0.25);
-}
+}*/
 
 .section-searchOptions .mainSearchBar::-ms-clear {
   display: none;
