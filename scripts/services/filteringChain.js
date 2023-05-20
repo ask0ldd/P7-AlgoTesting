@@ -7,9 +7,16 @@ import { normalize } from "./stringUtils.js";
 
 const filteringChain = {
     allRecipes : [...recipes],
+    activeAlgo : 'imperative',
+    //activeAlgo : 'functional',
+
+    //----------------------------------------------
+    // Studied Algorithms
+    //----------------------------------------------
 
     // OPTION 2 : functional algo : searchbar filter
     SearchBarFiltering_ArrayMethods : function(){
+        console.log('Functional Algo')
         if (searchBar.value.length < 3) return [...this.allRecipes] // 3 characters mins to trigger the filtering chain
         const filteredRecipes = this.allRecipes.filter(recipe => {
             return Comparators.doesRecipeNameContains(recipe, searchBar.value) || Comparators.doesRecipeDescriptionContains(recipe, searchBar.value) || Comparators.doesRecipeIngredientsContain(recipe, searchBar.value) // passer en arg?
@@ -19,6 +26,7 @@ const filteringChain = {
 
     // OPTION 1 : for(x=0; x<y ; x++) imperative algo : searchbar filter
     SearchBarFiltering_Imperative : function(){
+        console.log('Imperative Algo')
         if (searchBar.value.length < 3) return [...this.allRecipes];
         const input = normalize(searchBar.value);
         const allRecipesClone = [...this.allRecipes];
@@ -45,15 +53,17 @@ const filteringChain = {
             if (normalize(recipe?.name).includes(input)) {validRecipes.push(recipe); continue;}
             if (normalize(recipe?.description).includes(input)) {validRecipes.push(recipe); continue;}
             for(const ingredientObj of recipe?.ingredients){
-                console.log(ingredientObj)
                 if(normalize(ingredientObj?.ingredient).includes(input)) {validRecipes.push(recipe); break;}
             }
         }
         return validRecipes
     },
 
-    // filtering the recipes as long until all the tags in the tagsArray clone have been processed 
-    // = successive filtering until the tags array is empty
+    //----------------------------------------------
+    // End / Studied Algorithms
+    //----------------------------------------------
+
+    // filtering the recipes until all the tags in the tagsArray clone have been processed 
     recursiveFiltering : function (tagsArray, currentRecipes, callbackFilterFn){ 
         let filteredRecipes = [...currentRecipes]
         let tagsArrayCopy = [...tagsArray]
@@ -69,10 +79,7 @@ const filteringChain = {
     // filtering the recipes using integredients tags
     ingredientsSelectFiltering : function(){
         // use datas filtered through searchbar
-        // OPTION 2 ACTIVE : Array Methods
-        // let currentRecipes = this.SearchBarFilteringRecipes()
-        // OPTION 1 ACTIVE : Procedural
-        let currentRecipes = this.SearchBarFiltering_Imperative()
+        let currentRecipes = this.activeAlgo === "imperative" ? this.SearchBarFiltering_Imperative() : this.SearchBarFiltering_ArrayMethods()
         const activeIngredientsTags = tagsShelf.getTagsFromType('ingredients')
         if(activeIngredientsTags.length===0) return currentRecipes
         // passing to the recursive fn : all ingredients tags on the shelf, all recipes who got through previous filtering steps, a function to use as a filter
@@ -98,7 +105,7 @@ const filteringChain = {
         return filteredRecipes
     },
 
-    fullResolution : function(){ // should take recipes as parameters ?!!!
+    fullResolution : function(){
         return new RecipesAdapter(this.ustensilsSelectFiltering())
     },
 

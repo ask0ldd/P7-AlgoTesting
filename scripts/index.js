@@ -9,7 +9,7 @@ import CustomSelect from "./blueprints/customSelect.js"
 if(!recipes || recipes.length<1) {throw new Error('No recipes available.')}
 
 const adaptedRecipes = new RecipesAdapter(recipes)
-Object.freeze(adaptedRecipes) // implement deepfreeze
+Object.freeze(adaptedRecipes)
 
 const appliancesSelect = new CustomSelect({
     selectContainerNode : document.querySelector("#appareils-container"), 
@@ -110,7 +110,7 @@ ingredientsSelect.containerNode.addEventListener('click', ()=>{
 })
 
 //----------------------------------------------
-// Fn
+// Various Fn
 //----------------------------------------------
 
 function closeAllOptionsContainers(){
@@ -128,7 +128,8 @@ function emptySelectsInput(){
     ingredientsSelect.input.value = ""
 }
 
-function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ // filtering the options when something is typed into the select input
+// filtering the options when something is typed into the select input
+function getOptionsListOutOfRecipes(filterWord, targetOptionsType){ 
     const postBasicFilteringChainRecipes = filteringChain.fullResolution()
 
     let filteredOptions
