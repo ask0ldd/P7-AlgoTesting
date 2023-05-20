@@ -114,6 +114,10 @@ h1 {
   height: fit-content;
 }
 
+.inputnOptionsContainer img {
+  width: 16px;
+}
+
 .inputFiltersContainer .optionsContainer {
   display: none;
   /*row-gap: 1rem;*/
@@ -164,7 +168,7 @@ h1 {
 .inputFiltersContainer input,
 .inputFiltersContainer input:focus,
 .inputFiltersContainer input:active {
-  width: 240px;
+  width: calc(100% - 16px);
   appearance: none;
   border: none;
   background: none;
