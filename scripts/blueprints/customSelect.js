@@ -8,6 +8,7 @@ function CustomSelect({selectContainerNode, selectInputNode, optionsContainerNod
     this._inputNode = selectInputNode
     this._optionsContainerNode = optionsContainerNode
     this._input = new InputSelect(selectInputNode)
+    this._arrowIcon = this._containerNode.querySelector('img')
 }
 
 
@@ -50,6 +51,14 @@ CustomSelect.prototype = {
 
     displayOptionsContainer(){
         this.optionsContainerNode.style.display = "grid"
+    },
+
+    rotateArrow(){
+        this._arrowIcon.style.transform = "rotate(180deg)"
+    },
+
+    resetArrow(){
+        this._arrowIcon.style.transform = "rotate(0deg)"
     },
 
 }

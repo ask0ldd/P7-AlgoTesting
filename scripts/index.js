@@ -60,6 +60,7 @@ appliancesSelect.input.addEventListener('focus', () => {
 
 appliancesSelect.input.addEventListener('focusout', () => {
     closeAllOptionsContainers()
+    appliancesSelect.resetArrow()
 })
 
 ustensilsSelect.input.addEventListener('input', () => {
@@ -76,6 +77,7 @@ ustensilsSelect.input.addEventListener('focus', () => {
 
 ustensilsSelect.input.addEventListener('focusout', () => {
     closeAllOptionsContainers()
+    ustensilsSelect.resetArrow()
 })
 
 ingredientsSelect.input.addEventListener('input', () => {
@@ -92,6 +94,7 @@ ingredientsSelect.input.addEventListener('focus', () => {
 
 ingredientsSelect.input.addEventListener('focusout', () => {
     closeAllOptionsContainers()
+    ingredientsSelect.resetArrow()
 })
 
 //----------------------------------------------
@@ -99,14 +102,17 @@ ingredientsSelect.input.addEventListener('focusout', () => {
 //----------------------------------------------
 appliancesSelect.containerNode.addEventListener('click', ()=>{
     appliancesSelect.inputNode.focus()
+    appliancesSelect.rotateArrow()
 })
 
 ustensilsSelect.containerNode.addEventListener('click', ()=>{
     ustensilsSelect.inputNode.focus()
+    ustensilsSelect.rotateArrow()
 })
 
 ingredientsSelect.containerNode.addEventListener('click', ()=>{
     ingredientsSelect.inputNode.focus()
+    ingredientsSelect.rotateArrow()
 })
 
 //----------------------------------------------
