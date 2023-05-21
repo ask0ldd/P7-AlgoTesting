@@ -17,6 +17,10 @@ SearchBar.prototype = {
     addEventListener(event, fn){
         this.nodeElt.addEventListener(event, fn)
     },
+
+    /*focus(){
+        this.nodeElt.focus()
+    },*/
 }
 
 SearchBar.prototype.filtering = function(recipes, filteringArgument){

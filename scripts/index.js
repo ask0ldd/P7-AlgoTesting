@@ -46,53 +46,53 @@ searchBar.addEventListener('input', (e) => {
 // events triggered when typing into the inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
-appliancesSelect.input.addEventListener('input', () => {
+appliancesSelect.inputNode.addEventListener('input', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
 })
 
-appliancesSelect.input.addEventListener('focus', () => {
+appliancesSelect.inputNode.addEventListener('focus', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
-    appliancesSelect.input.focus()
+    // appliancesSelect.input.focus()
     appliancesSelect.displayOptionsContainer()
 })
 
-appliancesSelect.input.addEventListener('focusout', () => {
+appliancesSelect.inputNode.addEventListener('focusout', () => {
     closeAllOptionsContainers()
     appliancesSelect.resetArrow()
 })
 
-ustensilsSelect.input.addEventListener('input', () => {
+ustensilsSelect.inputNode.addEventListener('input', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsSelect.input.value, 'ustensils')
     ustensilsSelect.updateOptions(ustensilesOptions, 'ustensils')
 })
 
-ustensilsSelect.input.addEventListener('focus', () => {
+ustensilsSelect.inputNode.addEventListener('focus', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsSelect.input.value, 'ustensils')
     ustensilsSelect.updateOptions(ustensilesOptions, 'ustensils')
-    ustensilsSelect.input.focus()
+    // ustensilsSelect.input.focus()
     ustensilsSelect.displayOptionsContainer()
 })
 
-ustensilsSelect.input.addEventListener('focusout', () => {
+ustensilsSelect.inputNode.addEventListener('focusout', () => {
     closeAllOptionsContainers()
     ustensilsSelect.resetArrow()
 })
 
-ingredientsSelect.input.addEventListener('input', () => {
+ingredientsSelect.inputNode.addEventListener('input', () => {
     const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsSelect.input.value, 'ingredients')
     ingredientsSelect.updateOptions(ingredientsOptions, 'ingredients')
 })
 
-ingredientsSelect.input.addEventListener('focus', () => {
+ingredientsSelect.inputNode.addEventListener('focus', () => {
     const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsSelect.input.value, 'ingredients')
     ingredientsSelect.updateOptions(ingredientsOptions, 'ingredients')
-    ingredientsSelect.input.focus()
+    // ingredientsSelect.input.focus()
     ingredientsSelect.displayOptionsContainer()
 })
 
-ingredientsSelect.input.addEventListener('focusout', () => {
+ingredientsSelect.inputNode.addEventListener('focusout', () => {
     closeAllOptionsContainers()
     ingredientsSelect.resetArrow()
 })
@@ -100,19 +100,22 @@ ingredientsSelect.input.addEventListener('focusout', () => {
 //----------------------------------------------
 // clicking on a select container switch the focus to the related input
 //----------------------------------------------
-appliancesSelect.containerNode.addEventListener('click', ()=>{
-    appliancesSelect.inputNode.focus()
+appliancesSelect.containerNode.addEventListener('mousedown', (e)=>{
+    e.preventDefault()
     appliancesSelect.rotateArrow()
+    appliancesSelect.input.focus()
 })
 
-ustensilsSelect.containerNode.addEventListener('click', ()=>{
-    ustensilsSelect.inputNode.focus()
+ustensilsSelect.containerNode.addEventListener('mousedown', (e)=>{
+    e.preventDefault()
     ustensilsSelect.rotateArrow()
+    ustensilsSelect.input.focus()
 })
 
-ingredientsSelect.containerNode.addEventListener('click', ()=>{
-    ingredientsSelect.inputNode.focus()
+ingredientsSelect.containerNode.addEventListener('mousedown', (e)=>{
+    e.preventDefault()
     ingredientsSelect.rotateArrow()
+    ingredientsSelect.input.focus()
 })
 
 //----------------------------------------------

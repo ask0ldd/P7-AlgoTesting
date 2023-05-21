@@ -38,6 +38,7 @@ InputSelect.prototype = {
 
     focus(){
         this.setPlaceholder(this.onFocusPlaceholder)
+        this.inputNode.focus()
     },
 
     definePlaceholder({byDefault, onFocus}){
