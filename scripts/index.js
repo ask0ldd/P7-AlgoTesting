@@ -54,13 +54,11 @@ appliancesSelect.inputNode.addEventListener('input', () => {
 appliancesSelect.inputNode.addEventListener('focus', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
-    // appliancesSelect.input.focus()
     appliancesSelect.displayOptionsContainer()
 })
 
-appliancesSelect.inputNode.addEventListener('focusout', () => {
-    closeAllOptionsContainers()
-    appliancesSelect.resetArrow()
+appliancesSelect.inputNode.addEventListener('blur', () => {
+    appliancesSelect.close()
 })
 
 ustensilsSelect.inputNode.addEventListener('input', () => {
@@ -71,13 +69,11 @@ ustensilsSelect.inputNode.addEventListener('input', () => {
 ustensilsSelect.inputNode.addEventListener('focus', () => {
     const ustensilesOptions = getOptionsListOutOfRecipes(ustensilsSelect.input.value, 'ustensils')
     ustensilsSelect.updateOptions(ustensilesOptions, 'ustensils')
-    // ustensilsSelect.input.focus()
     ustensilsSelect.displayOptionsContainer()
 })
 
-ustensilsSelect.inputNode.addEventListener('focusout', () => {
-    closeAllOptionsContainers()
-    ustensilsSelect.resetArrow()
+ustensilsSelect.inputNode.addEventListener('blur', () => {
+    ustensilsSelect.close()
 })
 
 ingredientsSelect.inputNode.addEventListener('input', () => {
@@ -88,13 +84,11 @@ ingredientsSelect.inputNode.addEventListener('input', () => {
 ingredientsSelect.inputNode.addEventListener('focus', () => {
     const ingredientsOptions = getOptionsListOutOfRecipes(ingredientsSelect.input.value, 'ingredients')
     ingredientsSelect.updateOptions(ingredientsOptions, 'ingredients')
-    // ingredientsSelect.input.focus()
     ingredientsSelect.displayOptionsContainer()
 })
 
-ingredientsSelect.inputNode.addEventListener('focusout', () => {
-    closeAllOptionsContainers()
-    ingredientsSelect.resetArrow()
+ingredientsSelect.inputNode.addEventListener('blur', () => {
+    ingredientsSelect.close()
 })
 
 //----------------------------------------------

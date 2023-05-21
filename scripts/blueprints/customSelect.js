@@ -61,6 +61,12 @@ CustomSelect.prototype = {
         this._arrowIcon.style.transform = "rotate(0deg)"
     },
 
+    close(){
+        this.hideOptionsContainer()
+        this.reset()
+        this.resetArrow()
+    },
+
 }
 
 export default CustomSelect
