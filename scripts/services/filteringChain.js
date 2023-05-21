@@ -7,8 +7,8 @@ import { normalize } from "./stringUtils.js";
 
 const filteringChain = {
     allRecipes : [...recipes],
-    //activeAlgo : 'imperative',
-    activeAlgo : 'functional',
+    activeAlgo : 'imperative',
+    //activeAlgo : 'functional',
 
     //----------------------------------------------
     // Studied Algorithms
