@@ -1,5 +1,5 @@
 import recipes from "../../datas/recipes.js";
-import RecipesAdapter from "../adapters/recipesAdapter.js";
+import RecipesProvider from "../providers/recipesProvider.js";
 import tagsShelf from "../components/tagsShelf.js";
 import searchBar from "../components/searchBar.js";
 import { Comparators } from "./comparators.js";
@@ -7,8 +7,8 @@ import { normalize } from "./stringUtils.js";
 
 const filteringChain = {
     allRecipes : [...recipes],
-    // activeAlgo : 'imperative',
-    activeAlgo : 'functional',
+    activeAlgo : 'imperative',
+    // activeAlgo : 'functional',
 
     //----------------------------------------------
     // Studied Algorithms
@@ -106,7 +106,7 @@ const filteringChain = {
     },
 
     fullResolution : function(){
-        return new RecipesAdapter(this.ustensilsSelectFiltering())
+        return new RecipesProvider(this.ustensilsSelectFiltering())
     },
 
 }

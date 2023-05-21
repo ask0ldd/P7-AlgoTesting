@@ -1,8 +1,8 @@
-function RecipesAdapter (recipesArray){
+function RecipesProvider (recipesArray){
     this.recipes = [...recipesArray]
 }
 
-RecipesAdapter.prototype = {
+RecipesProvider.prototype = {
     get appliancesList () {
         // return a set with all the appliances and without any duplicate
         return this.recipes.reduce((accu, recipe) => 
@@ -37,4 +37,4 @@ RecipesAdapter.prototype = {
 
 }
 
-export default RecipesAdapter
+export default RecipesProvider

@@ -1,6 +1,6 @@
 import searchBar from "./components/searchBar.js"
 import recipes from "../datas/recipes.js"
-import RecipesAdapter from "./adapters/recipesAdapter.js"
+import RecipesProvider from "./providers/recipesProvider.js"
 import filteringChain from "./services/filteringChain.js"
 import recipesGallery from "./components/recipesGallery.js"
 import { Comparators } from "./services/comparators.js"
@@ -8,7 +8,7 @@ import CustomSelect from "./blueprints/customSelect.js"
 
 if(!recipes || recipes.length<1) {throw new Error('No recipes available.')}
 
-const adaptedRecipes = new RecipesAdapter(recipes)
+const adaptedRecipes = new RecipesProvider(recipes)
 Object.freeze(adaptedRecipes)
 
 const appliancesSelect = new CustomSelect({
