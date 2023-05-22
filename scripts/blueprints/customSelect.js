@@ -11,7 +11,6 @@ function CustomSelect({selectContainerNode, selectInputNode, optionsContainerNod
     this._arrowIcon = this._containerNode.querySelector('img')
 }
 
-
 CustomSelect.prototype = {
     get containerNode(){
         return this._containerNode

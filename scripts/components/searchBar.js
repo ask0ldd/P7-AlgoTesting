@@ -18,11 +18,9 @@ SearchBar.prototype = {
         this.nodeElt.addEventListener(event, fn)
     },
 
-    /*focus(){
-        this.nodeElt.focus()
-    },*/
 }
 
+// For testing purposes only
 SearchBar.prototype.filtering = function(recipes, filteringArgument){
     return recipes.filter(recipe => {
         return Comparators.doesRecipeNameContains(recipe, filteringArgument) || Comparators.doesRecipeDescriptionContains(recipe, filteringArgument) || Comparators.doesRecipeIngredientsContain(recipe, filteringArgument)
@@ -32,6 +30,8 @@ SearchBar.prototype.filtering = function(recipes, filteringArgument){
 SearchBar.prototype.isEmpty = function(){
     return (normalize(this.nodeElt.value) === "")
 }
+
+// End / For testing purposes
 
 const searchBar = new SearchBar('.mainSearchBar')
 

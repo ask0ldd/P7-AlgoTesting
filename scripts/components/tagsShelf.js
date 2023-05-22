@@ -1,7 +1,7 @@
 const tagsShelf = {
 
     tagsContainerNode : document.querySelector(".tagsContainer"),
-    tags : new Set(), // switch to an array before release ?
+    tags : new Set(),
     maxTags : 6,
 
     isAlreadyOnShelf : function(tag){
