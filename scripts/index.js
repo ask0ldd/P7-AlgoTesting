@@ -32,9 +32,11 @@ const ingredientsSelect = new CustomSelect({
 })
 ingredientsSelect.input.definePlaceholder({byDefault : 'Ingredients', onFocus : 'Rechercher un ingredient'})
 
+
 //----------------------------------------------
 // events triggered when typing into the searchbar
 //----------------------------------------------
+
 searchBar.addEventListener('input', (e) => {
     emptySelectsInput()
     let filteredRecipes
@@ -42,10 +44,12 @@ searchBar.addEventListener('input', (e) => {
     recipesGallery.refresh(filteredRecipes)
 })
 
+
 //----------------------------------------------
 // events triggered when typing into the inputs
 // N.B. : Basic Filtering Chain = search input + tags filtering
 //----------------------------------------------
+
 appliancesSelect.inputNode.addEventListener('input', () => {
     const appliancesOptions = getOptionsListOutOfRecipes(appliancesSelect.input.value, 'appliances')
     appliancesSelect.updateOptions(appliancesOptions, 'appliances')
@@ -91,9 +95,11 @@ ingredientsSelect.inputNode.addEventListener('blur', () => {
     ingredientsSelect.close()
 })
 
+
 //----------------------------------------------
 // clicking on a select container switch the focus to the related input
 //----------------------------------------------
+
 appliancesSelect.containerNode.addEventListener('mousedown', (e)=>{
     e.preventDefault()
     appliancesSelect.rotateArrow()
@@ -111,6 +117,7 @@ ingredientsSelect.containerNode.addEventListener('mousedown', (e)=>{
     ingredientsSelect.rotateArrow()
     ingredientsSelect.input.focus()
 })
+
 
 //----------------------------------------------
 // Various Fn
@@ -141,9 +148,11 @@ function getOptionsListOutOfRecipes(filterWord, targetOptionsType){
     return filteredOptions = [...postBasicFilteringChainRecipes.ustensilsList].filter(ustensil => Comparators.doesOptionMatchInputValue(ustensil, filterWord))
 }
 
+
 //----------------------------------------------
 // Recipes gallery initial render
 //----------------------------------------------
+
 recipesGallery.refresh(adaptedRecipes)
 
 export { closeAllOptionsContainers }
