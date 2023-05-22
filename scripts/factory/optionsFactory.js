@@ -16,7 +16,6 @@ function optionsFactory({option, optionsType}) {
         buildOptionView() {
             const optionTemplate = `<div role="button" tabindex="0" class="options" data-option-type="${this.optionsType}">${FirstLetterMaj(this.option)}</div>`
             const optionNode = new DOMParser().parseFromString(optionTemplate, 'text/html').querySelector('.options')
-            // mousedown instead of click cause click can't register before focusout
             optionNode.addEventListener('click', (e) => { 
                 e.preventDefault()
                 // add a tag to the shelf and update the shelf
